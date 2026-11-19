@@ -1,368 +1,731 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Spendly Mileage — Support / Hilfe</title>
-<meta name="description" content="Spendly Mileage support: why a trip was not recorded, odometer readings, exports, backups. English and German.">
-<style>
-  :root {
-    color-scheme: light dark;
-    --bg: #f7f7fa;
-    --card: #ffffff;
-    --ink: #16181d;
-    --muted: #5d6470;
-    --line: #e3e5ec;
-    --accent: #1a2b6b;
-    --accent-soft: #eef0ff;
-    --warn: #8a5a00;
-    --warn-soft: #fff4dd;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #0b0c12;
-      --card: #14161f;
-      --ink: #f2f3f7;
-      --muted: #a4aab8;
-      --line: #262a36;
-      --accent: #9fb0ff;
-      --accent-soft: #1b2033;
-      --warn: #ffd48a;
-      --warn-soft: #2a2314;
-    }
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font: 17px/1.62 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    -webkit-text-size-adjust: 100%;
-  }
-  .wrap { max-width: 760px; margin: 0 auto; padding: 28px 20px 64px; }
-  header { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-  .brand { display: flex; align-items: center; gap: 12px; }
-  .badge {
-    width: 44px; height: 44px; border-radius: 12px;
-    background: linear-gradient(140deg, #242a55, #0a0b12);
-    display: grid; place-items: center; flex: 0 0 auto;
-  }
-  .badge span { font-size: 22px; }
-  .brand h1 { font-size: 19px; margin: 0; letter-spacing: -0.01em; }
-  .lang { display: flex; gap: 4px; background: var(--accent-soft); padding: 4px; border-radius: 999px; }
-  .lang button {
-    border: 0; background: transparent; color: var(--muted);
-    font: inherit; font-size: 14px; padding: 6px 14px; border-radius: 999px; cursor: pointer;
-  }
-  .lang button[aria-pressed="true"] { background: var(--card); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,.12); }
-  main { margin-top: 26px; }
-  .card {
-    background: var(--card); border: 1px solid var(--line);
-    border-radius: 18px; padding: 20px 22px; margin-bottom: 16px;
-  }
-  h2 { font-size: 15px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin: 0 0 4px; }
-  h3 { font-size: 17px; margin: 0 0 6px; }
-  p, li { margin: 8px 0 0; }
-  ul { padding-left: 20px; margin: 6px 0 0; }
-  li { margin-bottom: 4px; }
-  a { color: var(--accent); }
-  .muted { color: var(--muted); }
-  .lead { font-size: 18px; margin: 0; }
-  .note {
-    background: var(--warn-soft); color: var(--warn);
-    border-radius: 12px; padding: 10px 14px; font-size: 15px; margin-top: 12px;
-  }
-  .steps { counter-reset: step; padding: 0; list-style: none; margin-top: 10px; }
-  .steps li { position: relative; padding-left: 30px; margin-bottom: 8px; }
-  .steps li::before {
-    counter-increment: step; content: counter(step);
-    position: absolute; left: 0; top: 2px;
-    width: 21px; height: 21px; border-radius: 50%;
-    background: var(--accent-soft); color: var(--accent);
-    font-size: 12px; font-weight: 700; display: grid; place-items: center;
-  }
-  footer { margin-top: 24px; color: var(--muted); font-size: 14px; }
-  [data-lang] { display: none; }
-  [data-lang].on { display: block; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support &amp; FAQ — Steig</title>
+  <style>
+    :root { --brand: #0f5c3a; --ink: #1f2a24; --muted: #6b7a70; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 780px; margin: 0 auto; padding: 20px; line-height: 1.65; color: var(--ink); }
+    h1 { font-size: 1.8em; margin-top: 1.0em; }
+    h2 { font-size: 1.25em; margin-top: 1.7em; color: #33443a; }
+    h3 { font-size: 1.02em; margin-top: 1.1em; color: #33443a; }
+    a { color: var(--brand); }
+    ul { padding-left: 1.4em; }
+    li { margin-bottom: 0.45em; }
+    .effective { color: var(--muted); font-size: 0.95em; }
+    .note { background: #f2f7f0; border-left: 4px solid var(--brand); padding: 12px 16px; margin: 1em 0; border-radius: 6px; }
+    .warn { background: #fdf6e6; border-left: 4px solid #c98a14; padding: 12px 16px; margin: 1em 0; border-radius: 6px; }
+    table { width: 100%; border-collapse: collapse; margin: 1em 0; font-size: 0.95em; }
+    th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid #e5ece7; }
+    th { background: #f5f8f5; font-weight: 600; }
+    .lang-switch { border-bottom: 1px solid #e5ece7; padding: 10px 0; display: flex; flex-wrap: wrap; gap: 8px; position: sticky; top: 0; background: #fff; z-index: 2; }
+    .lang { display: inline-block; padding: 4px 12px; border-radius: 16px; color: #4d5c52; text-decoration: none; font-size: 0.9em; border: 1px solid #dbe5de; }
+    .lang:hover { border-color: var(--brand); color: var(--brand); }
+    .lang.active { background: var(--brand); color: #fff; border-color: var(--brand); }
+    footer { margin-top: 2.4em; padding-top: 1em; border-top: 1px solid #e5ece7; color: #8a9790; font-size: 0.9em; }
+    code { background: #f3f5f3; padding: 1px 5px; border-radius: 4px; font-size: 0.92em; }
+    pre { background: #f3f5f3; padding: 12px; border-radius: 8px; overflow-x: auto; font-size: 0.86em; }
+  </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div class="brand">
-      <div class="badge"><span>🧾</span></div>
-      <h1>Spendly Mileage</h1>
-    </div>
-    <div class="lang" role="group" aria-label="Language / Sprache">
-      <button type="button" data-set="en" aria-pressed="true">English</button>
-      <button type="button" data-set="de" aria-pressed="false">Deutsch</button>
-    </div>
-  </header>
 
-  <main>
-    <div data-lang="en" class="on">
-      <div class="card">
-        <h2>Support</h2>
-        <p class="lead">Spendly Mileage records trips automatically, keeps the tax fields together and exports a PDF mileage log plus CSV. Everything is stored on this device.</p>
-        <p class="muted">Requires iOS 27 or later. iPhone and iPad.</p>
-      </div>
+<nav class="lang-switch">
+  <a class="lang active" href="#en" data-lang="en">English</a>
+  <a class="lang" href="#de" data-lang="de">Deutsch</a>
+  <a class="lang" href="#zh" data-lang="zh">简体中文</a>
+  <a class="lang" href="#zh-Hant" data-lang="zh-Hant">繁體中文</a>
+  <a class="lang" href="#ja" data-lang="ja">日本語</a>
+</nav>
 
-      <div class="card">
-        <h3>How recording works</h3>
-        <p>Three layers, from the most automatic to the most deliberate:</p>
-        <ol class="steps">
-          <li><strong>Automatic, around the clock.</strong> The default: a drive is detected and recorded without opening the app. Nothing before or after working hours is ignored.</li>
-          <li><strong>Manual, full accuracy.</strong> Tap + on the Trips screen to start a trip yourself: it uses the navigation accuracy profile, samples more often, and runs until you stop it.</li>
-          <li><strong>Working hours only (optional).</strong> For a fixed schedule, switch on “Only track automatically during working hours”. Detection then pauses outside your window; manual trips still work.</li>
-        </ol>
-        <p class="muted">An automatic trip is a suggestion, not a final record: open it later to add destination, purpose, client and odometer readings, or swipe it to business, commute or private. Private trips never reach a report.</p>
-      </div>
+<!-- ============================ ENGLISH ============================ -->
+<div id="en" class="lang-block" lang="en">
 
-      <div class="card">
-        <h3>No trip was recorded</h3>
-        <ol class="steps">
-          <li>Open iOS Settings → Apps → Spendly Mileage → Location and choose <strong>Always</strong>. “While Using” stops working as soon as the screen locks.</li>
-          <li>Turn <strong>Precise Location</strong> on. With it off, every GPS fix is rejected and the app shows a warning.</li>
-          <li>Allow <strong>Motion &amp; Fitness</strong>. Without it the app cannot tell driving from walking and will not wake up for a drive.</li>
-          <li>Check the free allowance. 20 automatic trips per month are included; after that the Trips screen shows a banner and automatic detection pauses until the 1st.</li>
-          <li>Check that automatic tracking is switched on in Settings, and that Low Power Mode is not holding the app back for hours.</li>
-        </ol>
-        <p class="muted">Movement inside a 500 m circle around a frequent place is ignored on purpose, and trips under 500 m or under two minutes are treated as noise.</p>
-      </div>
+<h1>Support &amp; FAQ</h1>
+<p class="effective">Steig v1.0 &nbsp;|&nbsp; iOS 17.0 or later &nbsp;|&nbsp; Updated November 19, 2026</p>
 
-      <div class="card">
-        <h3>Odometer readings</h3>
-        <p>Business and commute trips need a start and an end reading, because that is what a mileage log has to show. The app proposes both from the last accepted reading plus the GPS distance — usually one tap per trip.</p>
-        <p>If the entered reading differs from the GPS distance by more than 3 %, the trip is flagged. Correct the number, or type a reason (for example a tyre change); the export stays blocked until one of the two happens.</p>
-      </div>
+<div class="note">
+  <strong>Quick summary:</strong> Steig ships without map data. Import an area once (MBTiles, an XYZ tile folder, or a GeoTIFF), then record hikes and follow GPX routes fully offline. Nothing is uploaded.
+</div>
 
-      <div class="card">
-        <h3>The export button is disabled</h3>
-        <p>The checklist above the button lists what is missing. Each line opens the trip that needs it:</p>
-        <ul>
-          <li>destination, purpose, or client for a business trip</li>
-          <li>odometer start and end</li>
-          <li>an overlap with another trip, or a trip that is still recording</li>
-          <li>an expense whose receipt photo has gone missing</li>
-        </ul>
-        <p>Private trips are never part of a report, so they never block it.</p>
-      </div>
+<h2>Quick start</h2>
+<ol>
+  <li>On first launch, tap <strong>Import a map</strong> (or Settings → Offline maps → <strong>+</strong>).</li>
+  <li>Choose an MBTiles file, a folder of <code>z/x/y.png</code> tiles, or a GeoTIFF.</li>
+  <li>Back on the home screen, tap <strong>Start</strong>. Recording continues with the screen locked.</li>
+  <li>Tap <strong>Stop</strong> to save; the hike opens in the detail view, and appears in History and Monthly stats.</li>
+</ol>
 
-      <div class="card">
-        <h3>A new iPhone</h3>
-        <p>With iCloud signed in, the app writes a snapshot of the database and its receipt photos into its iCloud Drive container every day. On the new phone, install the app, sign in to the same Apple Account and open Settings → Data → Restore. Pick the newest snapshot; the app restarts with that data. The current database is kept as a safety copy.</p>
-        <p>Without iCloud, export the database to Files from the same screen and import it on the new device. A purchase can be restored with “Restore purchase” on the paywall.</p>
-      </div>
+<h2>Maps</h2>
+<h3>Supported input</h3>
+<ul>
+  <li><strong>MBTiles</strong> with PNG/JPEG/WebP raster tiles (vector/PBF packs are rejected).</li>
+  <li><strong>XYZ folder</strong> laid out as <code>z/x/y.png</code>.</li>
+  <li><strong>GeoTIFF DEM</strong> — single band, Int16/UInt16/Float32, no compression or Deflate, in EPSG:4326, EPSG:3857 or a UTM zone. Steig builds hillshade and contour overlays on the device.</li>
+  <li><strong>GeoTIFF imagery</strong> — 8-bit RGB/RGBA, converted to base tiles.</li>
+</ul>
+<p>Limits: up to 200 000 tiles and 2 GB per pack; a DEM-derived pack is capped so rendering takes a couple of minutes at most. BigTIFF, paletted TIFF, LZW compression and exotic projections are rejected with an explanation.</p>
 
-      <div class="card">
-        <h3>Sending a useful report</h3>
-        <p>Settings → About → Diagnostics → <strong>Copy report</strong> puts the app version, iOS, permission states, GPS and Live Activity status, the database size and the detection log on the clipboard — no trips, coordinates or names. Paste it into an email together with what you expected to happen and at what time.</p>
-        <p>Settings → About → <strong>Send feedback</strong> opens the same address with the version already filled in.</p>
-      </div>
+<h3>Preparing a map on a computer</h3>
+<pre>gdalwarp -t_srs EPSG:3857 input.tif dem_3857.tif
+gdal_translate -co COMPRESS=DEFLATE -co PREDICTOR=2 dem_3857.tif dem_ready.tif
 
-      <div class="card">
-        <h3>Runs and walks</h3>
-        <p>Spendly Mileage is a mileage log, so a run or a brisk walk is not recorded. A speed spike alone is not enough: while Motion &amp; Fitness reports running, walking or cycling, a start is refused. If a recorded trip turns into a run, it ends after a full minute of that motion and is discarded as “not driving”.</p>
-        <p class="muted">A red light, a traffic jam or a phone on a dashboard mount does not qualify: the motion has to say running for a whole minute. The recorder stays in the background and keeps watching.</p>
-      </div>
+# or build raster tiles directly
+gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
+<p>Transfer the file or folder to the device (AirDrop, Files, iCloud Drive), then import it in the app. Steig copies everything into its own storage, so the original can be deleted afterwards.</p>
 
-      <div class="card">
-        <h3>Switching months</h3>
-        <p>On the Trips screen, tap the month title for a year and month grid, or swipe the month card left and right to move one month at a time. The chevrons still work, and “This month” jumps back to the current one. Swiping a trip row is for classifying it, so the month swipe lives on the card above.</p>
-      </div>
+<div class="warn">
+  <strong>Attribution and licences are your responsibility.</strong> OpenStreetMap data is © OpenStreetMap contributors (ODbL); USGS/USFS and tourism-office data have their own terms. Steig only displays the attribution string stored in the pack metadata.
+</div>
 
-      <div class="card">
-        <h3>Large text and VoiceOver</h3>
-        <p>The Trips screen stacks its month summary and its rows at accessibility text sizes, and every swipe action has a VoiceOver equivalent (a custom action on the month card, the row's context menu for classification). If something still clips at a large size, send a screenshot with the diagnostics report.</p>
-      </div>
+<h2>Recording</h2>
+<ul>
+  <li>GPS is sampled about every 3 seconds (or after 8 m of movement) and written to the database in 30-second batches — that is the battery trade-off. A hard crash can lose at most the last batch.</li>
+  <li><strong>Auto-pause</strong> (on by default) stops counting time when you stand still for 24 seconds within 12 m. A slow uphill climb still counts as moving — the threshold is deliberately hiking-tuned (0.45 m/s).</li>
+  <li><strong>Background recording</strong> keeps the track alive with the screen locked. iOS shows the location indicator while it runs.</li>
+  <li><strong>Precise Location must stay on</strong> (iOS Settings → Privacy &amp; Security → Location Services → Steig). With it off, iOS reports about 5 km accuracy and every sample is discarded, so nothing is recorded.</li>
+  <li>A hike with fewer than two points is discarded (“Hike not saved”) instead of creating an empty entry.</li>
+</ul>
 
-      <div class="card">
-        <h3>Battery</h3>
-        <p>While idle the app uses significant-location monitoring, not continuous GPS. During a trip it uses full accuracy, but stops location updates when the car has been still for 20 seconds — a red light costs nothing. Recording ends after five minutes without movement.</p>
-        <p class="muted">If a trip is missing at the end of the day, check iOS Settings → Privacy &amp; Security → Location Services → System Services and confirm that Location-Based Alerts and Significant Locations are available.</p>
-      </div>
+<h2>Elevation</h2>
+<p>Altitude and ascent combine GPS with the device barometer: the barometer supplies the short-term trend, GPS the absolute datum. On a flat route, GPS alone can read tens of metres of ascent from noise, which is why the fused series is smoothed and only swings above 3 m are counted. Expect small differences from signposts and from other apps — that is normal.</p>
 
-      <div class="card">
-        <h3>The lock-screen card</h3>
-        <p>While a trip is recording, a Live Activity shows the distance and the elapsed time on the Lock Screen and in the Dynamic Island. It has no buttons by design: tap it to open the app, where the recording strip carries the stop button. The card is created only while recording and is dismissed when the trip ends.</p>
-        <p class="muted">iOS only lets an app start a Live Activity in the foreground. A drive detected while the phone is in your pocket gets its card the next time you open the app; the trip itself records regardless.</p>
-      </div>
+<h2>Routes and navigation</h2>
+<ul>
+  <li>Import a GPX as a <strong>route</strong>, or open a past hike and choose <strong>Use as route</strong>.</li>
+  <li>Attach a route with the map button on the home screen, then start. The route is drawn in blue, your live track in orange.</li>
+  <li><strong>Direction always follows the GPX point order</strong> — V1 has no reverse option. If a route is stored the other way round, import a reversed GPX.</li>
+  <li>Beyond <strong>30 m</strong> from the route you get one vibration; beyond <strong>100 m</strong>, two vibrations, repeated every 5 minutes while you stay off route. Returning within 30 m resets it. Vibration alerts can be turned off in Settings.</li>
+  <li>The banner shows distance from the route, progress and remaining distance; the map shows the direction back to the route.</li>
+</ul>
 
-      <div class="card">
-        <h3>Backup files: export, import, delete</h3>
-        <p>Settings → Data → <strong>Export backup</strong> writes a timestamped <code>.zip</code> (database, the receipt photos it references, and a manifest with a SHA‑256) into <code>Files → Spendly Mileage → Backups</code> and opens the share sheet. The file stays on the device; tap it in the list to share it again, swipe left to delete it.</p>
-        <p><strong>Import backup</strong> accepts that <code>.zip</code> or a bare <code>.sqlite</code>. The checksum and the schema are verified before anything is replaced; the current database is kept as a safety copy and the restore is applied before the next launch.</p>
-      </div>
+<h2>Live Activity</h2>
+<p>While recording, the Lock Screen and Dynamic Island show distance, moving time, ascent and an off-route marker. If the card disappears (you swiped it away, the system ended it, or a camera was in the foreground), open Steig again — the card is re-created while the App is in the foreground.</p>
 
-      <div class="card">
-        <h3>Verify records</h3>
-        <p>Settings → Data → <strong>Verify records</strong> recomputes the hash chain of every edit and reports how many revisions match. Entries written before the chain existed are counted as legacy, not as damage. If a trip reports a mismatch, restore the newest backup rather than editing the database with another tool.</p>
-      </div>
+<h2>Sharing and export</h2>
+<ul>
+  <li><strong>Live position</strong> (share button while recording): coordinates, altitude, distance, time, ascent, and — when following a route — progress and off-route distance, plus an Apple Maps link.</li>
+  <li><strong>GPX track</strong> and <strong>GPX route</strong> from the hike detail share menu.</li>
+  <li><strong>Month summary</strong> text from the month page.</li>
+  <li>Everything goes through the iOS share sheet; choose Messages, Mail, Files, AirDrop or any other app yourself.</li>
+</ul>
 
-      <div class="card">
-        <h3>Us, UK and currency</h3>
-        <p>Settings → Tax region switches the rate table and the currency. Germany uses €/km, the United States and the United Kingdom use $/mi and £/mi; the presets are editable per year, and the chosen currency is used on the PDF and the CSV. Private trips are never part of a report in any country.</p>
-      </div>
+<h2>Data import, backup and restore</h2>
+<ul>
+  <li><strong>Import GPX as a hike</strong> — full track with timestamps becomes a completed hike. <strong>Import GPX as a route</strong> — geometry only, usable for navigation.</li>
+  <li><strong>Import a ZIP</strong> of GPX hikes (up to 512 MB uncompressed).</li>
+  <li><strong>Back up the whole database</strong> — one SQLite file with hikes, routes, pack metadata and settings; restore it on another device via Data → Restore.</li>
+  <li>Deleting a hike removes its trackpoints; deleting the App removes all data.</li>
+</ul>
 
-      <div class="card">
-        <h3>Privacy and tax</h3>
-        <p>Nothing is uploaded; receipts are read on the device. The full policy is at <a href="index.html">vegaodm.github.io/mileagetracker</a>. Spendly Mileage is a record-keeping aid, not tax advice — the rates and the legal wording follow the bundled 2026 German rules and can be adjusted per year in Settings.</p>
-      </div>
+<h2>Settings</h2>
+<ul>
+  <li><strong>Language</strong> — System, English, German, Simplified Chinese, Traditional Chinese, Japanese.</li>
+  <li><strong>Units</strong> — metric or imperial.</li>
+  <li><strong>Auto-pause</strong> and <strong>vibration alerts</strong> toggles.</li>
+  <li><strong>Contour interval</strong> — 10/20/50 m for newly imported DEMs.</li>
+  <li><strong>Offline maps</strong> — toggle base map, hillshade and contours per pack; delete packs.</li>
+</ul>
 
-      <div class="card">
-        <h3>Still stuck?</h3>
-        <p>Write to <a href="mailto:vegaodm@outlook.com?subject=Spendly%20Mileage%20Support">vegaodm@outlook.com</a> with your iOS version, the app version from Settings → About, and what you expected to happen. Please do not send receipt photos or tax data.</p>
-      </div>
-    </div>
+<h2>Troubleshooting</h2>
+<table>
+  <tr><th>Problem</th><th>What to do</th></tr>
+  <tr><td>No map is shown after installing</td><td>Steig has no map data by design. Import a pack (Settings → Offline maps → +). The grey-green outline is a placeholder, not a map.</td></tr>
+  <tr><td>“Import failed: vector MBTiles”</td><td>That pack contains PBF vector tiles. Export raster PNG tiles instead (e.g. <code>gdal2tiles.py</code> with raster output).</td></tr>
+  <tr><td>Import fails with a projection message</td><td>Reproject to EPSG:4326 or EPSG:3857, or use a UTM zone GeoTIFF (<code>gdalwarp -t_srs EPSG:3857 …</code>).</td></tr>
+  <tr><td>Nothing is recorded</td><td>Check iOS Settings → Privacy &amp; Security → Location Services → Steig: location must be allowed and <strong>Precise Location</strong> must be on.</td></tr>
+  <tr><td>The map is empty at high zoom</td><td>The pack's maximum zoom is limited; import a pack with higher zoom levels for more detail.</td></tr>
+  <tr><td>Live Activity card disappeared</td><td>Open Steig; the card is re-created in the foreground.</td></tr>
+  <tr><td>Ascent differs from another app</td><td>Different altitude sources and filters. Steig uses GPS + barometer with a 3 m hysteresis; short fluctuations are intentionally ignored.</td></tr>
+</table>
 
-    <div data-lang="de">
-      <div class="card">
-        <h2>Hilfe</h2>
-        <p class="lead">Spendly Mileage zeichnet Fahrten automatisch auf, hält die Steuerangaben zusammen und exportiert ein PDF-Fahrtenbuch plus CSV. Alles bleibt auf diesem Gerät.</p>
-        <p class="muted">Erfordert iOS 27 oder neuer. iPhone und iPad.</p>
-      </div>
+<h2>FAQ</h2>
+<h3>Does Steig download maps for me?</h3>
+<p>No. That is deliberate: the App ships without map data and makes no network requests. You import data you are allowed to use.</p>
+<h3>Does Steig need an account or internet?</h3>
+<p>Neither. No account, no sign-in, no upload, no analytics.</p>
+<h3>Can I follow a route in reverse?</h3>
+<p>Not in V1 — direction follows the stored GPX order. Reversing the GPX file before import is the workaround.</p>
+<h3>Why does the app need background location?</h3>
+<p>So a hike keeps recording when the screen locks or you switch apps. Recording stops only when you tap Stop.</p>
+<h3>Where is my data?</h3>
+<p>In the App's sandbox: a SQLite database for hikes/routes and PNG tiles for maps. Export a GPX or the database backup to keep a copy elsewhere.</p>
+<h3>How do I delete everything?</h3>
+<p>Delete individual hikes and routes in the App, or delete the App — that removes its container, including imported maps.</p>
 
-      <div class="card">
-        <h3>So funktioniert die Aufzeichnung</h3>
-        <p>Drei Stufen, von der automatischsten zur bewusstesten:</p>
-        <ol class="steps">
-          <li><strong>Automatisch, rund um die Uhr.</strong> Der Standard: Eine Fahrt wird erkannt und aufgezeichnet, ohne dass die App geöffnet wird. Vor oder nach der Arbeitszeit wird nichts ignoriert.</li>
-          <li><strong>Von Hand, volle Genauigkeit.</strong> Über + in der Fahrten-Ansicht starten Sie eine Fahrt selbst: Sie nutzt das Genauigkeitsprofil der Navigation, tastet häufiger ab und läuft, bis Sie sie beenden.</li>
-          <li><strong>Nur Arbeitszeit (optional).</strong> Bei festem Zeitplan den Schalter „Nur innerhalb der Arbeitszeit automatisch erkennen“ einschalten. Außerhalb des Fensters pausiert die Erkennung; Fahrten von Hand funktionieren weiter.</li>
-        </ol>
-        <p class="muted">Eine automatische Fahrt ist ein Vorschlag, kein endgültiger Eintrag: Öffnen Sie sie später, um Ziel, Zweck, Auftraggeber und Kilometerstand zu ergänzen, oder wischen Sie sie auf geschäftlich, Arbeitsweg oder privat. Privatfahrten erreichen keinen Bericht.</p>
-      </div>
+<h2 id="credits">Credits</h2>
+<ul>
+  <li><strong>Map engine</strong> — MapLibre Native (BSD).</li>
+  <li><strong>Libraries</strong> — GRDB (MIT), AEXML (MIT), ZIPFoundation (MIT).</li>
+  <li><strong>Map data</strong> — © OpenStreetMap contributors where you import OSM data; the placeholder outline is a coarse hand-drawn sketch, not survey data.</li>
+</ul>
 
-      <div class="card">
-        <h3>Eine Fahrt wurde nicht aufgezeichnet</h3>
-        <ol class="steps">
-          <li>iOS-Einstellungen → Apps → Spendly Mileage → Standort öffnen und <strong>„Immer“</strong> wählen. „Beim Verwenden“ endet, sobald der Bildschirm sperrt.</li>
-          <li><strong>Genauer Standort</strong> einschalten. Ohne ihn wird jede GPS-Position verworfen, und die App zeigt einen Hinweis.</li>
-          <li><strong>Bewegung &amp; Fitness</strong> erlauben. Sonst kann die App Fahren nicht von Gehen unterscheiden und wacht für eine Fahrt nicht auf.</li>
-          <li>Das kostenlose Kontingent prüfen: 20 automatische Fahrten pro Monat sind inklusive. Danach zeigt die Fahrten-Ansicht einen Hinweis, und die Erkennung pausiert bis zum 1.</li>
-          <li>Prüfen, ob die automatische Erkennung in den Einstellungen an ist und ob der Stromsparmodus die App über Stunden ausbremst.</li>
-        </ol>
-        <p class="muted">Bewegung innerhalb von 500 m um einen häufigen Ort wird absichtlich ignoriert; Fahrten unter 500 m oder unter zwei Minuten gelten als Rauschen.</p>
-      </div>
+<h2>Contact</h2>
+<p>Bug reports, feature requests or licence questions: <a href="mailto:vegaodm@outlook.com">vegaodm@outlook.com</a></p>
 
-      <div class="card">
-        <h3>Kilometerstände</h3>
-        <p>Geschäftsfahrten und Arbeitswege brauchen einen Anfangs- und einen Endstand, weil ein Fahrtenbuch das zeigen muss. Die App schlägt beides aus dem letzten übernommenen Stand plus der GPS-Strecke vor — meist ein Tipp pro Fahrt.</p>
-        <p>Weicht der eingetragene Stand um mehr als 3 % von der GPS-Strecke ab, wird die Fahrt markiert. Korrigieren Sie die Zahl oder tragen Sie eine Begründung ein (zum Beispiel Reifenwechsel); bis dahin bleibt der Export gesperrt.</p>
-      </div>
+<footer>
+  <a href="index.html">Privacy policy</a> &nbsp;|&nbsp;
+  <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula">Terms of Use (EULA)</a><br>
+  Steig v1.0 &nbsp;|&nbsp; iOS 17.0+ &nbsp;|&nbsp; Last updated November 19, 2026
+</footer>
 
-      <div class="card">
-        <h3>Die Export-Schaltfläche ist ausgegraut</h3>
-        <p>Die Prüfliste über der Schaltfläche nennt, was fehlt. Jede Zeile öffnet die betroffene Fahrt:</p>
-        <ul>
-          <li>Ziel, Zweck oder Auftraggeber einer Geschäftsfahrt</li>
-          <li>Kilometerstand Anfang und Ende</li>
-          <li>eine Überschneidung mit einer anderen Fahrt oder eine noch laufende Fahrt</li>
-          <li>eine Ausgabe, deren Belegfoto fehlt</li>
-        </ul>
-        <p>Privatfahrten sind nie Teil eines Berichts und blockieren ihn deshalb nicht.</p>
-      </div>
+</div>
 
-      <div class="card">
-        <h3>Ein neues iPhone</h3>
-        <p>Mit iCloud legt die App täglich eine Sicherung der Datenbank und der Belegfotos in ihrem iCloud-Drive-Container ab. Auf dem neuen Gerät die App installieren, mit derselben Apple-ID anmelden und Einstellungen → Daten → Wiederherstellen öffnen. Die neueste Sicherung wählen; die App startet mit diesen Daten. Die bisherige Datenbank bleibt als Sicherheitskopie erhalten.</p>
-        <p>Ohne iCloud die Datenbank über denselben Bildschirm in „Dateien“ exportieren und auf dem neuen Gerät importieren. Ein Kauf lässt sich über „Kauf wiederherstellen“ im Kaufbildschirm zurückholen.</p>
-      </div>
+<!-- ============================ DEUTSCH ============================ -->
+<div id="de" class="lang-block" lang="de" style="display:none">
 
-      <div class="card">
-        <h3>Einen brauchbaren Bericht senden</h3>
-        <p>Einstellungen → Über → Diagnose → <strong>Bericht kopieren</strong> legt App-Version, iOS, Berechtigungszustände, GPS- und Live-Activity-Status, die Größe der Datenbank und das Erkennungsprotokoll in die Zwischenablage – keine Fahrten, Koordinaten oder Namen. Fügen Sie das in eine E-Mail ein, zusammen mit dem, was Sie erwartet haben, und der Uhrzeit.</p>
-        <p>Einstellungen → Über → <strong>Feedback senden</strong> öffnet dieselbe Adresse mit bereits eingetragener Version.</p>
-      </div>
+<h1>Support &amp; FAQ</h1>
+<p class="effective">Steig v1.0 &nbsp;|&nbsp; iOS 17.0 oder neuer &nbsp;|&nbsp; Aktualisiert am 19. November 2026</p>
 
-      <div class="card">
-        <h3>Laufen und Gehen</h3>
-        <p>Spendly Mileage ist ein Fahrtenbuch, daher werden Laufen und zügiges Gehen nicht aufgezeichnet. Eine Geschwindigkeitsspitze genügt nicht: Solange Bewegung &amp; Fitness „Laufen“, „Gehen“ oder „Radfahren“ meldet, wird ein Start abgelehnt. Wird eine aufgezeichnete Fahrt zum Lauf, endet sie nach einer vollen Minute und wird als „kein Fahren“ verworfen.</p>
-        <p class="muted">Rote Ampel, Stau oder ein Telefon in der Halterung zählen nicht: Die Bewegung muss eine ganze Minute „Laufen“ melden. Die Erkennung bleibt im Hintergrund aktiv.</p>
-      </div>
+<div class="note">
+  <strong>Kurzfassung:</strong> Steig kommt ohne Kartendaten. Importiere eine Region einmal (MBTiles, XYZ-Kachelordner oder GeoTIFF) und zeichne danach Wanderungen auf und folge GPX-Routen – vollständig offline. Nichts wird hochgeladen.
+</div>
 
-      <div class="card">
-        <h3>Monate wechseln</h3>
-        <p>In der Fahrten-Ansicht den Monatstitel antippen für ein Raster aus Jahr und Monat, oder die Monatskarte nach links bzw. rechts wischen, um einen Monat weiterzugehen. Die Pfeile funktionieren weiter, und „Dieser Monat“ springt zurück. Das Wischen auf einer Fahrtenzeile dient der Kategorisierung, deshalb liegt die Monatsgeste auf der Karte darüber.</p>
-      </div>
+<h2>Schnellstart</h2>
+<ol>
+  <li>Beim ersten Start <strong>Karte importieren</strong> tippen (oder Einstellungen → Offline-Karten → <strong>+</strong>).</li>
+  <li>MBTiles-Datei, Ordner mit <code>z/x/y.png</code>-Kacheln oder GeoTIFF auswählen.</li>
+  <li>Zurück auf dem Startbildschirm <strong>Start</strong> tippen. Die Aufzeichnung läuft auch bei gesperrtem Bildschirm weiter.</li>
+  <li><strong>Stopp</strong> speichert die Wanderung; sie erscheint in der Detailansicht, im Verlauf und in der Monatsstatistik.</li>
+</ol>
 
-      <div class="card">
-        <h3>Große Schrift und VoiceOver</h3>
-        <p>Die Fahrten-Ansicht stapelt Monatsübersicht und Zeilen bei Bedienungshilfen-Schriftgrößen, und jede Wischaktion hat ein VoiceOver-Gegenstück (eigene Aktion auf der Monatskarte, Kontextmenü der Zeile zum Kategorisieren). Wird etwas trotzdem abgeschnitten, senden Sie einen Screenshot mit dem Diagnosebericht.</p>
-      </div>
+<h2>Karten</h2>
+<h3>Unterstützte Formate</h3>
+<ul>
+  <li><strong>MBTiles</strong> mit PNG/JPEG/WebP-Rasterkacheln (Vektor/PBF wird abgelehnt).</li>
+  <li><strong>XYZ-Ordner</strong> im Aufbau <code>z/x/y.png</code>.</li>
+  <li><strong>GeoTIFF-DEM</strong> – einbandig, Int16/UInt16/Float32, unkomprimiert oder Deflate, in EPSG:4326, EPSG:3857 oder einer UTM-Zone. Steig erzeugt Relief und Höhenlinien auf dem Gerät.</li>
+  <li><strong>GeoTIFF-Bilddaten</strong> – 8-Bit-RGB/RGBA, werden zu Basiskacheln.</li>
+</ul>
+<p>Grenzen: bis 200 000 Kacheln und 2 GB pro Paket; DEM-Pakete sind begrenzt, damit das Rendern höchstens wenige Minuten dauert. BigTIFF, palettierte TIFFs, LZW-Kompression und exotische Projektionen werden mit Erklärung abgelehnt.</p>
 
-      <div class="card">
-        <h3>Akkulaufzeit</h3>
-        <p>Im Ruhezustand nutzt die App die signifikante Standortänderung, nicht dauerhaftes GPS. Während einer Fahrt arbeitet sie mit voller Genauigkeit, stoppt die Ortung aber, wenn das Auto 20 Sekunden steht — eine rote Ampel kostet nichts. Nach fünf Minuten ohne Bewegung endet die Aufzeichnung.</p>
-        <p class="muted">Fehlt am Tagesende eine Fahrt, in iOS-Einstellungen → Datenschutz &amp; Sicherheit → Ortungsdienste → Systemdienste prüfen, ob standortbasierte Hinweise und signifikante Orte verfügbar sind.</p>
-      </div>
+<h3>Karte am Computer vorbereiten</h3>
+<pre>gdalwarp -t_srs EPSG:3857 input.tif dem_3857.tif
+gdal_translate -co COMPRESS=DEFLATE -co PREDICTOR=2 dem_3857.tif dem_ready.tif
 
-      <div class="card">
-        <h3>Die Karte auf dem Sperrbildschirm</h3>
-        <p>Während eine Fahrt aufgezeichnet wird, zeigt eine Live-Aktivität Strecke und Dauer auf dem Sperrbildschirm und in der Dynamic Island. Sie hat bewusst keine Tasten: Antippen öffnet die App, in der der Streifen die Stopp-Taste trägt. Die Karte entsteht nur während der Aufzeichnung und verschwindet mit der Fahrt.</p>
-        <p class="muted">iOS erlaubt das Starten einer Live-Aktivität nur im Vordergrund. Eine Fahrt, die bei gesperrtem Gerät beginnt, bekommt ihre Karte beim nächsten Öffnen der App; aufgezeichnet wird sie trotzdem.</p>
-      </div>
+# oder direkt Rasterkacheln erzeugen
+gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
+<p>Datei oder Ordner aufs Gerät übertragen (AirDrop, Dateien, iCloud Drive) und in der App importieren. Steig kopiert alles in den eigenen Speicher; das Original kann danach gelöscht werden.</p>
 
-      <div class="card">
-        <h3>Sicherungsdateien: exportieren, importieren, löschen</h3>
-        <p>Einstellungen → Daten → <strong>Sicherung exportieren</strong> schreibt eine <code>.zip</code> mit Zeitstempel (Datenbank, die referenzierten Belegfotos und ein Manifest mit SHA‑256) nach <code>Dateien → Spendly Mileage → Backups</code> und öffnet den Teilen-Dialog. Die Datei bleibt auf dem Gerät; Antippen teilt sie erneut, Wischen nach links löscht sie.</p>
-        <p><strong>Sicherung importieren</strong> akzeptiert diese <code>.zip</code> oder eine reine <code>.sqlite</code>. Prüfsumme und Schema werden vor dem Ersetzen kontrolliert; die bisherige Datenbank bleibt als Sicherheitskopie, die Wiederherstellung greift vor dem nächsten Start.</p>
-      </div>
+<div class="warn">
+  <strong>Quellenangabe und Lizenz liegen bei dir.</strong> OpenStreetMap-Daten sind © OpenStreetMap-Mitwirkende (ODbL); USGS/USFS- und Tourismusdaten haben eigene Bedingungen. Steig zeigt nur den im Paket gespeicherten Quellenhinweis an.
+</div>
 
-      <div class="card">
-        <h3>Aufzeichnungen prüfen</h3>
-        <p>Einstellungen → Daten → <strong>Aufzeichnungen prüfen</strong> rechnet die Hash-Kette aller Änderungen nach und meldet, wie viele Einträge passen. Einträge aus der Zeit vor der Kette gelten als Altbestand, nicht als Schaden. Meldet eine Fahrt eine Abweichung, stellen Sie die neueste Sicherung wieder her, statt die Datenbank mit einem anderen Werkzeug zu bearbeiten.</p>
-      </div>
+<h2>Aufzeichnung</h2>
+<ul>
+  <li>GPS wird etwa alle 3 Sekunden (oder nach 8 m Bewegung) abgetastet und in 30-Sekunden-Blöcken gespeichert – der Kompromiss zugunsten der Akkulaufzeit. Ein harter Absturz kostet höchstens den letzten Block.</li>
+  <li><strong>Automatische Pause</strong> (standardmäßig an) zählt keine Zeit, wenn du 24 Sekunden innerhalb von 12 m stillstehst. Ein langsamer Anstieg zählt weiter als Bewegung – die Schwelle ist bewusst auf Wandern ausgelegt (0,45 m/s).</li>
+  <li><strong>Hintergrundaufzeichnung</strong> hält den Track bei gesperrtem Bildschirm am Leben; iOS zeigt dabei den Standortpfeil.</li>
+  <li><strong>Genaue Ortung muss an bleiben</strong> (iOS Einstellungen → Datenschutz &amp; Sicherheit → Ortung → Steig). Sonst meldet iOS nur ca. 5 km Genauigkeit, alle Messpunkte werden verworfen und nichts wird aufgezeichnet.</li>
+  <li>Wanderungen mit weniger als zwei Punkten werden verworfen („Wanderung nicht gespeichert“), statt einen leeren Eintrag zu erzeugen.</li>
+</ul>
 
-      <div class="card">
-        <h3>USA, Großbritannien und Währung</h3>
-        <p>Einstellungen → Steuersätze wechselt zwischen Ländern und Währungen. Deutschland rechnet in €/km, USA und Vereinigtes Königreich in $/mi und £/mi; die Sätze sind je Jahr anpassbar, und die gewählte Währung erscheint im PDF und in der CSV. Privatfahrten sind in keinem Land Teil eines Berichts.</p>
-      </div>
+<h2>Höhe</h2>
+<p>Höhe und Anstieg kombinieren GPS mit dem Barometer: das Barometer liefert den kurzfristigen Trend, GPS den absoluten Bezug. Auf flacher Strecke liest GPS allein durch Rauschen zweistellige Meter Anstieg; deshalb wird die fusionierte Reihe geglättet und nur Schwankungen über 3 m gezählt. Kleine Abweichungen zu Schildern und anderen Apps sind normal.</p>
 
-      <div class="card">
-        <h3>Datenschutz und Steuern</h3>
-        <p>Nichts wird hochgeladen; Belege werden auf dem Gerät gelesen. Die vollständige Erklärung steht unter <a href="index.html">vegaodm.github.io/mileagetracker</a>. Spendly Mileage ist eine Aufzeichnungshilfe, keine Steuerberatung — Sätze und Rechtsangaben folgen den mitgelieferten deutschen Regelungen 2026 und lassen sich je Jahr in den Einstellungen anpassen.</p>
-      </div>
+<h2>Routen und Navigation</h2>
+<ul>
+  <li>GPX als <strong>Route</strong> importieren oder eine frühere Wanderung öffnen und <strong>Als Route verwenden</strong> wählen.</li>
+  <li>Route über die Karten-Schaltfläche auf dem Startbildschirm anhängen, dann starten. Route blau, aktueller Track orange.</li>
+  <li><strong>Die Richtung folgt immer der GPX-Punktreihenfolge</strong> – V1 hat keine Umkehrung. Andersherum gespeicherte Routen vor dem Import umdrehen.</li>
+  <li>Ab <strong>30 m</strong> Abstand zur Route eine Vibration, ab <strong>100 m</strong> zwei Vibrationen, alle 5 Minuten wiederholt, solange du abweichst. Zurück innerhalb von 30 m setzt alles zurück. Vibrationen sind in den Einstellungen abschaltbar.</li>
+  <li>Das Banner zeigt Abstand, Fortschritt und Restdistanz; die Karte zeigt die Richtung zurück zur Route.</li>
+</ul>
 
-      <div class="card">
-        <h3>Weiter festgefahren?</h3>
-        <p>Schreiben Sie an <a href="mailto:vegaodm@outlook.com?subject=Spendly%20Mileage%20Support">vegaodm@outlook.com</a> mit iOS-Version, App-Version aus Einstellungen → Über und dem, was Sie erwartet haben. Bitte keine Belegfotos oder Steuerdaten senden.</p>
-      </div>
-    </div>
-  </main>
+<h2>Live-Aktivität</h2>
+<p>Während der Aufzeichnung zeigen Sperrbildschirm und Dynamic Island Distanz, Bewegungszeit, Anstieg und eine Abweichungsanzeige. Verschwindet die Karte (wegggewischt, vom System beendet, Kamera im Vordergrund), öffne Steig erneut – im Vordergrund wird sie neu erstellt.</p>
 
-  <footer>
-    <span data-lang="en" class="on">© 2026 SPENDLY · <a href="index.html">Privacy policy</a></span>
-    <span data-lang="de">© 2026 SPENDLY · <a href="index.html">Datenschutz</a></span>
-  </footer>
+<h2>Teilen und Export</h2>
+<ul>
+  <li><strong>Live-Position</strong> (Teilen-Schaltfläche während der Aufzeichnung): Koordinaten, Höhe, Distanz, Zeit, Anstieg, bei Routen Fortschritt und Abweichung, plus Apple-Maps-Link.</li>
+  <li><strong>GPX-Track</strong> und <strong>GPX-Route</strong> über das Teilen-Menü der Detailansicht.</li>
+  <li><strong>Monatsübersicht</strong> als Text von der Monatsseite.</li>
+  <li>Alles läuft über das iOS-Teilen-Menü; du wählst Nachrichten, Mail, Dateien, AirDrop oder eine andere App.</li>
+</ul>
+
+<h2>Import, Backup und Wiederherstellung</h2>
+<ul>
+  <li><strong>GPX als Wanderung importieren</strong> – vollständiger Track mit Zeitstempeln. <strong>GPX als Route importieren</strong> – nur Geometrie, zur Navigation nutzbar.</li>
+  <li><strong>ZIP importieren</strong> mit GPX-Wanderungen (bis 512 MB entpackt).</li>
+  <li><strong>Gesamte Datenbank sichern</strong> – eine SQLite-Datei mit Wanderungen, Routen, Paket-Metadaten und Einstellungen; auf einem anderen Gerät über Daten → Wiederherstellen einlesen.</li>
+  <li>Löschen einer Wanderung entfernt ihre Trackpunkte; Löschen der App entfernt alle Daten.</li>
+</ul>
+
+<h2>Einstellungen</h2>
+<ul>
+  <li><strong>Sprache</strong> – System, English, Deutsch, 简体中文, 繁體中文, 日本語.</li>
+  <li><strong>Einheiten</strong> – metrisch oder imperial.</li>
+  <li><strong>Automatische Pause</strong> und <strong>Vibrationsalarm</strong>.</li>
+  <li><strong>Höhenlinien-Abstand</strong> – 10/20/50 m für neu importierte DEMs.</li>
+  <li><strong>Offline-Karten</strong> – Basiskarte, Relief und Höhenlinien pro Paket schalten; Pakete löschen.</li>
+</ul>
+
+<h2>Fehlerbehebung</h2>
+<table>
+  <tr><th>Problem</th><th>Lösung</th></tr>
+  <tr><td>Nach der Installation keine Karte</td><td>Steig enthält bewusst keine Kartendaten. Paket importieren (Einstellungen → Offline-Karten → +). Die grün-graue Kontur ist ein Platzhalter.</td></tr>
+  <tr><td>„Import fehlgeschlagen: Vektor-MBTiles“</td><td>Das Paket enthält PBF-Vektorkacheln. Stattdessen Raster-PNG-Kacheln erzeugen (z. B. <code>gdal2tiles.py</code>).</td></tr>
+  <tr><td>Import meldet ein Projektionsproblem</td><td>Nach EPSG:4326 oder EPSG:3857 umprojizieren bzw. eine UTM-Zone verwenden (<code>gdalwarp -t_srs EPSG:3857 …</code>).</td></tr>
+  <tr><td>Es wird nichts aufgezeichnet</td><td>iOS Einstellungen → Datenschutz &amp; Sicherheit → Ortung → Steig: Ortung erlauben und <strong>Genaue Ortung</strong> einschalten.</td></tr>
+  <tr><td>Karte bei hohem Zoom leer</td><td>Die maximale Zoomstufe des Pakets ist begrenzt; ein Paket mit höheren Zoomstufen importieren.</td></tr>
+  <tr><td>Live-Aktivität verschwunden</td><td>Steig öffnen; die Karte wird im Vordergrund neu erstellt.</td></tr>
+  <tr><td>Anstieg weicht von anderer App ab</td><td>Andere Höhenquellen und Filter. Steig nutzt GPS + Barometer mit 3 m Hysterese; kurze Schwankungen werden bewusst ignoriert.</td></tr>
+</table>
+
+<h2>FAQ</h2>
+<h3>Lädt Steig Karten herunter?</h3>
+<p>Nein, bewusst nicht: keine Kartendaten im Paket, keine Netzwerkanfragen. Du importierst Daten, die du nutzen darfst.</p>
+<h3>Braucht Steig ein Konto oder Internet?</h3>
+<p>Weder noch. Kein Konto, keine Anmeldung, kein Upload, keine Analyse.</p>
+<h3>Kann ich eine Route rückwärts folgen?</h3>
+<p>In V1 nicht – die Richtung folgt der GPX-Reihenfolge. Workaround: GPX vor dem Import umdrehen.</p>
+<h3>Warum Hintergrund-Ortung?</h3>
+<p>Damit eine Wanderung bei gesperrtem Bildschirm oder App-Wechsel weiterläuft. Beendet wird nur über Stopp.</p>
+<h3>Wo sind meine Daten?</h3>
+<p>Im Sandbox der App: SQLite-Datenbank für Wanderungen/Routen und PNG-Kacheln für Karten. Für eine Kopie GPX oder das Datenbank-Backup exportieren.</p>
+<h3>Wie lösche ich alles?</h3>
+<p>Einzelne Wanderungen und Routen in der App löschen oder die App deinstallieren – damit wird der Container inklusive importierter Karten entfernt.</p>
+
+<h2 id="credits">Danksagung</h2>
+<ul>
+  <li><strong>Karten-Engine</strong> – MapLibre Native (BSD).</li>
+  <li><strong>Bibliotheken</strong> – GRDB (MIT), AEXML (MIT), ZIPFoundation (MIT).</li>
+  <li><strong>Kartendaten</strong> – © OpenStreetMap-Mitwirkende, wenn du OSM-Daten importierst; die Platzhalter-Kontur ist eine grobe handgezeichnete Skizze, keine Vermessungsdaten.</li>
+</ul>
+
+<h2>Kontakt</h2>
+<p>Fehlerberichte, Wünsche oder Lizenzfragen: <a href="mailto:vegaodm@outlook.com">vegaodm@outlook.com</a></p>
+
+<footer>
+  <a href="index.html">Datenschutz</a> &nbsp;|&nbsp;
+  <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula">Nutzungsbedingungen (EULA)</a><br>
+  Steig v1.0 &nbsp;|&nbsp; iOS 17.0+ &nbsp;|&nbsp; Zuletzt aktualisiert am 19. November 2026
+</footer>
+
+</div>
+
+<!-- ============================ 简体中文 ============================ -->
+<div id="zh" class="lang-block" lang="zh-Hans" style="display:none">
+
+<h1>支持与常见问题</h1>
+<p class="effective">Steig v1.0 &nbsp;|&nbsp; iOS 17.0 或更高版本 &nbsp;|&nbsp; 更新于 2026 年 11 月 19 日</p>
+
+<div class="note">
+  <strong>要点：</strong>Steig 不附带地图数据。先导入一次所需区域（MBTiles、XYZ 瓦片文件夹或 GeoTIFF），之后即可完全离线记录徒步、跟随 GPX 路线。不会上传任何内容。
+</div>
+
+<h2>快速开始</h2>
+<ol>
+  <li>首次启动点击<strong>导入地图</strong>（或 设置 → 离线地图 → <strong>+</strong>）。</li>
+  <li>选择 MBTiles 文件、包含 <code>z/x/y.png</code> 的瓦片文件夹，或 GeoTIFF。</li>
+  <li>回到主页点击<strong>开始</strong>；锁屏后仍会继续记录。</li>
+  <li>点击<strong>停止</strong>保存；记录会打开详情页，并出现在历史与月度统计中。</li>
+</ol>
+
+<h2>地图</h2>
+<h3>支持的格式</h3>
+<ul>
+  <li><strong>MBTiles</strong>：PNG/JPEG/WebP 栅格瓦片（矢量 PBF 会被拒绝）。</li>
+  <li><strong>XYZ 文件夹</strong>：结构为 <code>z/x/y.png</code>。</li>
+  <li><strong>GeoTIFF DEM</strong>：单波段、Int16/UInt16/Float32、无压缩或 Deflate，坐标系为 EPSG:4326、EPSG:3857 或 UTM 区带。Steig 会在设备上生成地形阴影与等高线。</li>
+  <li><strong>GeoTIFF 影像</strong>：8 位 RGB/RGBA，转换为底图瓦片。</li>
+</ul>
+<p>限制：每个地图包最多 200 000 个瓦片、2 GB；DEM 派生的地图包有上限，以保证渲染最多几分钟完成。BigTIFF、调色板 TIFF、LZW 压缩与非主流投影会被拒绝并给出说明。</p>
+
+<h3>在电脑上准备地图</h3>
+<pre>gdalwarp -t_srs EPSG:3857 input.tif dem_3857.tif
+gdal_translate -co COMPRESS=DEFLATE -co PREDICTOR=2 dem_3857.tif dem_ready.tif
+
+# 或直接生成栅格瓦片
+gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
+<p>把文件或文件夹传到设备（隔空投送、文件、iCloud Drive），然后在应用内导入。Steig 会把内容复制到自己的存储中，原文件随后可以删除。</p>
+
+<div class="warn">
+  <strong>署名与许可是你的责任。</strong> OpenStreetMap 数据版权归 © OpenStreetMap 贡献者所有（ODbL）；USGS/USFS 与旅游局数据各有自己的条款。Steig 仅显示地图包元数据中记录的署名文字。
+</div>
+
+<h2>记录</h2>
+<ul>
+  <li>GPS 约每 3 秒采样一次（或移动 8 米后），每 30 秒批量写入数据库——这是为省电做的取舍。硬崩溃最多丢失最后一个批次。</li>
+  <li><strong>自动暂停</strong>（默认开启）：在 12 米范围内静止 24 秒后不再计时。缓慢上坡仍算移动——阈值按徒步调校（0.45 m/s）。</li>
+  <li><strong>后台记录</strong>：锁屏或切换应用时轨迹不中断；iOS 会显示定位指示。</li>
+  <li><strong>必须保持“精确位置”开启</strong>（iOS 设置 → 隐私与安全性 → 定位服务 → Steig）。关闭时 iOS 只提供约 5 公里精度，所有采样都会被丢弃，无法记录。</li>
+  <li>少于两个点的记录会被丢弃（提示“徒步未保存”），而不是产生空记录。</li>
+</ul>
+
+<h2>海拔</h2>
+<p>海拔与爬升由 GPS 与气压计融合：气压计提供短时趋势，GPS 提供绝对基准。平路上单纯 GPS 会因噪声读出几十米的“爬升”，因此融合后的序列会平滑，只统计超过 3 米的波动。与路牌或其他应用存在小差异属正常现象。</p>
+
+<h2>路线与导航</h2>
+<ul>
+  <li>把 GPX 导入为<strong>路线</strong>，或打开历史徒步并选择<strong>用作路线</strong>。</li>
+  <li>用主页的地图按钮挂载路线后开始。路线显示为蓝色，实时轨迹为橙色。</li>
+  <li><strong>方向始终按 GPX 点顺序</strong>——V1 不提供反向。若路线存反了，请在导入前反转 GPX。</li>
+  <li>偏离路线 <strong>30 米</strong>震动一次，超过 <strong>100 米</strong> 震动两次，并在持续偏离时每 5 分钟重复。回到 30 米内会重置。震动提醒可在设置中关闭。</li>
+  <li>顶部横幅显示偏离距离、进度与剩余距离；地图上显示回到路线的方向。</li>
+</ul>
+
+<h2>实时活动</h2>
+<p>记录期间，锁屏与灵动岛显示距离、移动时间、爬升与偏航标记。若卡片消失（被划掉、被系统结束、相机在前台），回到 Steig 前台即可重新创建。</p>
+
+<h2>分享与导出</h2>
+<ul>
+  <li><strong>实时位置</strong>（记录中的分享按钮）：坐标、海拔、距离、时间、爬升；跟随路线时还包含进度与偏离距离，以及 Apple 地图链接。</li>
+  <li><strong>GPX 轨迹</strong>与<strong>GPX 路线</strong>：在徒步详情的分享菜单中。</li>
+  <li><strong>月度摘要</strong>文本：在月份页面分享。</li>
+  <li>全部通过 iOS 分享面板，由你选择信息、邮件、文件、隔空投送或其他应用。</li>
+</ul>
+
+<h2>导入、备份与恢复</h2>
+<ul>
+  <li><strong>作为徒步导入 GPX</strong>：带时间戳的完整轨迹。 <strong>作为路线导入 GPX</strong>：只有几何，用于导航。</li>
+  <li><strong>导入 ZIP</strong>：包含多个 GPX 徒步（解压后上限 512 MB）。</li>
+  <li><strong>备份整个数据库</strong>：单个 SQLite 文件，包含徒步、路线、地图包元数据与设置；在另一台设备通过 数据 → 恢复 导入。</li>
+  <li>删除徒步会移除其轨迹点；删除应用会移除全部数据。</li>
+</ul>
+
+<h2>设置</h2>
+<ul>
+  <li><strong>语言</strong>：跟随系统、English、Deutsch、简体中文、繁體中文、日本語。</li>
+  <li><strong>单位</strong>：公制或英制。</li>
+  <li><strong>自动暂停</strong>与<strong>震动提醒</strong>开关。</li>
+  <li><strong>等高线间距</strong>：10/20/50 米，作用于新导入的 DEM。</li>
+  <li><strong>离线地图</strong>：按包开关底图／地形阴影／等高线，或删除地图包。</li>
+</ul>
+
+<h2>故障排查</h2>
+<table>
+  <tr><th>现象</th><th>处理</th></tr>
+  <tr><td>安装后没有地图</td><td>Steig 有意不附带地图数据。请导入地图包（设置 → 离线地图 → +）。灰绿色轮廓只是占位示意，不是地图。</td></tr>
+  <tr><td>提示“矢量 MBTiles”导入失败</td><td>该包是 PBF 矢量瓦片。请改用栅格 PNG 瓦片（例如 <code>gdal2tiles.py</code> 生成栅格输出）。</td></tr>
+  <tr><td>导入提示坐标系问题</td><td>重投影到 EPSG:4326 或 EPSG:3857，或使用 UTM 区带的 GeoTIFF（<code>gdalwarp -t_srs EPSG:3857 …</code>）。</td></tr>
+  <tr><td>完全记录不到轨迹</td><td>检查 iOS 设置 → 隐私与安全性 → 定位服务 → Steig：允许定位并开启<strong>精确位置</strong>。</td></tr>
+  <tr><td>放大后地图空白</td><td>地图包的最大缩放级别有限；导入包含更高缩放级别的地图包。</td></tr>
+  <tr><td>实时活动卡片消失</td><td>把 Steig 切到前台，卡片会自动重建。</td></tr>
+  <tr><td>爬升与其他应用不同</td><td>高度来源与滤波不同。Steig 使用 GPS + 气压计并采用 3 米迟滞，会刻意忽略短时波动。</td></tr>
+</table>
+
+<h2>常见问题</h2>
+<h3>Steig 会帮我下载地图吗？</h3>
+<p>不会，这是刻意设计：应用不附带地图数据，也不发起网络请求。你导入自己有权使用的数据。</p>
+<h3>需要账号或联网吗？</h3>
+<p>都不需要。没有账号、无需登录、不上传、无统计分析。</p>
+<h3>能反向跟随路线吗？</h3>
+<p>V1 不支持——方向按 GPX 顺序。变通做法是导入前把 GPX 反转。</p>
+<h3>为什么要后台定位？</h3>
+<p>为了锁屏或切换应用时轨迹不中断。只有点击停止才会结束记录。</p>
+<h3>我的数据在哪里？</h3>
+<p>在应用沙盒中：徒步与路线存在 SQLite 数据库，地图是 PNG 瓦片。需要副本时导出 GPX 或数据库备份。</p>
+<h3>如何彻底删除？</h3>
+<p>在应用内删除单条徒步与路线，或直接卸载应用——后者会移除容器，包括导入的地图。</p>
+
+<h2 id="credits">致谢</h2>
+<ul>
+  <li><strong>地图引擎</strong>：MapLibre Native（BSD）。</li>
+  <li><strong>依赖库</strong>：GRDB（MIT）、AEXML（MIT）、ZIPFoundation（MIT）。</li>
+  <li><strong>地图数据</strong>：你导入的 OSM 数据版权归 © OpenStreetMap 贡献者；内置占位轮廓为粗略手绘示意，并非测绘数据。</li>
+</ul>
+
+<h2>联系我们</h2>
+<p>问题反馈、功能建议或授权疑问：<a href="mailto:vegaodm@outlook.com">vegaodm@outlook.com</a></p>
+
+<footer>
+  <a href="index.html">隐私政策</a> &nbsp;|&nbsp;
+  <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula">使用条款（EULA）</a><br>
+  Steig v1.0 &nbsp;|&nbsp; iOS 17.0+ &nbsp;|&nbsp; 最后更新：2026 年 11 月 19 日
+</footer>
+
+</div>
+
+<!-- ============================ 繁體中文 ============================ -->
+<div id="zh-Hant" class="lang-block" lang="zh-Hant" style="display:none">
+
+<h1>支援與常見問題</h1>
+<p class="effective">Steig v1.0 &nbsp;|&nbsp; iOS 17.0 或以上版本 &nbsp;|&nbsp; 更新於 2026 年 11 月 19 日</p>
+
+<div class="note">
+  <strong>要點：</strong>Steig 不附帶地圖資料。先匯入一次所需區域（MBTiles、XYZ 圖磚資料夾或 GeoTIFF），之後即可完全離線記錄健行、跟隨 GPX 路線。不會上傳任何內容。
+</div>
+
+<h2>快速開始</h2>
+<ol>
+  <li>首次啟動點擊<strong>匯入地圖</strong>（或 設定 → 離線地圖 → <strong>+</strong>）。</li>
+  <li>選擇 MBTiles 檔案、包含 <code>z/x/y.png</code> 的圖磚資料夾，或 GeoTIFF。</li>
+  <li>回到主頁點擊<strong>開始</strong>；鎖屏後仍會繼續記錄。</li>
+  <li>點擊<strong>停止</strong>儲存；紀錄會開啟詳情頁，並出現在歷史與月度統計中。</li>
+</ol>
+
+<h2>地圖</h2>
+<h3>支援的格式</h3>
+<ul>
+  <li><strong>MBTiles</strong>：PNG/JPEG/WebP 點陣圖磚（向量 PBF 會被拒絕）。</li>
+  <li><strong>XYZ 資料夾</strong>：結構為 <code>z/x/y.png</code>。</li>
+  <li><strong>GeoTIFF DEM</strong>：單波段、Int16/UInt16/Float32、未壓縮或 Deflate，座標系統為 EPSG:4326、EPSG:3857 或 UTM 分帶。Steig 會在裝置上產生地形陰影與等高線。</li>
+  <li><strong>GeoTIFF 影像</strong>：8 位元 RGB/RGBA，轉換為底圖圖磚。</li>
+</ul>
+<p>限制：每個地圖包最多 200 000 個圖磚、2 GB；DEM 衍生的地圖包有上限，以確保算圖最多幾分鐘完成。BigTIFF、調色盤 TIFF、LZW 壓縮與非主流投影會被拒絕並提供說明。</p>
+
+<h3>在電腦上準備地圖</h3>
+<pre>gdalwarp -t_srs EPSG:3857 input.tif dem_3857.tif
+gdal_translate -co COMPRESS=DEFLATE -co PREDICTOR=2 dem_3857.tif dem_ready.tif
+
+# 或直接產生點陣圖磚
+gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
+<p>把檔案或資料夾傳到裝置（AirDrop、檔案、iCloud Drive），然後在應用程式內匯入。Steig 會把內容複製到自己的儲存空間，原始檔之後可以刪除。</p>
+
+<div class="warn">
+  <strong>署名與授權是你的責任。</strong> OpenStreetMap 資料版權歸 © OpenStreetMap 貢獻者所有（ODbL）；USGS/USFS 與旅遊局資料各有自己的條款。Steig 僅顯示地圖包中繼資料所記錄的署名文字。
+</div>
+
+<h2>記錄</h2>
+<ul>
+  <li>GPS 約每 3 秒取樣一次（或移動 8 公尺後），每 30 秒批次寫入資料庫——這是為了省電的取捨。硬性當機最多損失最後一批。</li>
+  <li><strong>自動暫停</strong>（預設開啟）：在 12 公尺範圍內靜止 24 秒後停止計時。緩慢上坡仍算移動——閾值依健行調校（0.45 m/s）。</li>
+  <li><strong>背景記錄</strong>：鎖屏或切換應用程式時軌跡不中斷；iOS 會顯示定位指示。</li>
+  <li><strong>必須保持「精確位置」開啟</strong>（iOS 設定 → 隱私權與安全性 → 定位服務 → Steig）。關閉時 iOS 只提供約 5 公里精度，所有取樣都會被丟棄，無法記錄。</li>
+  <li>少於兩個點的紀錄會被捨棄（提示「健行未儲存」），而不會產生空紀錄。</li>
+</ul>
+
+<h2>海拔</h2>
+<p>海拔與爬升由 GPS 與氣壓計融合：氣壓計提供短時趨勢，GPS 提供絕對基準。平路上單純 GPS 會因雜訊讀出數十公尺的「爬升」，因此融合後的序列會平滑處理，只統計超過 3 公尺的變化。與路標或其他應用程式存在小差異屬正常。</p>
+
+<h2>路線與導航</h2>
+<ul>
+  <li>把 GPX 匯入為<strong>路線</strong>，或開啟歷史健行並選擇<strong>作為路線</strong>。</li>
+  <li>用主頁的地圖按鈕掛載路線後開始。路線顯示為藍色，即時軌跡為橙色。</li>
+  <li><strong>方向一律依 GPX 點順序</strong>——V1 不提供反向。若路線存反了，請在匯入前反轉 GPX。</li>
+  <li>偏離路線 <strong>30 公尺</strong>震動一次，超過 <strong>100 公尺</strong> 震動兩次，並在持續偏離時每 5 分鐘重複。回到 30 公尺內會重置。震動提醒可在設定中關閉。</li>
+  <li>頂部橫幅顯示偏離距離、進度與剩餘距離；地圖上顯示回到路線的方向。</li>
+</ul>
+
+<h2>即時動態</h2>
+<p>記錄期間，鎖定畫面與動態島顯示距離、移動時間、爬升與偏航標記。若卡片消失（被劃掉、被系統結束、相機在前台），回到 Steig 前台即可重新建立。</p>
+
+<h2>分享與匯出</h2>
+<ul>
+  <li><strong>即時位置</strong>（記錄中的分享按鈕）：座標、海拔、距離、時間、爬升；跟隨路線時還包含進度與偏離距離，以及 Apple 地圖連結。</li>
+  <li><strong>GPX 軌跡</strong>與<strong>GPX 路線</strong>：在健行詳情的分享選單中。</li>
+  <li><strong>月度摘要</strong>文字：在月份頁面分享。</li>
+  <li>全部透過 iOS 分享面板，由你選擇訊息、郵件、檔案、AirDrop 或其他應用程式。</li>
+</ul>
+
+<h2>匯入、備份與還原</h2>
+<ul>
+  <li><strong>作為健行匯入 GPX</strong>：含時間戳記的完整軌跡。<strong>作為路線匯入 GPX</strong>：只有幾何，用於導航。</li>
+  <li><strong>匯入 ZIP</strong>：包含多個 GPX 健行（解壓後上限 512 MB）。</li>
+  <li><strong>備份整個資料庫</strong>：單一 SQLite 檔案，包含健行、路線、地圖包中繼資料與設定；在另一台裝置透過 資料 → 還原 匯入。</li>
+  <li>刪除健行會移除其軌跡點；刪除應用程式會移除全部資料。</li>
+</ul>
+
+<h2>設定</h2>
+<ul>
+  <li><strong>語言</strong>：跟隨系統、English、Deutsch、简体中文、繁體中文、日本語。</li>
+  <li><strong>單位</strong>：公制或英制。</li>
+  <li><strong>自動暫停</strong>與<strong>震動提醒</strong>開關。</li>
+  <li><strong>等高線間距</strong>：10/20/50 公尺，作用於新匯入的 DEM。</li>
+  <li><strong>離線地圖</strong>：依地圖包開關底圖／地形陰影／等高線，或刪除地圖包。</li>
+</ul>
+
+<h2>疑難排解</h2>
+<table>
+  <tr><th>現象</th><th>處理</th></tr>
+  <tr><td>安裝後沒有地圖</td><td>Steig 刻意不附帶地圖資料。請匯入地圖包（設定 → 離線地圖 → +）。灰綠色輪廓只是佔位示意，不是地圖。</td></tr>
+  <tr><td>提示「向量 MBTiles」匯入失敗</td><td>該包是 PBF 向量圖磚。請改用點陣 PNG 圖磚（例如以 <code>gdal2tiles.py</code> 產生點陣輸出）。</td></tr>
+  <tr><td>匯入提示座標系統問題</td><td>重新投影到 EPSG:4326 或 EPSG:3857，或使用 UTM 分帶的 GeoTIFF（<code>gdalwarp -t_srs EPSG:3857 …</code>）。</td></tr>
+  <tr><td>完全記錄不到軌跡</td><td>檢查 iOS 設定 → 隱私權與安全性 → 定位服務 → Steig：允許定位並開啟<strong>精確位置</strong>。</td></tr>
+  <tr><td>放大後地圖空白</td><td>地圖包的最大縮放層級有限；匯入包含更高縮放層級的地圖包。</td></tr>
+  <tr><td>即時動態卡片消失</td><td>把 Steig 切到前台，卡片會自動重建。</td></tr>
+  <tr><td>爬升與其他應用程式不同</td><td>高度來源與濾波不同。Steig 使用 GPS + 氣壓計並採用 3 公尺遲滯，會刻意忽略短時波動。</td></tr>
+</table>
+
+<h2>常見問題</h2>
+<h3>Steig 會幫我下載地圖嗎？</h3>
+<p>不會，這是刻意設計：應用程式不附帶地圖資料，也不發出網路請求。你匯入自己有權使用的資料。</p>
+<h3>需要帳號或連網嗎？</h3>
+<p>都不需要。沒有帳號、無需登入、不上傳、無分析統計。</p>
+<h3>能反向跟隨路線嗎？</h3>
+<p>V1 不支援——方向依 GPX 順序。變通做法是匯入前把 GPX 反轉。</p>
+<h3>為什麼要背景定位？</h3>
+<p>為了鎖屏或切換應用程式時軌跡不中斷。只有點擊停止才會結束記錄。</p>
+<h3>我的資料在哪裡？</h3>
+<p>在應用程式沙箱中：健行與路線存在 SQLite 資料庫，地圖是 PNG 圖磚。需要副本時匯出 GPX 或資料庫備份。</p>
+<h3>如何徹底刪除？</h3>
+<p>在應用程式內刪除單筆健行與路線，或直接解除安裝——後者會移除容器，包括匯入的地圖。</p>
+
+<h2 id="credits">致謝</h2>
+<ul>
+  <li><strong>地圖引擎</strong>：MapLibre Native（BSD）。</li>
+  <li><strong>相依程式庫</strong>：GRDB（MIT）、AEXML（MIT）、ZIPFoundation（MIT）。</li>
+  <li><strong>地圖資料</strong>：你匯入的 OSM 資料版權歸 © OpenStreetMap 貢獻者；內建佔位輪廓為粗略手繪示意，並非測繪資料。</li>
+</ul>
+
+<h2>聯絡我們</h2>
+<p>問題回報、功能建議或授權疑問：<a href="mailto:vegaodm@outlook.com">vegaodm@outlook.com</a></p>
+
+<footer>
+  <a href="index.html">隱私權政策</a> &nbsp;|&nbsp;
+  <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula">使用條款（EULA）</a><br>
+  Steig v1.0 &nbsp;|&nbsp; iOS 17.0+ &nbsp;|&nbsp; 最後更新：2026 年 11 月 19 日
+</footer>
+
+</div>
+
+<!-- ============================ 日本語 ============================ -->
+<div id="ja" class="lang-block" lang="ja" style="display:none">
+
+<h1>サポートとよくある質問</h1>
+<p class="effective">Steig v1.0 &nbsp;|&nbsp; iOS 17.0 以降 &nbsp;|&nbsp; 2026年11月19日更新</p>
+
+<div class="note">
+  <strong>要点：</strong>Steig は地図データを同梱していません。必要なエリアを一度だけ読み込み（MBTiles、XYZ タイルのフォルダ、GeoTIFF）、その後は完全オフラインでハイキングを記録し GPX ルートを辿れます。アップロードは行いません。
+</div>
+
+<h2>クイックスタート</h2>
+<ol>
+  <li>初回起動で<strong>地図を読み込む</strong>をタップ（または 設定 → オフライン地図 → <strong>+</strong>）。</li>
+  <li>MBTiles ファイル、<code>z/x/y.png</code> のタイルフォルダ、または GeoTIFF を選択。</li>
+  <li>ホーム画面に戻って<strong>スタート</strong>をタップ。画面ロック中も記録が続きます。</li>
+  <li><strong>停止</strong>で保存。詳細画面が開き、履歴と月間統計にも表示されます。</li>
+</ol>
+
+<h2>地図</h2>
+<h3>対応形式</h3>
+<ul>
+  <li><strong>MBTiles</strong>：PNG/JPEG/WebP のラスタータイル（ベクター/PBF は拒否）。</li>
+  <li><strong>XYZ フォルダ</strong>：<code>z/x/y.png</code> の構成。</li>
+  <li><strong>GeoTIFF DEM</strong>：単バンド、Int16/UInt16/Float32、無圧縮または Deflate、EPSG:4326・EPSG:3857・UTM ゾーン。Steig が端末内で陰影起伏と等高線を生成します。</li>
+  <li><strong>GeoTIFF 画像</strong>：8bit RGB/RGBA をベースタイルに変換。</li>
+</ul>
+<p>上限：1 パックあたり最大 200 000 タイル・2 GB。DEM 由来のパックは描画が数分で終わるよう上限があります。BigTIFF、パレット TIFF、LZW 圧縮、特殊な投影法は理由付きで拒否されます。</p>
+
+<h3>パソコンでの地図の準備</h3>
+<pre>gdalwarp -t_srs EPSG:3857 input.tif dem_3857.tif
+gdal_translate -co COMPRESS=DEFLATE -co PREDICTOR=2 dem_3857.tif dem_ready.tif
+
+# またはラスタータイルを直接生成
+gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
+<p>ファイルまたはフォルダを端末へ転送し（AirDrop、ファイル、iCloud Drive）、アプリで読み込みます。Steig は内容をアプリ内へコピーするので、元ファイルは後で削除できます。</p>
+
+<div class="warn">
+  <strong>出典表示とライセンスは利用者の責任です。</strong> OpenStreetMap のデータは © OpenStreetMap 貢献者（ODbL）。USGS/USFS や観光局のデータには各々の条件があります。Steig はパックのメタデータにある出典文字列を表示するだけです。
+</div>
+
+<h2>記録</h2>
+<ul>
+  <li>GPS は約 3 秒ごと（または 8 m 移動後）に取得し、30 秒ごとにまとめてデータベースへ書き込みます——バッテリーとのトレードオフです。強制終了時でも失うのは最後のまとめ分だけです。</li>
+  <li><strong>自動一時停止</strong>（既定でオン）：12 m 以内で 24 秒静止すると時間を止めます。ゆっくりした登りは移動として数えます——閾値はハイキング向け（0.45 m/s）です。</li>
+  <li><strong>バックグラウンド記録</strong>：画面ロックやアプリ切替でも軌跡が途切れません。iOS は位置情報インジケータを表示します。</li>
+  <li><strong>「正確な位置情報」は必ずオン</strong>（iOS 設定 → プライバシーとセキュリティ → 位置情報サービス → Steig）。オフだと iOS は約 5 km の精度しか返さず、すべてのサンプルが破棄され記録できません。</li>
+  <li>2 点未満の記録は「ハイキングは保存されませんでした」として破棄され、空の記録を作りません。</li>
+</ul>
+
+<h2>標高</h2>
+<p>標高と登高は GPS と気圧計を統合します。気圧計が短期的な傾向、GPS が絶対的な基準を担当します。平坦な道では GPS 単独だとノイズで数十 m の「登高」を読むため、統合後の系列を平滑化し 3 m を超える変化だけを数えます。標識や他のアプリとの小さな差は正常です。</p>
+
+<h2>ルートとナビゲーション</h2>
+<ul>
+  <li>GPX を<strong>ルート</strong>として読み込むか、過去のハイキングを開いて<strong>ルートとして使う</strong>を選択。</li>
+  <li>ホームの地図ボタンでルートを設定してスタート。ルートは青、現在の軌跡はオレンジで表示されます。</li>
+  <li><strong>方向は常に GPX の点順</strong>——V1 に逆走機能はありません。逆向きに保存されたルートは、読み込む前に GPX を反転してください。</li>
+  <li>ルートから <strong>30 m</strong> 超で 1 回、<strong>100 m</strong> 超で 2 回振動し、外れている間は 5 分ごとに繰り返します。30 m 以内に戻るとリセット。振動アラートは設定でオフにできます。</li>
+  <li>上部のバナーにルートからの距離・進捗・残距離、地図にルートへ戻る方向を表示します。</li>
+</ul>
+
+<h2>ライブアクティビティ</h2>
+<p>記録中はロック画面と Dynamic Island に距離・移動時間・登高・ルート逸脱の状態を表示します。カードが消えた場合（スワイプで削除、システムによる終了、カメラが前面）は Steig を前面に戻すと再作成されます。</p>
+
+<h2>共有と書き出し</h2>
+<ul>
+  <li><strong>現在地</strong>（記録中の共有ボタン）：座標・標高・距離・時間・登高、ルート追従中は進捗と逸脱距離、さらに Apple マップのリンク。</li>
+  <li><strong>GPX トラック</strong>と<strong>GPX ルート</strong>：ハイキング詳細の共有メニューから。</li>
+  <li><strong>月間サマリー</strong>のテキスト：月間ページから。</li>
+  <li>すべて iOS の共有シート経由で、メッセージ・メール・ファイル・AirDrop など送り先は利用者が選びます。</li>
+</ul>
+
+<h2>読み込み・バックアップ・復元</h2>
+<ul>
+  <li><strong>GPX をハイキングとして読み込む</strong>：タイムスタンプ付きの完全な軌跡。<strong>GPX をルートとして読み込む</strong>：形状のみでナビゲーションに利用。</li>
+  <li><strong>ZIP を読み込む</strong>：複数の GPX ハイキング（展開後 512 MB まで）。</li>
+  <li><strong>データベース全体をバックアップ</strong>：ハイキング・ルート・パックのメタデータ・設定を含む単一の SQLite ファイル。別の端末で データ → 復元 から読み込めます。</li>
+  <li>ハイキングを削除するとその軌跡点も削除され、アプリを削除すると全データが消えます。</li>
+</ul>
+
+<h2>設定</h2>
+<ul>
+  <li><strong>言語</strong>：システム、English、Deutsch、简体中文、繁體中文、日本語。</li>
+  <li><strong>単位</strong>：メートル法またはヤード・ポンド法。</li>
+  <li><strong>自動一時停止</strong>と<strong>振動アラート</strong>の切り替え。</li>
+  <li><strong>等高線の間隔</strong>：10/20/50 m（新しく読み込む DEM に適用）。</li>
+  <li><strong>オフライン地図</strong>：パックごとにベースマップ／陰影起伏／等高線を切り替え、削除も可能。</li>
+</ul>
+
+<h2>トラブルシューティング</h2>
+<table>
+  <tr><th>症状</th><th>対処</th></tr>
+  <tr><td>インストール後に地図が出ない</td><td>Steig は意図的に地図データを同梱していません。パックを読み込んでください（設定 → オフライン地図 → +）。灰緑の輪郭はプレースホルダーで地図ではありません。</td></tr>
+  <tr><td>「ベクター MBTiles」で読み込み失敗</td><td>PBF ベクタータイルのパックです。ラスター PNG タイルを書き出してください（例：<code>gdal2tiles.py</code> のラスター出力）。</td></tr>
+  <tr><td>投影法のエラーで読み込めない</td><td>EPSG:4326 か EPSG:3857 に再投影するか、UTM ゾーンの GeoTIFF を使用してください（<code>gdalwarp -t_srs EPSG:3857 …</code>）。</td></tr>
+  <tr><td>まったく記録されない</td><td>iOS 設定 → プライバシーとセキュリティ → 位置情報サービス → Steig で位置情報を許可し、<strong>正確な位置情報</strong>をオンにしてください。</td></tr>
+  <tr><td>拡大すると地図が空になる</td><td>パックの最大ズームに制限があります。より高いズームを含むパックを読み込んでください。</td></tr>
+  <tr><td>ライブアクティビティが消えた</td><td>Steig を前面に戻すとカードが再作成されます。</td></tr>
+  <tr><td>登高が他のアプリと違う</td><td>標高の取得元とフィルタが異なります。Steig は GPS と気圧計を統合し 3 m のヒステリシスを使うため、短い変動は意図的に無視します。</td></tr>
+</table>
+
+<h2>よくある質問</h2>
+<h3>地図はダウンロードできますか？</h3>
+<p>いいえ、意図的に同梱していません。アプリは地図データを含まず、ネットワーク通信も行いません。利用権のあるデータを読み込んでください。</p>
+<h3>アカウントやネット接続は必要ですか？</h3>
+<p>どちらも不要です。アカウントなし、ログインなし、アップロードなし、解析なし。</p>
+<h3>ルートを逆方向に辿れますか？</h3>
+<p>V1 では非対応です。方向は GPX の順序に従います。読み込む前に GPX を反転してください。</p>
+<h3>なぜバックグラウンド位置情報が必要ですか？</h3>
+<p>画面ロック中やアプリ切替中も記録を続けるためです。停止をタップしたときだけ終了します。</p>
+<h3>データはどこにありますか？</h3>
+<p>アプリのサンドボックス内です。ハイキングとルートは SQLite データベース、地図は PNG タイル。控えが必要なら GPX かデータベースのバックアップを書き出してください。</p>
+<h3>すべて削除するには？</h3>
+<p>アプリ内で個々のハイキングとルートを削除するか、アプリを削除してください。後者はコンテナごと（読み込んだ地図も）消えます。</p>
+
+<h2 id="credits">クレジット</h2>
+<ul>
+  <li><strong>地図エンジン</strong>：MapLibre Native（BSD）。</li>
+  <li><strong>ライブラリ</strong>：GRDB（MIT）、AEXML（MIT）、ZIPFoundation（MIT）。</li>
+  <li><strong>地図データ</strong>：読み込んだ OSM データは © OpenStreetMap 貢献者。同梱のプレースホルダー輪郭は粗い手描きの概略で、測量データではありません。</li>
+</ul>
+
+<h2>お問い合わせ</h2>
+<p>不具合報告・要望・ライセンスのご質問：<a href="mailto:vegaodm@outlook.com">vegaodm@outlook.com</a></p>
+
+<footer>
+  <a href="index.html">プライバシーポリシー</a> &nbsp;|&nbsp;
+  <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula">利用規約（EULA）</a><br>
+  Steig v1.0 &nbsp;|&nbsp; iOS 17.0+ &nbsp;|&nbsp; 最終更新：2026年11月19日
+</footer>
+
 </div>
 
 <script>
-(function () {
-  var params = new URLSearchParams(location.search);
-  var stored = null;
-  try { stored = localStorage.getItem('spendly-lang'); } catch (e) {}
-  var initial = params.get('lang') || stored || ((navigator.language || 'en').toLowerCase().indexOf('de') === 0 ? 'de' : 'en');
-  apply(initial);
-
-  document.querySelectorAll('.lang button').forEach(function (button) {
-    button.addEventListener('click', function () {
-      apply(button.dataset.set);
+  (function () {
+    var nav = document.querySelector('.lang-switch');
+    if (!nav) return;
+    nav.addEventListener('click', function (e) {
+      var link = e.target.closest('.lang');
+      if (!link) return;
+      e.preventDefault();
+      showLang(link.getAttribute('data-lang'));
+      history.replaceState(null, '', '#' + link.getAttribute('data-lang'));
     });
-  });
-
-  function apply(lang) {
-    if (lang !== 'de') { lang = 'en'; }
-    document.documentElement.lang = lang;
-    document.querySelectorAll('[data-lang]').forEach(function (element) {
-      element.classList.toggle('on', element.getAttribute('data-lang') === lang);
-    });
-    document.querySelectorAll('.lang button').forEach(function (button) {
-      button.setAttribute('aria-pressed', String(button.dataset.set === lang));
-    });
-    try { localStorage.setItem('spendly-lang', lang); } catch (e) {}
-  }
-})();
+    function showLang(lang) {
+      document.querySelectorAll('.lang-block').forEach(function (block) {
+        block.style.display = block.id === lang ? 'block' : 'none';
+      });
+      document.querySelectorAll('.lang').forEach(function (x) {
+        x.classList.toggle('active', x.getAttribute('data-lang') === lang);
+      });
+    }
+    var initial = location.hash.replace('#', '');
+    if (initial && document.getElementById(initial)) showLang(initial);
+  })();
 </script>
+
 </body>
 </html>

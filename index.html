@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — Steig</title>
+  <style>
+    :root { --brand: #0f5c3a; --brand-soft: #1e6b45; --ink: #1f2a24; --muted: #6b7a70; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 780px; margin: 0 auto; padding: 20px; line-height: 1.65; color: var(--ink); }
+    h1 { font-size: 1.8em; margin-top: 1.0em; }
+    h2 { font-size: 1.25em; margin-top: 1.6em; color: #33443a; }
+    h3 { font-size: 1.02em; margin-top: 1.2em; color: #33443a; }
+    a { color: var(--brand); }
+    ul { padding-left: 1.4em; }
+    li { margin-bottom: 0.45em; }
+    .effective { color: var(--muted); font-size: 0.95em; }
+    .note { background: #f2f7f0; border-left: 4px solid var(--brand); padding: 12px 16px; margin: 1em 0; border-radius: 6px; }
+    .warn { background: #fdf6e6; border-left: 4px solid #c98a14; padding: 12px 16px; margin: 1em 0; border-radius: 6px; }
+    .lang-switch { border-bottom: 1px solid #e5ece7; padding: 10px 0 10px; display: flex; flex-wrap: wrap; gap: 8px; position: sticky; top: 0; background: #fff; z-index: 2; }
+    .lang { display: inline-block; padding: 4px 12px; border-radius: 16px; color: #4d5c52; text-decoration: none; font-size: 0.9em; border: 1px solid #dbe5de; }
+    .lang:hover { border-color: var(--brand); color: var(--brand); }
+    .lang.active { background: var(--brand); color: #fff; border-color: var(--brand); }
+    footer { margin-top: 2.4em; padding-top: 1em; border-top: 1px solid #e5ece7; color: #8a9790; font-size: 0.9em; }
+    code { background: #f3f5f3; padding: 1px 5px; border-radius: 4px; font-size: 0.92em; }
+  </style>
+</head>
+<body>
+
+<nav class="lang-switch">
+  <a class="lang active" href="#en" data-lang="en">English</a>
+  <a class="lang" href="#de" data-lang="de">Deutsch</a>
+  <a class="lang" href="#zh" data-lang="zh">简体中文</a>
+  <a class="lang" href="#zh-Hant" data-lang="zh-Hant">繁體中文</a>
+  <a class="lang" href="#ja" data-lang="ja">日本語</a>
+</nav>
+
+<!-- ============================ ENGLISH ============================ -->
+<div id="en" class="lang-block" lang="en">
+
+<h1>Privacy Policy</h1>
+<p class="effective">Effective date: November 19, 2026 &nbsp;|&nbsp; Version 1.0</p>
+
+<p>This Privacy Policy applies to the Steig app for iOS ("the App"), operated by BIN XIAO ("the Service Provider"). Steig is an <strong>offline-first</strong> hiking GPS recorder and offline map viewer. It has no account system, no analytics, and makes <strong>no network requests</strong>: your hikes, imported maps and settings stay on your device.</p>
+
+<div class="note">
+  <strong>Summary:</strong> nothing is uploaded automatically. Data leaves your device only when you explicitly choose to share or export it (system share sheet, GPX file, database backup).
+</div>
+
+<h2>Information the app processes (all on your device)</h2>
+<ul>
+  <li><strong>Location</strong> — latitude, longitude, altitude, speed, course and accuracy, sampled about every 3 seconds <em>only while you are recording a hike</em>. Background recording is used so a hike is not cut in half when the screen is locked. Precise Location must stay on: with it off iOS reports roughly 5 km accuracy and every sample is rejected, so no route can be recorded.</li>
+  <li><strong>Barometric altitude</strong> — relative altitude and pressure from the device barometer, used together with GPS to make ascent/descent accurate. This does not require motion or fitness permission.</li>
+  <li><strong>Hike data</strong> — the recorded track, timestamps, and metrics derived on device (distance, moving time, elapsed time, ascent/descent, pace, monthly totals). Stored in a local SQLite database inside the app's sandbox.</li>
+  <li><strong>Routes</strong> — GPX routes you import, and hikes you promote to a route with "Use as route".</li>
+  <li><strong>Offline maps you import</strong> — MBTiles files, folders of XYZ tiles, or GeoTIFF files (DEM or imagery), which Steig converts into local PNG tiles. The App ships <strong>no map data</strong>.</li>
+  <li><strong>Settings</strong> — interface language, units, auto-pause, vibration alerts, contour interval. Stored locally.</li>
+  <li><strong>Live Activity</strong> — while recording, iOS shows a Lock Screen / Dynamic Island card with distance, time, ascent and an off-route indicator. This is rendered by iOS from data that stays on the device.</li>
+</ul>
+
+<h2>Information we do NOT collect</h2>
+<ul>
+  <li>No name, email address, phone number or account of any kind.</li>
+  <li>No analytics, crash reporting, advertising SDKs or advertising identifiers.</li>
+  <li>No HealthKit data, heart rate, step count, contacts, photos or microphone access.</li>
+  <li>No tracking across apps or websites, and no data sold or shared for advertising.</li>
+  <li>No server: the App contains no networking code for collecting or uploading data.</li>
+</ul>
+
+<h2>Network access and maps</h2>
+<p>Steig does not contact tile servers, does not download maps, and does not phone home. Map tiles are PNG files you imported, read from local storage. Attribution for the map data you imported is shown on the map and in Settings → Offline maps.</p>
+
+<div class="warn">
+  <strong>You are responsible for the map data you import.</strong> OpenStreetMap data is © OpenStreetMap contributors and subject to the ODbL; USGS/USFS and tourism-office data have their own terms. The placeholder outline that ships with the App is a coarse hand-drawn land sketch, not survey data, and must not be used for navigation.
+</div>
+
+<h2>When data leaves your device</h2>
+<p>Only through actions you take yourself:</p>
+<ul>
+  <li><strong>Sharing a live position or a hike summary</strong> — the text you share can contain coordinates, altitude, distance, time, ascent and an Apple Maps link. It goes to the app you pick in the iOS share sheet (Messages, Mail, a local LLM app, etc.), and from that moment that app's privacy policy applies.</li>
+  <li><strong>Exporting GPX</strong> — a standard GPS exchange file (track or route) written to a location you choose.</li>
+  <li><strong>Backing up the database</strong> — a single SQLite file containing hikes, routes, imported pack metadata and settings.</li>
+</ul>
+<p>Steig itself never uploads any of these files.</p>
+
+<h2>Storage and security</h2>
+<p>All data is stored in the App's sandbox: hikes and routes in a SQLite database under <code>Documents</code>, imported map tiles under <code>Application Support</code>. iOS data protection and app sandboxing protect these files. You can delete individual hikes and routes inside the App, and deleting the App removes all of its data from the device. If you enabled an iCloud or computer backup for your device, that backup is controlled by you and by Apple, not by the Service Provider.</p>
+
+<h2>Your rights (GDPR / UK GDPR / EEA)</h2>
+<p>Processing happens entirely on your device. The legal bases are your consent (the iOS location permission, which you can withdraw at any time in iOS Settings → Privacy → Location Services → Steig) and the performance of the App's core function. There is no transfer of personal data to the Service Provider or to any third party, no automated decision-making with legal effect, and no profiling.</p>
+<p>You can exercise access, rectification, erasure and portability directly in the App (view, edit, delete, export GPX / database backup) or by contacting the Service Provider. Because no data is held by the Service Provider, a request usually resolves to instructions for deleting it on your device.</p>
+
+<h2>California residents (CCPA/CPRA)</h2>
+<p>Steig does not sell or share personal information, does not collect it on a server, and does not use it for cross-context behavioural advertising. All data stays on your device and is deleted when you delete it or uninstall the App.</p>
+
+<h2>Children</h2>
+<p>Steig is not directed at children. It collects no personal information and requires no account, so it does not knowingly process data from children.</p>
+
+<h2>Safety notice</h2>
+<p>Navigation and deviation warnings are a reference aid, not a substitute for official maps, signage, weather reports or your own judgement. Imported maps can be outdated or incomplete, and GPS can be wrong in valleys, forests and bad weather. Always carry a paper map or a second navigation source and appropriate equipment.</p>
+
+<h2>Changes to this policy</h2>
+<p>This policy may be updated when the App changes. The current version is always available at this URL, with an updated effective date. Material changes will be reflected in the App Store release notes.</p>
+
+<h2>Contact</h2>
+<p>Questions about this policy: <a href="mailto:vegaodm@outlook.com">vegaodm@outlook.com</a></p>
+
+<footer>
+  <a href="support.html">Support &amp; FAQ</a> &nbsp;|&nbsp;
+  <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula">Terms of Use (EULA)</a><br>
+  Steig v1.0 &nbsp;|&nbsp; iOS 17.0+ &nbsp;|&nbsp; Last updated November 19, 2026
+</footer>
+
+</div>
+
+<!-- ============================ DEUTSCH ============================ -->
+<div id="de" class="lang-block" lang="de" style="display:none">
+
+<h1>Datenschutzerklärung</h1>
+<p class="effective">Gültig ab: 19. November 2026 &nbsp;|&nbsp; Version 1.0</p>
+
+<p>Diese Datenschutzerklärung gilt für die iOS-App Steig („die App“), betrieben von BIN XIAO („der Diensteanbieter“). Steig ist ein <strong>offline-first</strong> GPS-Wanderrekorder mit Offline-Kartenanzeige. Es gibt kein Benutzerkonto, keine Analyse und <strong>keine Netzwerkanfragen</strong>: deine Wanderungen, importierten Karten und Einstellungen bleiben auf deinem Gerät.</p>
+
+<div class="note">
+  <strong>Kurzfassung:</strong> Nichts wird automatisch hochgeladen. Daten verlassen dein Gerät nur, wenn du selbst teilst oder exportierst (System-Teilen, GPX-Datei, Datenbank-Backup).
+</div>
+
+<h2>Daten, die die App verarbeitet (ausschließlich auf deinem Gerät)</h2>
+<ul>
+  <li><strong>Standort</strong> — Breite, Länge, Höhe, Geschwindigkeit, Kurs und Genauigkeit, etwa alle 3 Sekunden, <em>nur während einer Aufzeichnung</em>. Hintergrundaufzeichnung verhindert, dass eine Wanderung bei gesperrtem Bildschirm abbricht. „Genaue Ortung“ muss eingeschaltet bleiben: sonst meldet iOS nur ca. 5 km Genauigkeit, alle Messpunkte werden verworfen und es entsteht keine Route.</li>
+  <li><strong>Barometrische Höhe</strong> — relative Höhe und Luftdruck des Geräte-Barometers, zusammen mit GPS für genaue Anstiegs-/Abstiegswerte. Dafür ist keine Motion- oder Fitness-Berechtigung nötig.</li>
+  <li><strong>Wanderdaten</strong> — aufgezeichneter Track, Zeitstempel und daraus berechnete Werte (Distanz, Bewegungszeit, Gesamtzeit, Anstieg/Abstieg, Tempo, Monatssummen). Gespeichert in einer lokalen SQLite-Datenbank im App-Sandbox.</li>
+  <li><strong>Routen</strong> — von dir importierte GPX-Routen sowie Wanderungen, die du mit „Als Route verwenden“ umwandelst.</li>
+  <li><strong>Importierte Offline-Karten</strong> — MBTiles-Dateien, Ordner mit XYZ-Kacheln oder GeoTIFF-Dateien (DEM oder Bilddaten), die Steig in lokale PNG-Kacheln umwandelt. Die App enthält <strong>keine Kartendaten</strong>.</li>
+  <li><strong>Einstellungen</strong> — Sprache, Einheiten, automatische Pause, Vibrationsalarm, Höhenlinien-Abstand. Lokal gespeichert.</li>
+  <li><strong>Live-Aktivität</strong> — während der Aufzeichnung zeigt iOS eine Sperrbildschirm-/Dynamic-Island-Karte mit Distanz, Zeit, Anstieg und Abweichungsanzeige. Die Darstellung erfolgt durch iOS aus lokal bleibenden Daten.</li>
+</ul>
+
+<h2>Daten, die wir NICHT erheben</h2>
+<ul>
+  <li>Kein Name, keine E-Mail-Adresse, keine Telefonnummer, kein Konto.</li>
+  <li>Keine Analyse-, Crash- oder Werbe-SDKs, keine Werbe-IDs.</li>
+  <li>Keine HealthKit-Daten, keine Herzfrequenz, keine Schrittzahl, keine Kontakte, Fotos oder Mikrofonzugriffe.</li>
+  <li>Kein Tracking über Apps oder Websites hinweg, kein Verkauf und keine Weitergabe zu Werbezwecken.</li>
+  <li>Kein Server: Die App enthält keinen Netzwerkcode zum Erheben oder Hochladen von Daten.</li>
+</ul>
+
+<h2>Netzwerk und Karten</h2>
+<p>Steig kontaktiert keine Kachel-Server, lädt keine Karten herunter und sendet keine Telemetrie. Kartenkacheln sind PNG-Dateien, die du importiert hast und die lokal gelesen werden. Die Quellenangabe der importierten Kartendaten wird auf der Karte und unter Einstellungen → Offline-Karten angezeigt.</p>
+
+<div class="warn">
+  <strong>Du bist für die importierten Kartendaten verantwortlich.</strong> OpenStreetMap-Daten sind © OpenStreetMap-Mitwirkende und unterliegen der ODbL; USGS/USFS- und Tourismus-Daten haben eigene Bedingungen. Die mitgelieferte Platzhalter-Kontur ist eine grobe handgezeichnete Skizze, keine Vermessungsdaten, und darf nicht zur Navigation verwendet werden.
+</div>
+
+<h2>Wann Daten dein Gerät verlassen</h2>
+<p>Nur durch dein eigenes Handeln:</p>
+<ul>
+  <li><strong>Teilen von Live-Position oder Wander-Zusammenfassung</strong> — der geteilte Text kann Koordinaten, Höhe, Distanz, Zeit, Anstieg und einen Apple-Maps-Link enthalten. Er geht an die von dir gewählte App im iOS-Teilen-Menü; ab dann gilt deren Datenschutzerklärung.</li>
+  <li><strong>GPX-Export</strong> — eine standardisierte GPS-Austauschdatei (Track oder Route) an einem von dir gewählten Ort.</li>
+  <li><strong>Datenbank-Backup</strong> — eine einzelne SQLite-Datei mit Wanderungen, Routen, Pack-Metadaten und Einstellungen.</li>
+</ul>
+<p>Steig selbst lädt keine dieser Dateien hoch.</p>
+
+<h2>Speicherung und Sicherheit</h2>
+<p>Alle Daten liegen im Sandbox der App: Wanderungen und Routen in einer SQLite-Datenbank unter <code>Documents</code>, importierte Kartenkacheln unter <code>Application Support</code>. iOS-Datenschutz und App-Sandbox schützen diese Dateien. Du kannst einzelne Wanderungen und Routen in der App löschen; das Löschen der App entfernt alle ihre Daten vom Gerät. Ein von dir aktiviertes iCloud- oder Computer-Backup wird von dir und Apple kontrolliert, nicht vom Diensteanbieter.</p>
+
+<h2>Deine Rechte (DSGVO / EWR)</h2>
+<p>Die Verarbeitung erfolgt vollständig auf deinem Gerät. Rechtsgrundlagen sind deine Einwilligung (iOS-Standortberechtigung, jederzeit widerrufbar unter iOS Einstellungen → Datenschutz &amp; Sicherheit → Ortung → Steig) und die Erfüllung der App-Funktion. Es findet keine Übermittlung personenbezogener Daten an den Diensteanbieter oder Dritte statt, keine automatisierte Entscheidungsfindung mit rechtlicher Wirkung und kein Profiling.</p>
+<p>Auskunft, Berichtigung, Löschung und Übertragbarkeit kannst du direkt in der App ausüben (ansehen, bearbeiten, löschen, GPX-Export / Datenbank-Backup) oder indem du den Diensteanbieter kontaktierst. Da beim Diensteanbieter keine Daten liegen, läuft eine Anfrage meist auf eine Anleitung zum Löschen auf deinem Gerät hinaus.</p>
+
+<h2>Kalifornien (CCPA/CPRA)</h2>
+<p>Steig verkauft oder teilt keine personenbezogenen Informationen, erhebt sie nicht auf einem Server und nutzt sie nicht für kontextübergreifende Werbung. Alle Daten bleiben auf deinem Gerät und werden gelöscht, wenn du sie löschst oder die App deinstallierst.</p>
+
+<h2>Kinder</h2>
+<p>Steig richtet sich nicht an Kinder. Es erhebt keine personenbezogenen Daten und benötigt kein Konto.</p>
+
+<h2>Sicherheitshinweis</h2>
+<p>Navigation und Abweichungswarnungen sind eine Orientierungshilfe, kein Ersatz für amtliche Karten, Beschilderung, Wetterberichte oder eigene Einschätzung. Importierte Karten können veraltet oder unvollständig sein, GPS kann in Tälern, Wäldern und bei schlechtem Wetter falsch liegen. Führe immer eine Papierkarte oder eine zweite Navigationsquelle und passende Ausrüstung mit.</p>
+
+<h2>Änderungen dieser Erklärung</h2>
+<p>Diese Erklärung kann bei Änderungen der App aktualisiert werden. Die aktuelle Fassung ist stets unter dieser URL mit aktualisiertem Gültigkeitsdatum verfügbar. Wesentliche Änderungen erscheinen in den Versionshinweisen im App Store.</p>
+
+<h2>Kontakt</h2>
+<p>Fragen zu dieser Erklärung: <a href="mailto:vegaodm@outlook.com">vegaodm@outlook.com</a></p>
+
+<footer>
+  <a href="support.html">Support &amp; FAQ</a> &nbsp;|&nbsp;
+  <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula">Nutzungsbedingungen (EULA)</a><br>
+  Steig v1.0 &nbsp;|&nbsp; iOS 17.0+ &nbsp;|&nbsp; Zuletzt aktualisiert am 19. November 2026
+</footer>
+
+</div>
+
+<!-- ============================ 简体中文 ============================ -->
+<div id="zh" class="lang-block" lang="zh-Hans" style="display:none">
+
+<h1>隐私政策</h1>
+<p class="effective">生效日期：2026 年 11 月 19 日 &nbsp;|&nbsp; 版本 1.0</p>
+
+<p>本隐私政策适用于由 BIN XIAO（"服务提供方"）运营的 iOS 版 Steig 应用（"本应用"）。Steig 是一个<strong>离线优先</strong>的徒步 GPS 记录与离线地图查看工具：没有账号体系、没有统计分析，并且<strong>不发起任何网络请求</strong>——你的徒步记录、导入的地图与设置都留在本设备上。</p>
+
+<div class="note">
+  <strong>一句话总结：</strong>不会自动上传任何内容。只有你主动分享或导出时（系统分享、GPX 文件、数据库备份），数据才会离开设备。
+</div>
+
+<h2>本应用处理的数据（全部在设备内）</h2>
+<ul>
+  <li><strong>位置</strong>——经纬度、海拔、速度、方向与精度，约每 3 秒采样一次，且<em>仅在你记录徒步时</em>。使用后台定位是为了锁屏后轨迹不中断。"精确位置"必须开启：关闭时 iOS 只提供约 5 公里精度，所有采样都会被拒绝，因而无法记录路线。</li>
+  <li><strong>气压高度</strong>——来自设备气压计的相对高度与气压，与 GPS 融合以提升爬升/下降精度；不需要运动与健身权限。</li>
+  <li><strong>徒步数据</strong>——记录的轨迹、时间戳，以及在设备上计算的指标（距离、移动时间、总用时、爬升/下降、配速、月度汇总），保存在应用沙盒内的本地 SQLite 数据库。</li>
+  <li><strong>路线</strong>——你导入的 GPX 路线，以及通过"用作路线"从历史徒步生成的路线。</li>
+  <li><strong>你导入的离线地图</strong>——MBTiles 文件、XYZ 瓦片文件夹或 GeoTIFF（DEM 或影像），Steig 会在设备上转换为本地 PNG 瓦片。本应用<strong>不附带任何地图数据</strong>。</li>
+  <li><strong>设置</strong>——界面语言、单位、自动暂停、震动提醒、等高线间距，均保存在本地。</li>
+  <li><strong>实时活动</strong>——记录时 iOS 会在锁屏/灵动岛显示距离、时间、爬升与偏航状态，由 iOS 使用本地数据渲染。</li>
+</ul>
+
+<h2>我们不收集的信息</h2>
+<ul>
+  <li>不收集姓名、邮箱、电话或任何账号信息。</li>
+  <li>不集成统计分析、崩溃上报、广告 SDK，不收集广告标识符。</li>
+  <li>不读取 HealthKit、心率、步数、通讯录、照片，不使用麦克风。</li>
+  <li>不跨应用或网站追踪，不出售、不共享用于广告。</li>
+  <li>无服务器：本应用不包含用于收集或上传数据的网络代码。</li>
+</ul>
+
+<h2>网络与地图</h2>
+<p>Steig 不连接任何瓦片服务器、不下载地图、不回传数据。地图瓦片是你导入的 PNG 文件，从本地存储读取。你导入的地图数据署名会显示在地图与"设置 → 离线地图"中。</p>
+
+<div class="warn">
+  <strong>你需要对导入的地图数据负责。</strong> OpenStreetMap 数据版权归 © OpenStreetMap 贡献者所有并受 ODbL 约束；USGS/USFS 与旅游局数据各有自己的条款。应用内置的占位轮廓只是粗略的手绘示意，并非测绘数据，不得用于导航。
+</div>
+
+<h2>数据何时离开设备</h2>
+<p>仅在你主动操作时：</p>
+<ul>
+  <li><strong>分享实时位置或徒步摘要</strong>——分享文本可能包含坐标、海拔、距离、时间、爬升以及 Apple 地图链接。内容会发送到你在系统分享面板中选择的应用（信息、邮件、本地大模型应用等），此后适用该应用的隐私政策。</li>
+  <li><strong>导出 GPX</strong>——生成标准 GPX 文件（轨迹或路线），保存到你选择的位置。</li>
+  <li><strong>备份数据库</strong>——生成单个 SQLite 文件，包含徒步、路线、地图包元数据与设置。</li>
+</ul>
+<p>Steig 自身不会上传上述任何文件。</p>
+
+<h2>存储与安全</h2>
+<p>所有数据都保存在应用沙盒中：徒步与路线位于 <code>Documents</code> 下的 SQLite 数据库，导入的地图瓦片位于 <code>Application Support</code>。iOS 数据保护与应用沙盒保护这些文件。你可以在应用内删除单条徒步与路线；删除应用会移除其全部数据。若你启用了 iCloud 或电脑备份，该备份由你与 Apple 控制，而非服务提供方。</p>
+
+<h2>你的权利（GDPR / 欧洲经济区）</h2>
+<p>所有处理都在你的设备上完成。合法性基础是你的同意（iOS 定位授权，可随时在 iOS 设置 → 隐私与安全性 → 定位服务 → Steig 中撤回）以及实现应用核心功能之必要。不会向服务提供方或任何第三方传输个人数据，不存在具有法律效力的自动化决策，也不做画像分析。</p>
+<p>你可以在应用内直接行使查阅、更正、删除与可携带权（查看、编辑、删除、导出 GPX / 数据库备份），或联系服务提供方。由于服务提供方并不持有数据，相关请求通常会落实为在设备上删除数据的指引。</p>
+
+<h2>加利福尼亚州居民（CCPA/CPRA）</h2>
+<p>Steig 不出售或共享个人信息，不在服务器上收集信息，也不将其用于跨场景行为广告。所有数据都留在你的设备上，删除记录或卸载应用即被删除。</p>
+
+<h2>儿童</h2>
+<p>Steig 并非面向儿童。它不收集个人信息，也不需要账号。</p>
+
+<h2>安全提示</h2>
+<p>导航与偏离提醒仅作参考，不能替代官方地图、路标、天气预报与自身判断。导入的地图可能过期或不完整，GPS 在峡谷、森林与恶劣天气中可能失准。请始终携带纸质地图或第二种导航手段，以及合适的装备。</p>
+
+<h2>政策更新</h2>
+<p>应用变化时本政策可能更新。最新版本始终发布在本 URL，并更新生效日期；重大变更会体现在 App Store 的版本说明中。</p>
+
+<h2>联系我们</h2>
+<p>关于本政策的问题：<a href="mailto:vegaodm@outlook.com">vegaodm@outlook.com</a></p>
+
+<footer>
+  <a href="support.html">支持与常见问题</a> &nbsp;|&nbsp;
+  <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula">使用条款（EULA）</a><br>
+  Steig v1.0 &nbsp;|&nbsp; iOS 17.0+ &nbsp;|&nbsp; 最后更新：2026 年 11 月 19 日
+</footer>
+
+</div>
+
+<!-- ============================ 繁體中文 ============================ -->
+<div id="zh-Hant" class="lang-block" lang="zh-Hant" style="display:none">
+
+<h1>隱私權政策</h1>
+<p class="effective">生效日期：2026 年 11 月 19 日 &nbsp;|&nbsp; 版本 1.0</p>
+
+<p>本隱私權政策適用於由 BIN XIAO（「服務提供者」）營運的 iOS 版 Steig 應用程式（「本應用程式」）。Steig 是<strong>離線優先</strong>的健行 GPS 記錄與離線地圖檢視工具：沒有帳號系統、沒有分析統計，並且<strong>不發出任何網路請求</strong>——你的健行紀錄、匯入的地圖與設定都留在本裝置上。</p>
+
+<div class="note">
+  <strong>一句話總結：</strong>不會自動上傳任何內容。只有你主動分享或匯出時（系統分享、GPX 檔、資料庫備份），資料才會離開裝置。
+</div>
+
+<h2>本應用程式處理的資料（全部在裝置內）</h2>
+<ul>
+  <li><strong>位置</strong>——經緯度、海拔、速度、方向與精度，約每 3 秒取樣一次，且<em>僅在你記錄健行時</em>。使用背景定位是為了鎖屏後軌跡不中斷。「精確位置」必須開啟：關閉時 iOS 只提供約 5 公里精度，所有取樣都會被拒絕，因而無法記錄路線。</li>
+  <li><strong>氣壓高度</strong>——來自裝置氣壓計的相對高度與氣壓，與 GPS 融合以提升爬升／下降精度；不需要運動與健身權限。</li>
+  <li><strong>健行資料</strong>——記錄的軌跡、時間戳，以及在裝置上計算的指標（距離、移動時間、總時間、爬升／下降、配速、月度彙總），保存在應用程式沙箱內的本地 SQLite 資料庫。</li>
+  <li><strong>路線</strong>——你匯入的 GPX 路線，以及透過「作為路線」從歷史健行產生的路線。</li>
+  <li><strong>你匯入的離線地圖</strong>——MBTiles 檔、XYZ 圖磚資料夾或 GeoTIFF（DEM 或影像），Steig 會在裝置上轉換為本地 PNG 圖磚。本應用程式<strong>不附帶任何地圖資料</strong>。</li>
+  <li><strong>設定</strong>——介面語言、單位、自動暫停、震動提醒、等高線間距，均保存在本地。</li>
+  <li><strong>即時動態</strong>——記錄時 iOS 會在鎖定畫面／動態島顯示距離、時間、爬升與偏航狀態，由 iOS 使用本地資料呈現。</li>
+</ul>
+
+<h2>我們不收集的資訊</h2>
+<ul>
+  <li>不收集姓名、電子郵件、電話或任何帳號資訊。</li>
+  <li>不整合分析統計、當機回報、廣告 SDK，不收集廣告識別碼。</li>
+  <li>不讀取 HealthKit、心率、步數、通訊錄、照片，不使用麥克風。</li>
+  <li>不跨應用程式或網站追蹤，不出售、不共享用於廣告。</li>
+  <li>無伺服器：本應用程式不包含用於收集或上傳資料的網路程式碼。</li>
+</ul>
+
+<h2>網路與地圖</h2>
+<p>Steig 不連接任何圖磚伺服器、不下載地圖、不回傳資料。地圖圖磚是你匯入的 PNG 檔案，從本地儲存讀取。你匯入的地圖資料署名會顯示在地圖與「設定 → 離線地圖」中。</p>
+
+<div class="warn">
+  <strong>你需要對匯入的地圖資料負責。</strong> OpenStreetMap 資料版權歸 © OpenStreetMap 貢獻者所有並受 ODbL 約束；USGS/USFS 與旅遊局資料各有自己的條款。應用程式內建的佔位輪廓只是粗略的手繪示意，並非測繪資料，不得用於導航。
+</div>
+
+<h2>資料何時離開裝置</h2>
+<p>僅在你主動操作時：</p>
+<ul>
+  <li><strong>分享即時位置或健行摘要</strong>——分享文字可能包含座標、海拔、距離、時間、爬升以及 Apple 地圖連結。內容會傳送到你在系統分享面板中選擇的應用程式，此後適用該應用程式的隱私權政策。</li>
+  <li><strong>匯出 GPX</strong>——產生標準 GPX 檔案（軌跡或路線），儲存到你選擇的位置。</li>
+  <li><strong>備份資料庫</strong>——產生單一 SQLite 檔案，包含健行、路線、地圖包中繼資料與設定。</li>
+</ul>
+<p>Steig 本身不會上傳上述任何檔案。</p>
+
+<h2>儲存與安全</h2>
+<p>所有資料都保存在應用程式沙箱中：健行與路線位於 <code>Documents</code> 下的 SQLite 資料庫，匯入的地圖圖磚位於 <code>Application Support</code>。iOS 資料保護與應用程式沙箱保護這些檔案。你可以在應用程式內刪除單筆健行與路線；刪除應用程式會移除其全部資料。若你啟用了 iCloud 或電腦備份，該備份由你與 Apple 控制，而非服務提供者。</p>
+
+<h2>你的權利（GDPR／歐洲經濟區）</h2>
+<p>所有處理都在你的裝置上完成。合法性基礎是你的同意（iOS 定位授權，可隨時在 iOS 設定 → 隱私權與安全性 → 定位服務 → Steig 中撤回）以及實現應用程式核心功能之必要。不會向服務提供者或任何第三方傳輸個人資料，不存在具法律效力的自動化決策，也不做剖析。</p>
+<p>你可以在應用程式內直接行使查閱、更正、刪除與可攜權（檢視、編輯、刪除、匯出 GPX／資料庫備份），或聯絡服務提供者。由於服務提供者並不持有資料，相關請求通常會落實為在裝置上刪除資料的指引。</p>
+
+<h2>加州居民（CCPA/CPRA）</h2>
+<p>Steig 不出售或共享個人資訊，不在伺服器上收集資訊，也不將其用於跨情境行為廣告。所有資料都留在你的裝置上，刪除紀錄或解除安裝應用程式即被刪除。</p>
+
+<h2>兒童</h2>
+<p>Steig 並非面向兒童。它不收集個人資訊，也不需要帳號。</p>
+
+<h2>安全提示</h2>
+<p>導航與偏離提醒僅供參考，不能取代官方地圖、路標、天氣預報與自身判斷。匯入的地圖可能過期或不完整，GPS 在峽谷、森林與惡劣天氣中可能失準。請務必攜帶紙本地圖或第二種導航方式，以及合適的裝備。</p>
+
+<h2>政策更新</h2>
+<p>應用程式變化時本政策可能更新。最新版本始終發布於本 URL，並更新生效日期；重大變更會反映在 App Store 的版本說明中。</p>
+
+<h2>聯絡我們</h2>
+<p>關於本政策的問題：<a href="mailto:vegaodm@outlook.com">vegaodm@outlook.com</a></p>
+
+<footer>
+  <a href="support.html">支援與常見問題</a> &nbsp;|&nbsp;
+  <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula">使用條款（EULA）</a><br>
+  Steig v1.0 &nbsp;|&nbsp; iOS 17.0+ &nbsp;|&nbsp; 最後更新：2026 年 11 月 19 日
+</footer>
+
+</div>
+
+<!-- ============================ 日本語 ============================ -->
+<div id="ja" class="lang-block" lang="ja" style="display:none">
+
+<h1>プライバシーポリシー</h1>
+<p class="effective">発効日：2026年11月19日 &nbsp;|&nbsp; バージョン 1.0</p>
+
+<p>本プライバシーポリシーは、BIN XIAO（「サービス提供者」）が運営する iOS アプリ「Steig」（「本アプリ」）に適用されます。Steig は<strong>オフライン優先</strong>のハイキング GPS 記録・オフライン地図ビューアです。アカウント機能も解析もなく、<strong>ネットワーク通信を行いません</strong>。ハイキング記録、読み込んだ地図、設定はすべてお使いの端末内に留まります。</p>
+
+<div class="note">
+  <strong>要点：</strong>自動でアップロードされるものはありません。データが端末を離れるのは、あなたが共有・書き出しを選んだとき（システム共有、GPX ファイル、データベースのバックアップ）だけです。
+</div>
+
+<h2>本アプリが処理する情報（すべて端末内）</h2>
+<ul>
+  <li><strong>位置情報</strong>——緯度・経度・標高・速度・進行方向・精度を約 3 秒ごとに、<em>記録中のみ</em>取得します。画面ロック中も記録を続けるためバックグラウンド位置情報を使用します。「正確な位置情報」は必ずオンにしてください。オフの場合 iOS は約 5 km の精度しか返さず、すべてのサンプルが破棄されるためルートを記録できません。</li>
+  <li><strong>気圧高度</strong>——端末の気圧計による相対高度と気圧。GPS と統合して登り／下りの精度を高めます。モーションやフィットネスの権限は不要です。</li>
+  <li><strong>ハイキングデータ</strong>——記録した軌跡、タイムスタンプ、端末内で算出した指標（距離、移動時間、経過時間、登り／下り、ペース、月間集計）。アプリのサンドボックス内の SQLite データベースに保存します。</li>
+  <li><strong>ルート</strong>——読み込んだ GPX ルート、および「ルートとして使う」で過去のハイキングから作成したルート。</li>
+  <li><strong>読み込んだオフライン地図</strong>——MBTiles、XYZ タイルのフォルダ、GeoTIFF（DEM または画像）。Steig が端末内でローカル PNG タイルに変換します。本アプリは<strong>地図データを同梱していません</strong>。</li>
+  <li><strong>設定</strong>——表示言語、単位、自動一時停止、振動アラート、等高線の間隔。すべて端末内に保存します。</li>
+  <li><strong>ライブアクティビティ</strong>——記録中、iOS がロック画面／Dynamic Island に距離・時間・登り・ルート逸脱の状態を表示します。表示は端末内のデータから iOS が行います。</li>
+</ul>
+
+<h2>収集しない情報</h2>
+<ul>
+  <li>氏名、メールアドレス、電話番号、アカウント情報は収集しません。</li>
+  <li>解析・クラッシュレポート・広告 SDK を組み込まず、広告識別子も取得しません。</li>
+  <li>HealthKit、心拍数、歩数、連絡先、写真、マイクにはアクセスしません。</li>
+  <li>アプリや Web サイトをまたぐ追跡、広告目的の販売・共有は行いません。</li>
+  <li>サーバーはありません。データを収集・送信するネットワークコードを含みません。</li>
+</ul>
+
+<h2>ネットワークと地図</h2>
+<p>Steig はタイルサーバーに接続せず、地図をダウンロードせず、外部へ送信しません。地図タイルはあなたが読み込んだ PNG ファイルで、ローカルストレージから読み取ります。読み込んだ地図データの出典表示は、地図上と「設定 → オフライン地図」に表示されます。</p>
+
+<div class="warn">
+  <strong>読み込む地図データの権利はあなたの責任です。</strong> OpenStreetMap のデータは © OpenStreetMap 貢献者に帰属し ODbL の対象です。USGS/USFS や観光局のデータにはそれぞれの利用条件があります。同梱のプレースホルダー輪郭は粗い手描きの概略であり、測量データではなく、ナビゲーションに使用してはなりません。
+</div>
+
+<h2>データが端末を離れるとき</h2>
+<p>あなた自身の操作によってのみ：</p>
+<ul>
+  <li><strong>現在地やハイキング概要の共有</strong>——共有テキストには座標、標高、距離、時間、登り、Apple マップのリンクが含まれる場合があります。iOS の共有シートで選んだアプリ（メッセージ、メール、ローカル LLM アプリなど）に渡り、以降はそのアプリのプライバシーポリシーが適用されます。</li>
+  <li><strong>GPX の書き出し</strong>——標準 GPX ファイル（トラックまたはルート）を、あなたが選んだ場所に保存します。</li>
+  <li><strong>データベースのバックアップ</strong>——ハイキング、ルート、地図パックのメタデータ、設定を含む単一の SQLite ファイル。</li>
+</ul>
+<p>Steig 自身がこれらのファイルをアップロードすることはありません。</p>
+
+<h2>保存と安全性</h2>
+<p>すべてのデータはアプリのサンドボックス内にあります。ハイキングとルートは <code>Documents</code> の SQLite データベース、読み込んだ地図タイルは <code>Application Support</code> に保存されます。iOS のデータ保護とアプリサンドボックスがこれらを保護します。アプリ内で個々のハイキングやルートを削除でき、アプリを削除するとそのすべてのデータが端末から消えます。iCloud やパソコンのバックアップを有効にしている場合、そのバックアップはあなたと Apple が管理するものであり、サービス提供者ではありません。</p>
+
+<h2>あなたの権利（GDPR／欧州経済領域）</h2>
+<p>処理はすべて端末内で完結します。法的根拠はあなたの同意（iOS の位置情報許可。iOS 設定 → プライバシーとセキュリティ → 位置情報サービス → Steig でいつでも撤回可能）と、アプリの中核機能の提供です。サービス提供者や第三者への個人データの移転はなく、法的効果を伴う自動意思決定やプロファイリングも行いません。</p>
+<p>開示・訂正・削除・データポータビリティの権利は、アプリ内（表示・編集・削除・GPX 書き出し／データベースのバックアップ）で直接行使できます。サービス提供者はデータを保持していないため、一般的にご依頼は端末上での削除手順のご案内となります。</p>
+
+<h2>カリフォルニア州の居住者（CCPA/CPRA）</h2>
+<p>Steig は個人情報を販売・共有せず、サーバー上で収集せず、文脈横断的な行動ターゲティング広告に利用しません。すべてのデータは端末内にあり、削除またはアプリの削除によって消去されます。</p>
+
+<h2>子どもについて</h2>
+<p>Steig は子ども向けではありません。個人情報を収集せず、アカウントも不要です。</p>
+
+<h2>安全に関する注意</h2>
+<p>ナビゲーションと逸脱警告は参考情報であり、公式の地図・標識・天気予報・ご自身の判断に代わるものではありません。読み込んだ地図は古い、または不完全な場合があり、谷・森林・悪天候では GPS が誤ることがあります。常に紙の地図または第二のナビゲーション手段と、適切な装備をお持ちください。</p>
+
+<h2>本ポリシーの変更</h2>
+<p>アプリの変更に伴い本ポリシーを更新することがあります。最新版は常にこの URL で公開され、発効日が更新されます。重要な変更は App Store のリリースノートに反映されます。</p>
+
+<h2>お問い合わせ</h2>
+<p>本ポリシーに関するご質問：<a href="mailto:vegaodm@outlook.com">vegaodm@outlook.com</a></p>
+
+<footer>
+  <a href="support.html">サポートとよくある質問</a> &nbsp;|&nbsp;
+  <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula">利用規約（EULA）</a><br>
+  Steig v1.0 &nbsp;|&nbsp; iOS 17.0+ &nbsp;|&nbsp; 最終更新：2026年11月19日
+</footer>
+
+</div>
+
+<script>
+  (function () {
+    var nav = document.querySelector('.lang-switch');
+    if (!nav) return;
+    nav.addEventListener('click', function (e) {
+      var link = e.target.closest('.lang');
+      if (!link) return;
+      e.preventDefault();
+      showLang(link.getAttribute('data-lang'));
+      history.replaceState(null, '', '#' + link.getAttribute('data-lang'));
+    });
+    function showLang(lang) {
+      document.querySelectorAll('.lang-block').forEach(function (block) {
+        block.style.display = block.id === lang ? 'block' : 'none';
+      });
+      document.querySelectorAll('.lang').forEach(function (x) {
+        x.classList.toggle('active', x.getAttribute('data-lang') === lang);
+      });
+    }
+    var initial = location.hash.replace('#', '');
+    if (initial && document.getElementById(initial)) showLang(initial);
+  })();
+</script>
+
+</body>
+</html>
