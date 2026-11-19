@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spendly Mileage — Support / Hilfe</title>
+<meta name="description" content="Spendly Mileage support: why a trip was not recorded, odometer readings, exports, backups. English and German.">
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #f7f7fa;
+    --card: #ffffff;
+    --ink: #16181d;
+    --muted: #5d6470;
+    --line: #e3e5ec;
+    --accent: #1a2b6b;
+    --accent-soft: #eef0ff;
+    --warn: #8a5a00;
+    --warn-soft: #fff4dd;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0b0c12;
+      --card: #14161f;
+      --ink: #f2f3f7;
+      --muted: #a4aab8;
+      --line: #262a36;
+      --accent: #9fb0ff;
+      --accent-soft: #1b2033;
+      --warn: #ffd48a;
+      --warn-soft: #2a2314;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 17px/1.62 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 28px 20px 64px; }
+  header { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .badge {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: linear-gradient(140deg, #242a55, #0a0b12);
+    display: grid; place-items: center; flex: 0 0 auto;
+  }
+  .badge span { font-size: 22px; }
+  .brand h1 { font-size: 19px; margin: 0; letter-spacing: -0.01em; }
+  .lang { display: flex; gap: 4px; background: var(--accent-soft); padding: 4px; border-radius: 999px; }
+  .lang button {
+    border: 0; background: transparent; color: var(--muted);
+    font: inherit; font-size: 14px; padding: 6px 14px; border-radius: 999px; cursor: pointer;
+  }
+  .lang button[aria-pressed="true"] { background: var(--card); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,.12); }
+  main { margin-top: 26px; }
+  .card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 18px; padding: 20px 22px; margin-bottom: 16px;
+  }
+  h2 { font-size: 15px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin: 0 0 4px; }
+  h3 { font-size: 17px; margin: 0 0 6px; }
+  p, li { margin: 8px 0 0; }
+  ul { padding-left: 20px; margin: 6px 0 0; }
+  li { margin-bottom: 4px; }
+  a { color: var(--accent); }
+  .muted { color: var(--muted); }
+  .lead { font-size: 18px; margin: 0; }
+  .note {
+    background: var(--warn-soft); color: var(--warn);
+    border-radius: 12px; padding: 10px 14px; font-size: 15px; margin-top: 12px;
+  }
+  .steps { counter-reset: step; padding: 0; list-style: none; margin-top: 10px; }
+  .steps li { position: relative; padding-left: 30px; margin-bottom: 8px; }
+  .steps li::before {
+    counter-increment: step; content: counter(step);
+    position: absolute; left: 0; top: 2px;
+    width: 21px; height: 21px; border-radius: 50%;
+    background: var(--accent-soft); color: var(--accent);
+    font-size: 12px; font-weight: 700; display: grid; place-items: center;
+  }
+  footer { margin-top: 24px; color: var(--muted); font-size: 14px; }
+  [data-lang] { display: none; }
+  [data-lang].on { display: block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <div class="badge"><span>🧾</span></div>
+      <h1>Spendly Mileage</h1>
+    </div>
+    <div class="lang" role="group" aria-label="Language / Sprache">
+      <button type="button" data-set="en" aria-pressed="true">English</button>
+      <button type="button" data-set="de" aria-pressed="false">Deutsch</button>
+    </div>
+  </header>
+
+  <main>
+    <div data-lang="en" class="on">
+      <div class="card">
+        <h2>Support</h2>
+        <p class="lead">Spendly Mileage records trips automatically, keeps the tax fields together and exports a PDF mileage log plus CSV. Everything is stored on this device.</p>
+        <p class="muted">Requires iOS 27 or later. iPhone and iPad.</p>
+      </div>
+
+      <div class="card">
+        <h3>How recording works</h3>
+        <p>Three layers, from the most automatic to the most deliberate:</p>
+        <ol class="steps">
+          <li><strong>Automatic, around the clock.</strong> The default: a drive is detected and recorded without opening the app. Nothing before or after working hours is ignored.</li>
+          <li><strong>Manual, full accuracy.</strong> Tap + on the Trips screen to start a trip yourself: it uses the navigation accuracy profile, samples more often, and runs until you stop it.</li>
+          <li><strong>Working hours only (optional).</strong> For a fixed schedule, switch on “Only track automatically during working hours”. Detection then pauses outside your window; manual trips still work.</li>
+        </ol>
+        <p class="muted">An automatic trip is a suggestion, not a final record: open it later to add destination, purpose, client and odometer readings, or swipe it to business, commute or private. Private trips never reach a report.</p>
+      </div>
+
+      <div class="card">
+        <h3>No trip was recorded</h3>
+        <ol class="steps">
+          <li>Open iOS Settings → Apps → Spendly Mileage → Location and choose <strong>Always</strong>. “While Using” stops working as soon as the screen locks.</li>
+          <li>Turn <strong>Precise Location</strong> on. With it off, every GPS fix is rejected and the app shows a warning.</li>
+          <li>Allow <strong>Motion &amp; Fitness</strong>. Without it the app cannot tell driving from walking and will not wake up for a drive.</li>
+          <li>Check the free allowance. 20 automatic trips per month are included; after that the Trips screen shows a banner and automatic detection pauses until the 1st.</li>
+          <li>Check that automatic tracking is switched on in Settings, and that Low Power Mode is not holding the app back for hours.</li>
+        </ol>
+        <p class="muted">Movement inside a 500 m circle around a frequent place is ignored on purpose, and trips under 500 m or under two minutes are treated as noise.</p>
+      </div>
+
+      <div class="card">
+        <h3>Odometer readings</h3>
+        <p>Business and commute trips need a start and an end reading, because that is what a mileage log has to show. The app proposes both from the last accepted reading plus the GPS distance — usually one tap per trip.</p>
+        <p>If the entered reading differs from the GPS distance by more than 3 %, the trip is flagged. Correct the number, or type a reason (for example a tyre change); the export stays blocked until one of the two happens.</p>
+      </div>
+
+      <div class="card">
+        <h3>The export button is disabled</h3>
+        <p>The checklist above the button lists what is missing. Each line opens the trip that needs it:</p>
+        <ul>
+          <li>destination, purpose, or client for a business trip</li>
+          <li>odometer start and end</li>
+          <li>an overlap with another trip, or a trip that is still recording</li>
+          <li>an expense whose receipt photo has gone missing</li>
+        </ul>
+        <p>Private trips are never part of a report, so they never block it.</p>
+      </div>
+
+      <div class="card">
+        <h3>A new iPhone</h3>
+        <p>With iCloud signed in, the app writes a snapshot of the database and its receipt photos into its iCloud Drive container every day. On the new phone, install the app, sign in to the same Apple Account and open Settings → Data → Restore. Pick the newest snapshot; the app restarts with that data. The current database is kept as a safety copy.</p>
+        <p>Without iCloud, export the database to Files from the same screen and import it on the new device. A purchase can be restored with “Restore purchase” on the paywall.</p>
+      </div>
+
+      <div class="card">
+        <h3>Sending a useful report</h3>
+        <p>Settings → About → Diagnostics → <strong>Copy report</strong> puts the app version, iOS, permission states, GPS and Live Activity status, the database size and the detection log on the clipboard — no trips, coordinates or names. Paste it into an email together with what you expected to happen and at what time.</p>
+        <p>Settings → About → <strong>Send feedback</strong> opens the same address with the version already filled in.</p>
+      </div>
+
+      <div class="card">
+        <h3>Runs and walks</h3>
+        <p>Spendly Mileage is a mileage log, so a run or a brisk walk is not recorded. A speed spike alone is not enough: while Motion &amp; Fitness reports running, walking or cycling, a start is refused. If a recorded trip turns into a run, it ends after a full minute of that motion and is discarded as “not driving”.</p>
+        <p class="muted">A red light, a traffic jam or a phone on a dashboard mount does not qualify: the motion has to say running for a whole minute. The recorder stays in the background and keeps watching.</p>
+      </div>
+
+      <div class="card">
+        <h3>Switching months</h3>
+        <p>On the Trips screen, tap the month title for a year and month grid, or swipe the month card left and right to move one month at a time. The chevrons still work, and “This month” jumps back to the current one. Swiping a trip row is for classifying it, so the month swipe lives on the card above.</p>
+      </div>
+
+      <div class="card">
+        <h3>Large text and VoiceOver</h3>
+        <p>The Trips screen stacks its month summary and its rows at accessibility text sizes, and every swipe action has a VoiceOver equivalent (a custom action on the month card, the row's context menu for classification). If something still clips at a large size, send a screenshot with the diagnostics report.</p>
+      </div>
+
+      <div class="card">
+        <h3>Battery</h3>
+        <p>While idle the app uses significant-location monitoring, not continuous GPS. During a trip it uses full accuracy, but stops location updates when the car has been still for 20 seconds — a red light costs nothing. Recording ends after five minutes without movement.</p>
+        <p class="muted">If a trip is missing at the end of the day, check iOS Settings → Privacy &amp; Security → Location Services → System Services and confirm that Location-Based Alerts and Significant Locations are available.</p>
+      </div>
+
+      <div class="card">
+        <h3>The lock-screen card</h3>
+        <p>While a trip is recording, a Live Activity shows the distance and the elapsed time on the Lock Screen and in the Dynamic Island. It has no buttons by design: tap it to open the app, where the recording strip carries the stop button. The card is created only while recording and is dismissed when the trip ends.</p>
+        <p class="muted">iOS only lets an app start a Live Activity in the foreground. A drive detected while the phone is in your pocket gets its card the next time you open the app; the trip itself records regardless.</p>
+      </div>
+
+      <div class="card">
+        <h3>Backup files: export, import, delete</h3>
+        <p>Settings → Data → <strong>Export backup</strong> writes a timestamped <code>.zip</code> (database, the receipt photos it references, and a manifest with a SHA‑256) into <code>Files → Spendly Mileage → Backups</code> and opens the share sheet. The file stays on the device; tap it in the list to share it again, swipe left to delete it.</p>
+        <p><strong>Import backup</strong> accepts that <code>.zip</code> or a bare <code>.sqlite</code>. The checksum and the schema are verified before anything is replaced; the current database is kept as a safety copy and the restore is applied before the next launch.</p>
+      </div>
+
+      <div class="card">
+        <h3>Verify records</h3>
+        <p>Settings → Data → <strong>Verify records</strong> recomputes the hash chain of every edit and reports how many revisions match. Entries written before the chain existed are counted as legacy, not as damage. If a trip reports a mismatch, restore the newest backup rather than editing the database with another tool.</p>
+      </div>
+
+      <div class="card">
+        <h3>Us, UK and currency</h3>
+        <p>Settings → Tax region switches the rate table and the currency. Germany uses €/km, the United States and the United Kingdom use $/mi and £/mi; the presets are editable per year, and the chosen currency is used on the PDF and the CSV. Private trips are never part of a report in any country.</p>
+      </div>
+
+      <div class="card">
+        <h3>Privacy and tax</h3>
+        <p>Nothing is uploaded; receipts are read on the device. The full policy is at <a href="index.html">vegaodm.github.io/mileagetracker</a>. Spendly Mileage is a record-keeping aid, not tax advice — the rates and the legal wording follow the bundled 2026 German rules and can be adjusted per year in Settings.</p>
+      </div>
+
+      <div class="card">
+        <h3>Still stuck?</h3>
+        <p>Write to <a href="mailto:vegaodm@outlook.com?subject=Spendly%20Mileage%20Support">vegaodm@outlook.com</a> with your iOS version, the app version from Settings → About, and what you expected to happen. Please do not send receipt photos or tax data.</p>
+      </div>
+    </div>
+
+    <div data-lang="de">
+      <div class="card">
+        <h2>Hilfe</h2>
+        <p class="lead">Spendly Mileage zeichnet Fahrten automatisch auf, hält die Steuerangaben zusammen und exportiert ein PDF-Fahrtenbuch plus CSV. Alles bleibt auf diesem Gerät.</p>
+        <p class="muted">Erfordert iOS 27 oder neuer. iPhone und iPad.</p>
+      </div>
+
+      <div class="card">
+        <h3>So funktioniert die Aufzeichnung</h3>
+        <p>Drei Stufen, von der automatischsten zur bewusstesten:</p>
+        <ol class="steps">
+          <li><strong>Automatisch, rund um die Uhr.</strong> Der Standard: Eine Fahrt wird erkannt und aufgezeichnet, ohne dass die App geöffnet wird. Vor oder nach der Arbeitszeit wird nichts ignoriert.</li>
+          <li><strong>Von Hand, volle Genauigkeit.</strong> Über + in der Fahrten-Ansicht starten Sie eine Fahrt selbst: Sie nutzt das Genauigkeitsprofil der Navigation, tastet häufiger ab und läuft, bis Sie sie beenden.</li>
+          <li><strong>Nur Arbeitszeit (optional).</strong> Bei festem Zeitplan den Schalter „Nur innerhalb der Arbeitszeit automatisch erkennen“ einschalten. Außerhalb des Fensters pausiert die Erkennung; Fahrten von Hand funktionieren weiter.</li>
+        </ol>
+        <p class="muted">Eine automatische Fahrt ist ein Vorschlag, kein endgültiger Eintrag: Öffnen Sie sie später, um Ziel, Zweck, Auftraggeber und Kilometerstand zu ergänzen, oder wischen Sie sie auf geschäftlich, Arbeitsweg oder privat. Privatfahrten erreichen keinen Bericht.</p>
+      </div>
+
+      <div class="card">
+        <h3>Eine Fahrt wurde nicht aufgezeichnet</h3>
+        <ol class="steps">
+          <li>iOS-Einstellungen → Apps → Spendly Mileage → Standort öffnen und <strong>„Immer“</strong> wählen. „Beim Verwenden“ endet, sobald der Bildschirm sperrt.</li>
+          <li><strong>Genauer Standort</strong> einschalten. Ohne ihn wird jede GPS-Position verworfen, und die App zeigt einen Hinweis.</li>
+          <li><strong>Bewegung &amp; Fitness</strong> erlauben. Sonst kann die App Fahren nicht von Gehen unterscheiden und wacht für eine Fahrt nicht auf.</li>
+          <li>Das kostenlose Kontingent prüfen: 20 automatische Fahrten pro Monat sind inklusive. Danach zeigt die Fahrten-Ansicht einen Hinweis, und die Erkennung pausiert bis zum 1.</li>
+          <li>Prüfen, ob die automatische Erkennung in den Einstellungen an ist und ob der Stromsparmodus die App über Stunden ausbremst.</li>
+        </ol>
+        <p class="muted">Bewegung innerhalb von 500 m um einen häufigen Ort wird absichtlich ignoriert; Fahrten unter 500 m oder unter zwei Minuten gelten als Rauschen.</p>
+      </div>
+
+      <div class="card">
+        <h3>Kilometerstände</h3>
+        <p>Geschäftsfahrten und Arbeitswege brauchen einen Anfangs- und einen Endstand, weil ein Fahrtenbuch das zeigen muss. Die App schlägt beides aus dem letzten übernommenen Stand plus der GPS-Strecke vor — meist ein Tipp pro Fahrt.</p>
+        <p>Weicht der eingetragene Stand um mehr als 3 % von der GPS-Strecke ab, wird die Fahrt markiert. Korrigieren Sie die Zahl oder tragen Sie eine Begründung ein (zum Beispiel Reifenwechsel); bis dahin bleibt der Export gesperrt.</p>
+      </div>
+
+      <div class="card">
+        <h3>Die Export-Schaltfläche ist ausgegraut</h3>
+        <p>Die Prüfliste über der Schaltfläche nennt, was fehlt. Jede Zeile öffnet die betroffene Fahrt:</p>
+        <ul>
+          <li>Ziel, Zweck oder Auftraggeber einer Geschäftsfahrt</li>
+          <li>Kilometerstand Anfang und Ende</li>
+          <li>eine Überschneidung mit einer anderen Fahrt oder eine noch laufende Fahrt</li>
+          <li>eine Ausgabe, deren Belegfoto fehlt</li>
+        </ul>
+        <p>Privatfahrten sind nie Teil eines Berichts und blockieren ihn deshalb nicht.</p>
+      </div>
+
+      <div class="card">
+        <h3>Ein neues iPhone</h3>
+        <p>Mit iCloud legt die App täglich eine Sicherung der Datenbank und der Belegfotos in ihrem iCloud-Drive-Container ab. Auf dem neuen Gerät die App installieren, mit derselben Apple-ID anmelden und Einstellungen → Daten → Wiederherstellen öffnen. Die neueste Sicherung wählen; die App startet mit diesen Daten. Die bisherige Datenbank bleibt als Sicherheitskopie erhalten.</p>
+        <p>Ohne iCloud die Datenbank über denselben Bildschirm in „Dateien“ exportieren und auf dem neuen Gerät importieren. Ein Kauf lässt sich über „Kauf wiederherstellen“ im Kaufbildschirm zurückholen.</p>
+      </div>
+
+      <div class="card">
+        <h3>Einen brauchbaren Bericht senden</h3>
+        <p>Einstellungen → Über → Diagnose → <strong>Bericht kopieren</strong> legt App-Version, iOS, Berechtigungszustände, GPS- und Live-Activity-Status, die Größe der Datenbank und das Erkennungsprotokoll in die Zwischenablage – keine Fahrten, Koordinaten oder Namen. Fügen Sie das in eine E-Mail ein, zusammen mit dem, was Sie erwartet haben, und der Uhrzeit.</p>
+        <p>Einstellungen → Über → <strong>Feedback senden</strong> öffnet dieselbe Adresse mit bereits eingetragener Version.</p>
+      </div>
+
+      <div class="card">
+        <h3>Laufen und Gehen</h3>
+        <p>Spendly Mileage ist ein Fahrtenbuch, daher werden Laufen und zügiges Gehen nicht aufgezeichnet. Eine Geschwindigkeitsspitze genügt nicht: Solange Bewegung &amp; Fitness „Laufen“, „Gehen“ oder „Radfahren“ meldet, wird ein Start abgelehnt. Wird eine aufgezeichnete Fahrt zum Lauf, endet sie nach einer vollen Minute und wird als „kein Fahren“ verworfen.</p>
+        <p class="muted">Rote Ampel, Stau oder ein Telefon in der Halterung zählen nicht: Die Bewegung muss eine ganze Minute „Laufen“ melden. Die Erkennung bleibt im Hintergrund aktiv.</p>
+      </div>
+
+      <div class="card">
+        <h3>Monate wechseln</h3>
+        <p>In der Fahrten-Ansicht den Monatstitel antippen für ein Raster aus Jahr und Monat, oder die Monatskarte nach links bzw. rechts wischen, um einen Monat weiterzugehen. Die Pfeile funktionieren weiter, und „Dieser Monat“ springt zurück. Das Wischen auf einer Fahrtenzeile dient der Kategorisierung, deshalb liegt die Monatsgeste auf der Karte darüber.</p>
+      </div>
+
+      <div class="card">
+        <h3>Große Schrift und VoiceOver</h3>
+        <p>Die Fahrten-Ansicht stapelt Monatsübersicht und Zeilen bei Bedienungshilfen-Schriftgrößen, und jede Wischaktion hat ein VoiceOver-Gegenstück (eigene Aktion auf der Monatskarte, Kontextmenü der Zeile zum Kategorisieren). Wird etwas trotzdem abgeschnitten, senden Sie einen Screenshot mit dem Diagnosebericht.</p>
+      </div>
+
+      <div class="card">
+        <h3>Akkulaufzeit</h3>
+        <p>Im Ruhezustand nutzt die App die signifikante Standortänderung, nicht dauerhaftes GPS. Während einer Fahrt arbeitet sie mit voller Genauigkeit, stoppt die Ortung aber, wenn das Auto 20 Sekunden steht — eine rote Ampel kostet nichts. Nach fünf Minuten ohne Bewegung endet die Aufzeichnung.</p>
+        <p class="muted">Fehlt am Tagesende eine Fahrt, in iOS-Einstellungen → Datenschutz &amp; Sicherheit → Ortungsdienste → Systemdienste prüfen, ob standortbasierte Hinweise und signifikante Orte verfügbar sind.</p>
+      </div>
+
+      <div class="card">
+        <h3>Die Karte auf dem Sperrbildschirm</h3>
+        <p>Während eine Fahrt aufgezeichnet wird, zeigt eine Live-Aktivität Strecke und Dauer auf dem Sperrbildschirm und in der Dynamic Island. Sie hat bewusst keine Tasten: Antippen öffnet die App, in der der Streifen die Stopp-Taste trägt. Die Karte entsteht nur während der Aufzeichnung und verschwindet mit der Fahrt.</p>
+        <p class="muted">iOS erlaubt das Starten einer Live-Aktivität nur im Vordergrund. Eine Fahrt, die bei gesperrtem Gerät beginnt, bekommt ihre Karte beim nächsten Öffnen der App; aufgezeichnet wird sie trotzdem.</p>
+      </div>
+
+      <div class="card">
+        <h3>Sicherungsdateien: exportieren, importieren, löschen</h3>
+        <p>Einstellungen → Daten → <strong>Sicherung exportieren</strong> schreibt eine <code>.zip</code> mit Zeitstempel (Datenbank, die referenzierten Belegfotos und ein Manifest mit SHA‑256) nach <code>Dateien → Spendly Mileage → Backups</code> und öffnet den Teilen-Dialog. Die Datei bleibt auf dem Gerät; Antippen teilt sie erneut, Wischen nach links löscht sie.</p>
+        <p><strong>Sicherung importieren</strong> akzeptiert diese <code>.zip</code> oder eine reine <code>.sqlite</code>. Prüfsumme und Schema werden vor dem Ersetzen kontrolliert; die bisherige Datenbank bleibt als Sicherheitskopie, die Wiederherstellung greift vor dem nächsten Start.</p>
+      </div>
+
+      <div class="card">
+        <h3>Aufzeichnungen prüfen</h3>
+        <p>Einstellungen → Daten → <strong>Aufzeichnungen prüfen</strong> rechnet die Hash-Kette aller Änderungen nach und meldet, wie viele Einträge passen. Einträge aus der Zeit vor der Kette gelten als Altbestand, nicht als Schaden. Meldet eine Fahrt eine Abweichung, stellen Sie die neueste Sicherung wieder her, statt die Datenbank mit einem anderen Werkzeug zu bearbeiten.</p>
+      </div>
+
+      <div class="card">
+        <h3>USA, Großbritannien und Währung</h3>
+        <p>Einstellungen → Steuersätze wechselt zwischen Ländern und Währungen. Deutschland rechnet in €/km, USA und Vereinigtes Königreich in $/mi und £/mi; die Sätze sind je Jahr anpassbar, und die gewählte Währung erscheint im PDF und in der CSV. Privatfahrten sind in keinem Land Teil eines Berichts.</p>
+      </div>
+
+      <div class="card">
+        <h3>Datenschutz und Steuern</h3>
+        <p>Nichts wird hochgeladen; Belege werden auf dem Gerät gelesen. Die vollständige Erklärung steht unter <a href="index.html">vegaodm.github.io/mileagetracker</a>. Spendly Mileage ist eine Aufzeichnungshilfe, keine Steuerberatung — Sätze und Rechtsangaben folgen den mitgelieferten deutschen Regelungen 2026 und lassen sich je Jahr in den Einstellungen anpassen.</p>
+      </div>
+
+      <div class="card">
+        <h3>Weiter festgefahren?</h3>
+        <p>Schreiben Sie an <a href="mailto:vegaodm@outlook.com?subject=Spendly%20Mileage%20Support">vegaodm@outlook.com</a> mit iOS-Version, App-Version aus Einstellungen → Über und dem, was Sie erwartet haben. Bitte keine Belegfotos oder Steuerdaten senden.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <span data-lang="en" class="on">© 2026 SPENDLY · <a href="index.html">Privacy policy</a></span>
+    <span data-lang="de">© 2026 SPENDLY · <a href="index.html">Datenschutz</a></span>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var params = new URLSearchParams(location.search);
+  var stored = null;
+  try { stored = localStorage.getItem('spendly-lang'); } catch (e) {}
+  var initial = params.get('lang') || stored || ((navigator.language || 'en').toLowerCase().indexOf('de') === 0 ? 'de' : 'en');
+  apply(initial);
+
+  document.querySelectorAll('.lang button').forEach(function (button) {
+    button.addEventListener('click', function () {
+      apply(button.dataset.set);
+    });
+  });
+
+  function apply(lang) {
+    if (lang !== 'de') { lang = 'en'; }
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-lang]').forEach(function (element) {
+      element.classList.toggle('on', element.getAttribute('data-lang') === lang);
+    });
+    document.querySelectorAll('.lang button').forEach(function (button) {
+      button.setAttribute('aria-pressed', String(button.dataset.set === lang));
+    });
+    try { localStorage.setItem('spendly-lang', lang); } catch (e) {}
+  }
+})();
+</script>
+</body>
+</html>
