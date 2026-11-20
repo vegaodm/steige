@@ -42,16 +42,16 @@
 <div id="en" class="lang-block" lang="en">
 
 <h1>Support &amp; FAQ</h1>
-<p class="effective">Steig v1.0 &nbsp;|&nbsp; iOS 17.0 or later &nbsp;|&nbsp; Updated November 19, 2026</p>
+<p class="effective">Steig v1.0 &nbsp;|&nbsp; iOS 17.0 or later &nbsp;|&nbsp; Updated November 20, 2026</p>
 
 <div class="note">
-  <strong>Quick summary:</strong> Steig ships without map data. Import an area once (MBTiles, an XYZ tile folder, or a GeoTIFF), then record hikes and follow GPX routes fully offline. Nothing is uploaded.
+  <strong>Quick summary:</strong> Steig ships without map data. Import an area once (a PMTiles archive, MBTiles, an XYZ tile folder, or a GeoTIFF), then record hikes and follow GPX routes fully offline. Nothing is uploaded.
 </div>
 
 <h2>Quick start</h2>
 <ol>
   <li>On first launch, tap <strong>Import a map</strong> (or Settings → Offline maps → <strong>+</strong>).</li>
-  <li>Choose an MBTiles file, a folder of <code>z/x/y.png</code> tiles, or a GeoTIFF.</li>
+  <li>Choose a <code>.pmtiles</code> archive, an MBTiles file, a folder of <code>z/x/y.png</code> tiles, or a GeoTIFF. PMTiles is usually the easiest format to find.</li>
   <li>Back on the home screen, tap <strong>Start</strong>. Recording continues with the screen locked.</li>
   <li>Tap <strong>Stop</strong> to save; the hike opens in the detail view, and appears in History and Monthly stats.</li>
 </ol>
@@ -59,12 +59,14 @@
 <h2>Maps</h2>
 <h3>Supported input</h3>
 <ul>
-  <li><strong>MBTiles</strong> with PNG/JPEG/WebP raster tiles (vector/PBF packs are rejected).</li>
+  <li><strong>PMTiles</strong> — one <code>.pmtiles</code> file for the whole area, vector (Protomaps/basemap builds) or raster. Vector archives are unpacked on the device and drawn with the bundled Protomaps style, so labels, points of interest and road hierarchy look like a real map instead of a picture.</li>
+  <li><strong>MBTiles</strong> — raster PNG/JPEG/WebP tiles, or vector PBF tiles (rendered like a vector PMTiles pack).</li>
   <li><strong>XYZ folder</strong> laid out as <code>z/x/y.png</code>.</li>
   <li><strong>GeoTIFF DEM</strong> — single band, Int16/UInt16/Float32, no compression or Deflate, in EPSG:4326, EPSG:3857 or a UTM zone. Steig builds hillshade and contour overlays on the device.</li>
   <li><strong>GeoTIFF imagery</strong> — 8-bit RGB/RGBA, converted to base tiles.</li>
 </ul>
-<p>Limits: up to 200 000 tiles and 2 GB per pack; a DEM-derived pack is capped so rendering takes a couple of minutes at most. BigTIFF, paletted TIFF, LZW compression and exotic projections are rejected with an explanation.</p>
+<p>Limits: up to 200 000 tiles and 2 GB per pack; a DEM-derived pack is capped so rendering takes a couple of minutes at most. BigTIFF, paletted TIFF, LZW compression and exotic projections are rejected with an explanation. A vector archive is extracted into individual tile files, so expect roughly 2–3× its archive size on disk (a 100 MB region becomes about 250 MB) and a first import that takes a few minutes on a phone. Delete the original file afterwards if you do not need it.</p>
+<p>Where to find PMTiles: the Protomaps basemap downloads, <a href="https://protomaps.com">protomaps.com</a>, or any OSM-based PMTiles extract. Check the licence before you use a file — OpenStreetMap-derived data is ODbL and needs attribution.</p>
 
 <h3>Preparing a map on a computer</h3>
 <pre>gdalwarp -t_srs EPSG:3857 input.tif dem_3857.tif
@@ -77,6 +79,15 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <div class="warn">
   <strong>Attribution and licences are your responsibility.</strong> OpenStreetMap data is © OpenStreetMap contributors (ODbL); USGS/USFS and tourism-office data have their own terms. Steig only displays the attribution string stored in the pack metadata.
 </div>
+
+<h2>Position, compass and map orientation</h2>
+<ul>
+  <li><strong>Your position is live before you start recording.</strong> While the app is open, location is sampled coarsely so the blue beacon on the map, the GPS accuracy in the HUD and the compass all work. This preview is never stored; recording has its own, more accurate session.</li>
+  <li><strong>The beacon</strong> (blue dot with a ring and a heading cone) marks where you are. If you are zoomed out to a whole continent, the compass button in the corner is the quick way back.</li>
+  <li><strong>Compass button</strong> — tap the compass rose in the HUD to switch <em>north up</em> ↔ <em>heading up</em>. Heading-up rotates the map so the direction you face points up; two-finger rotation still works and the rose follows it. The choice is remembered.</li>
+  <li><strong>Locate button</strong> (crosshair above +/−) — recentres the map on your position, and zooms to detail level only if you were far out. It is filled in blue while the camera is already on you. With no fix it asks for permission and requests a fresh location.</li>
+  <li>The compass needs the device magnetometer; if the arrow feels stuck, move the phone in a figure eight to calibrate it. Without a magnetometer the GPS course is used instead.</li>
+</ul>
 
 <h2>Recording</h2>
 <ul>
@@ -131,7 +142,10 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <table>
   <tr><th>Problem</th><th>What to do</th></tr>
   <tr><td>No map is shown after installing</td><td>Steig has no map data by design. Import a pack (Settings → Offline maps → +). The grey-green outline is a placeholder, not a map.</td></tr>
-  <tr><td>“Import failed: vector MBTiles”</td><td>That pack contains PBF vector tiles. Export raster PNG tiles instead (e.g. <code>gdal2tiles.py</code> with raster output).</td></tr>
+  <tr><td>“Import failed: unsupported tile format”</td><td>The archive contains tiles Steig cannot decode (e.g. brotli/zstd-compressed PMTiles, or Protomaps “light” flavours built with a different tile type). Re-export with gzip or no compression, or use a raster pack.</td></tr>
+  <tr><td>A vector map has geometry but no labels</td><td>The bundled style ships with five label languages. Switch the app language in Settings → Language; unknown languages fall back to English.</td></tr>
+  <tr><td>The compass arrow does not move</td><td>The magnetometer needs calibration: move the phone in a figure eight. Indoors, near magnets or in a metal case the heading can stay stuck. Without a heading the GPS course is used, and that only exists while moving.</td></tr>
+  <tr><td>No position before pressing Start</td><td>Allow location access for Steig (iOS Settings → Privacy → Location Services). The app asks when you tap the locate button or Start; without permission there is no preview position.</td></tr>
   <tr><td>Import fails with a projection message</td><td>Reproject to EPSG:4326 or EPSG:3857, or use a UTM zone GeoTIFF (<code>gdalwarp -t_srs EPSG:3857 …</code>).</td></tr>
   <tr><td>Nothing is recorded</td><td>Check iOS Settings → Privacy &amp; Security → Location Services → Steig: location must be allowed and <strong>Precise Location</strong> must be on.</td></tr>
   <tr><td>The map is empty at high zoom</td><td>The pack's maximum zoom is limited; import a pack with higher zoom levels for more detail.</td></tr>
@@ -141,7 +155,9 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 
 <h2>FAQ</h2>
 <h3>Does Steig download maps for me?</h3>
-<p>No. That is deliberate: the App ships without map data and makes no network requests. You import data you are allowed to use.</p>
+<p>No. That is deliberate: the App ships without map data and makes no network requests — not even for its map style, fonts or icons, which are inside the App. You import data you are allowed to use.</p>
+<h3>Where do I get a map I can import?</h3>
+<p>PMTiles is the easiest starting point: download a Protomaps basemap extract for your region, or build one with <code>pmtiles extract</code> from any PMTiles archive. MBTiles and GeoTIFF work as well. Whatever you use, keep the attribution: OpenStreetMap data is © OpenStreetMap contributors (ODbL).</p>
 <h3>Does Steig need an account or internet?</h3>
 <p>Neither. No account, no sign-in, no upload, no analytics.</p>
 <h3>Can I follow a route in reverse?</h3>
@@ -156,6 +172,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <h2 id="credits">Credits</h2>
 <ul>
   <li><strong>Map engine</strong> — MapLibre Native (BSD).</li>
+  <li><strong>Vector cartography</strong> — Protomaps basemap layers (BSD-3-Clause), rendered with the bundled style; Noto Sans glyphs (SIL Open Font License 1.1) and the Protomaps sprite sheet ship inside the App.</li>
   <li><strong>Libraries</strong> — GRDB (MIT), AEXML (MIT), ZIPFoundation (MIT).</li>
   <li><strong>Map data</strong> — © OpenStreetMap contributors where you import OSM data; the placeholder outline is a coarse hand-drawn sketch, not survey data.</li>
 </ul>
@@ -166,7 +183,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <footer>
   <a href="index.html">Privacy policy</a> &nbsp;|&nbsp;
   <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula">Terms of Use (EULA)</a><br>
-  Steig v1.0 &nbsp;|&nbsp; iOS 17.0+ &nbsp;|&nbsp; Last updated November 19, 2026
+  Steig v1.0 &nbsp;|&nbsp; iOS 17.0+ &nbsp;|&nbsp; Last updated November 20, 2026
 </footer>
 
 </div>
@@ -175,16 +192,16 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <div id="de" class="lang-block" lang="de" style="display:none">
 
 <h1>Support &amp; FAQ</h1>
-<p class="effective">Steig v1.0 &nbsp;|&nbsp; iOS 17.0 oder neuer &nbsp;|&nbsp; Aktualisiert am 19. November 2026</p>
+<p class="effective">Steig v1.0 &nbsp;|&nbsp; iOS 17.0 oder neuer &nbsp;|&nbsp; Aktualisiert am 20. November 2026</p>
 
 <div class="note">
-  <strong>Kurzfassung:</strong> Steig kommt ohne Kartendaten. Importiere eine Region einmal (MBTiles, XYZ-Kachelordner oder GeoTIFF) und zeichne danach Wanderungen auf und folge GPX-Routen – vollständig offline. Nichts wird hochgeladen.
+  <strong>Kurzfassung:</strong> Steig kommt ohne Kartendaten. Importiere eine Region einmal (PMTiles-Archiv, MBTiles, XYZ-Kachelordner oder GeoTIFF) und zeichne danach Wanderungen auf und folge GPX-Routen – vollständig offline. Nichts wird hochgeladen.
 </div>
 
 <h2>Schnellstart</h2>
 <ol>
   <li>Beim ersten Start <strong>Karte importieren</strong> tippen (oder Einstellungen → Offline-Karten → <strong>+</strong>).</li>
-  <li>MBTiles-Datei, Ordner mit <code>z/x/y.png</code>-Kacheln oder GeoTIFF auswählen.</li>
+    <li><code>.pmtiles</code>-Archiv, MBTiles-Datei, Ordner mit <code>z/x/y.png</code>-Kacheln oder GeoTIFF auswählen. PMTiles ist meist am einfachsten zu finden.</li>
   <li>Zurück auf dem Startbildschirm <strong>Start</strong> tippen. Die Aufzeichnung läuft auch bei gesperrtem Bildschirm weiter.</li>
   <li><strong>Stopp</strong> speichert die Wanderung; sie erscheint in der Detailansicht, im Verlauf und in der Monatsstatistik.</li>
 </ol>
@@ -192,12 +209,13 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <h2>Karten</h2>
 <h3>Unterstützte Formate</h3>
 <ul>
-  <li><strong>MBTiles</strong> mit PNG/JPEG/WebP-Rasterkacheln (Vektor/PBF wird abgelehnt).</li>
+    <li><strong>PMTiles</strong> – eine <code>.pmtiles</code>-Datei für die ganze Region, als Vektor (Protomaps/Basemap-Builds) oder Raster. Vektor-Archive werden auf dem Gerät entpackt und mit dem mitgelieferten Protomaps-Stil gezeichnet: Beschriftungen, POIs und Straßenhierarchie statt eines bloßen Bildes.</li>
+    <li><strong>MBTiles</strong> – Rasterkacheln (PNG/JPEG/WebP) oder Vektorkacheln (PBF, gleiche Darstellung wie ein Vektor-PMTiles-Paket).</li>
   <li><strong>XYZ-Ordner</strong> im Aufbau <code>z/x/y.png</code>.</li>
   <li><strong>GeoTIFF-DEM</strong> – einbandig, Int16/UInt16/Float32, unkomprimiert oder Deflate, in EPSG:4326, EPSG:3857 oder einer UTM-Zone. Steig erzeugt Relief und Höhenlinien auf dem Gerät.</li>
   <li><strong>GeoTIFF-Bilddaten</strong> – 8-Bit-RGB/RGBA, werden zu Basiskacheln.</li>
 </ul>
-<p>Grenzen: bis 200 000 Kacheln und 2 GB pro Paket; DEM-Pakete sind begrenzt, damit das Rendern höchstens wenige Minuten dauert. BigTIFF, palettierte TIFFs, LZW-Kompression und exotische Projektionen werden mit Erklärung abgelehnt.</p>
+<p>Grenzen: bis 200 000 Kacheln und 2 GB pro Paket; DEM-Pakete sind begrenzt, damit das Rendern höchstens wenige Minuten dauert. BigTIFF, palettierte TIFFs, LZW-Kompression und exotische Projektionen werden mit Erklärung abgelehnt. Ein Vektor-Archiv wird in einzelne Kacheln entpackt: rechne mit dem 2–3-fachen der Archivgröße auf der Platte (100 MB Region ≈ 250 MB) und einigen Minuten für den ersten Import.</p>
 
 <h3>Karte am Computer vorbereiten</h3>
 <pre>gdalwarp -t_srs EPSG:3857 input.tif dem_3857.tif
@@ -210,6 +228,15 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <div class="warn">
   <strong>Quellenangabe und Lizenz liegen bei dir.</strong> OpenStreetMap-Daten sind © OpenStreetMap-Mitwirkende (ODbL); USGS/USFS- und Tourismusdaten haben eigene Bedingungen. Steig zeigt nur den im Paket gespeicherten Quellenhinweis an.
 </div>
+
+<h2>Position, Kompass und Kartenausrichtung</h2>
+<ul>
+  <li><strong>Die Position ist live, bevor du startest.</strong> Solange die App offen ist, wird der Standort grob abgefragt, damit Leuchtpunkt, GPS-Genauigkeit und Kompass funktionieren. Diese Vorschau wird nie gespeichert; die Aufzeichnung nutzt eine eigene, genauere Sitzung.</li>
+  <li><strong>Der Leuchtpunkt</strong> (blauer Punkt mit Ring und Richtungskegel) zeigt, wo du bist. Wenn du weit herausgezoomt hast, bringt dich der Kompass-Knopf schnell zurück.</li>
+  <li><strong>Kompass-Knopf</strong> – tippe auf die Kompassrose im HUD, um zwischen <em>Norden oben</em> und <em>Fahrtrichtung oben</em> zu wechseln. „Fahrtrichtung oben" dreht die Karte mit der Blickrichtung; Zwei-Finger-Drehen funktioniert weiterhin und die Rose folgt. Die Wahl wird gemerkt.</li>
+  <li><strong>Standort-Knopf</strong> (Fadenkreuz über +/−) – zentriert die Karte auf deine Position und zoomt nur dann auf Detailstufe, wenn du weit draußen warst. Ist die Karte bereits auf dir, wird er blau gefüllt. Ohne Fix fragt er nach der Berechtigung und fordert eine neue Position an.</li>
+  <li>Der Kompass braucht das Magnetometer; klemmt der Pfeil, bewege das Telefon in einer Acht. Ohne Magnetometer wird der GPS-Kurs verwendet.</li>
+</ul>
 
 <h2>Aufzeichnung</h2>
 <ul>
@@ -264,7 +291,10 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <table>
   <tr><th>Problem</th><th>Lösung</th></tr>
   <tr><td>Nach der Installation keine Karte</td><td>Steig enthält bewusst keine Kartendaten. Paket importieren (Einstellungen → Offline-Karten → +). Die grün-graue Kontur ist ein Platzhalter.</td></tr>
-  <tr><td>„Import fehlgeschlagen: Vektor-MBTiles“</td><td>Das Paket enthält PBF-Vektorkacheln. Stattdessen Raster-PNG-Kacheln erzeugen (z. B. <code>gdal2tiles.py</code>).</td></tr>
+    <tr><td>„Import fehlgeschlagen: nicht unterstütztes Kachelformat"</td><td>Das Archiv enthält Kacheln, die Steig nicht dekodieren kann (z. B. brotli-/zstd-komprimierte PMTiles). Neu mit gzip oder ohne Kompression exportieren oder ein Raster-Paket verwenden.</td></tr>
+    <tr><td>Vektorkarte ohne Beschriftungen</td><td>Der mitgelieferte Stil enthält fünf Beschriftungssprachen. Sprache in Einstellungen → Sprache wechseln; unbekannte Sprachen fallen auf Englisch zurück.</td></tr>
+    <tr><td>Kompassnadel bewegt sich nicht</td><td>Magnetometer kalibrieren: Telefon in einer Acht bewegen. In Gebäuden, nahe Magneten oder in Metallgehäusen bleibt die Richtung oft stehen; ohne Richtung wird der GPS-Kurs genutzt, und den gibt es nur in Bewegung.</td></tr>
+    <tr><td>Keine Position vor „Start"</td><td>Standortzugriff für Steig erlauben (iOS-Einstellungen → Datenschutz → Ortungsdienste). Die App fragt beim Standort-Knopf oder bei „Start"; ohne Berechtigung gibt es keine Vorschau-Position.</td></tr>
   <tr><td>Import meldet ein Projektionsproblem</td><td>Nach EPSG:4326 oder EPSG:3857 umprojizieren bzw. eine UTM-Zone verwenden (<code>gdalwarp -t_srs EPSG:3857 …</code>).</td></tr>
   <tr><td>Es wird nichts aufgezeichnet</td><td>iOS Einstellungen → Datenschutz &amp; Sicherheit → Ortung → Steig: Ortung erlauben und <strong>Genaue Ortung</strong> einschalten.</td></tr>
   <tr><td>Karte bei hohem Zoom leer</td><td>Die maximale Zoomstufe des Pakets ist begrenzt; ein Paket mit höheren Zoomstufen importieren.</td></tr>
@@ -288,7 +318,8 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 
 <h2 id="credits">Danksagung</h2>
 <ul>
-  <li><strong>Karten-Engine</strong> – MapLibre Native (BSD).</li>
+    <li><strong>Karten-Engine</strong> – MapLibre Native (BSD).</li>
+    <li><strong>Vektor-Kartografie</strong> – Protomaps-Basemap-Layer (BSD-3-Clause) mit mitgeliefertem Stil; Noto-Sans-Glyphen (SIL Open Font License 1.1) und das Protomaps-Sprite-Blatt sind in der App enthalten.</li>
   <li><strong>Bibliotheken</strong> – GRDB (MIT), AEXML (MIT), ZIPFoundation (MIT).</li>
   <li><strong>Kartendaten</strong> – © OpenStreetMap-Mitwirkende, wenn du OSM-Daten importierst; die Platzhalter-Kontur ist eine grobe handgezeichnete Skizze, keine Vermessungsdaten.</li>
 </ul>
@@ -299,7 +330,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <footer>
   <a href="index.html">Datenschutz</a> &nbsp;|&nbsp;
   <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula">Nutzungsbedingungen (EULA)</a><br>
-  Steig v1.0 &nbsp;|&nbsp; iOS 17.0+ &nbsp;|&nbsp; Zuletzt aktualisiert am 19. November 2026
+  Steig v1.0 &nbsp;|&nbsp; iOS 17.0+ &nbsp;|&nbsp; Zuletzt aktualisiert am 20. November 2026
 </footer>
 
 </div>
@@ -308,16 +339,16 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <div id="zh" class="lang-block" lang="zh-Hans" style="display:none">
 
 <h1>支持与常见问题</h1>
-<p class="effective">Steig v1.0 &nbsp;|&nbsp; iOS 17.0 或更高版本 &nbsp;|&nbsp; 更新于 2026 年 11 月 19 日</p>
+<p class="effective">Steig v1.0 &nbsp;|&nbsp; iOS 17.0 或更高版本 &nbsp;|&nbsp; 更新于 2026 年 11 月 20 日</p>
 
 <div class="note">
-  <strong>要点：</strong>Steig 不附带地图数据。先导入一次所需区域（MBTiles、XYZ 瓦片文件夹或 GeoTIFF），之后即可完全离线记录徒步、跟随 GPX 路线。不会上传任何内容。
+  <strong>要点：</strong>Steig 不附带地图数据。先导入一次所需区域（PMTiles 档案、MBTiles、XYZ 瓦片文件夹或 GeoTIFF），之后即可完全离线记录徒步、跟随 GPX 路线。不会上传任何内容。
 </div>
 
 <h2>快速开始</h2>
 <ol>
   <li>首次启动点击<strong>导入地图</strong>（或 设置 → 离线地图 → <strong>+</strong>）。</li>
-  <li>选择 MBTiles 文件、包含 <code>z/x/y.png</code> 的瓦片文件夹，或 GeoTIFF。</li>
+    <li>选择 <code>.pmtiles</code> 档案、MBTiles 文件、包含 <code>z/x/y.png</code> 的瓦片文件夹，或 GeoTIFF。PMTiles 通常最容易找到。</li>
   <li>回到主页点击<strong>开始</strong>；锁屏后仍会继续记录。</li>
   <li>点击<strong>停止</strong>保存；记录会打开详情页，并出现在历史与月度统计中。</li>
 </ol>
@@ -325,12 +356,13 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <h2>地图</h2>
 <h3>支持的格式</h3>
 <ul>
-  <li><strong>MBTiles</strong>：PNG/JPEG/WebP 栅格瓦片（矢量 PBF 会被拒绝）。</li>
+    <li><strong>PMTiles</strong>——一个 <code>.pmtiles</code> 文件覆盖整个区域，矢量（Protomaps 底图）或栅格。矢量档案在设备上解包，并用内置 Protomaps 样式绘制：地名、POI、道路分级都完整呈现，而不是一张图片。</li>
+    <li><strong>MBTiles</strong>——栅格瓦片（PNG/JPEG/WebP）或矢量瓦片（PBF，绘制效果同矢量 PMTiles）。</li>
   <li><strong>XYZ 文件夹</strong>：结构为 <code>z/x/y.png</code>。</li>
   <li><strong>GeoTIFF DEM</strong>：单波段、Int16/UInt16/Float32、无压缩或 Deflate，坐标系为 EPSG:4326、EPSG:3857 或 UTM 区带。Steig 会在设备上生成地形阴影与等高线。</li>
   <li><strong>GeoTIFF 影像</strong>：8 位 RGB/RGBA，转换为底图瓦片。</li>
 </ul>
-<p>限制：每个地图包最多 200 000 个瓦片、2 GB；DEM 派生的地图包有上限，以保证渲染最多几分钟完成。BigTIFF、调色板 TIFF、LZW 压缩与非主流投影会被拒绝并给出说明。</p>
+<p>限制：每个地图包最多 200 000 个瓦片、2 GB；DEM 派生的地图包有上限，以保证渲染最多几分钟完成。BigTIFF、调色板 TIFF、LZW 压缩与非主流投影会被拒绝并给出说明。矢量档案会被解包为独立瓦片文件：磁盘占用约为档案的 2–3 倍（100 MB 的区域约 250 MB），首次导入需要几分钟。</p>
 
 <h3>在电脑上准备地图</h3>
 <pre>gdalwarp -t_srs EPSG:3857 input.tif dem_3857.tif
@@ -343,6 +375,15 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <div class="warn">
   <strong>署名与许可是你的责任。</strong> OpenStreetMap 数据版权归 © OpenStreetMap 贡献者所有（ODbL）；USGS/USFS 与旅游局数据各有自己的条款。Steig 仅显示地图包元数据中记录的署名文字。
 </div>
+
+<h2>位置、指南针与地图朝向</h2>
+<ul>
+  <li><strong>开始记录前位置就是活的。</strong>应用打开期间会以较低精度获取位置，用于地图上的蓝色光点、HUD 里的 GPS 精度和指南针。这个预览不会保存；记录时使用独立的更高精度会话。</li>
+  <li><strong>光点</strong>（蓝色圆点 + 外环 + 朝向三角）标出你的位置。缩放到大陆级别时，用角落的指南针按钮可以快速回来。</li>
+  <li><strong>指南针按钮</strong>——点击 HUD 里的指南针，在<em>正北朝上</em>与<em>行进朝上</em>之间切换。行进朝上会让地图朝你面向的方向旋转；双指旋转依然可用，指针会跟随。选择会被记住。</li>
+  <li><strong>定位按钮</strong>（+/− 上方的准星）——把地图拉回你的位置，只有在你缩得很远时才放大到细节级别；地图已在你身上时按钮填充为蓝色。没有定位时会申请权限并请求一次新位置。</li>
+  <li>指南针依赖磁力计；指针卡住时，把手机按"8"字晃动即可校准。没有磁力计时回退 GPS 航向。</li>
+</ul>
 
 <h2>记录</h2>
 <ul>
@@ -397,7 +438,10 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <table>
   <tr><th>现象</th><th>处理</th></tr>
   <tr><td>安装后没有地图</td><td>Steig 有意不附带地图数据。请导入地图包（设置 → 离线地图 → +）。灰绿色轮廓只是占位示意，不是地图。</td></tr>
-  <tr><td>提示“矢量 MBTiles”导入失败</td><td>该包是 PBF 矢量瓦片。请改用栅格 PNG 瓦片（例如 <code>gdal2tiles.py</code> 生成栅格输出）。</td></tr>
+    <tr><td>提示"不支持的瓦片格式"导入失败</td><td>档案中的瓦片 Steig 无法解码（例如 brotli/zstd 压缩的 PMTiles）。请用 gzip 或不压缩重新导出，或改用栅格包。</td></tr>
+    <tr><td>矢量地图有图形但没有地名</td><td>内置样式含五种标签语言。在 设置 → 语言 中切换；未知语言回退到英文。</td></tr>
+    <tr><td>指南针指针不动</td><td>需要校准磁力计：把手机按"8"字晃动。在室内、靠近磁铁或使用金属保护壳时会卡住；没有朝向时使用 GPS 航向，而航向只在移动时才有。</td></tr>
+    <tr><td>点 Start 之前没有位置</td><td>允许 Steig 使用定位（iOS 设置 → 隐私与安全性 → 定位服务）。应用会在你点定位按钮或 Start 时询问；没有权限就没有预览位置。</td></tr>
   <tr><td>导入提示坐标系问题</td><td>重投影到 EPSG:4326 或 EPSG:3857，或使用 UTM 区带的 GeoTIFF（<code>gdalwarp -t_srs EPSG:3857 …</code>）。</td></tr>
   <tr><td>完全记录不到轨迹</td><td>检查 iOS 设置 → 隐私与安全性 → 定位服务 → Steig：允许定位并开启<strong>精确位置</strong>。</td></tr>
   <tr><td>放大后地图空白</td><td>地图包的最大缩放级别有限；导入包含更高缩放级别的地图包。</td></tr>
@@ -421,7 +465,8 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 
 <h2 id="credits">致谢</h2>
 <ul>
-  <li><strong>地图引擎</strong>：MapLibre Native（BSD）。</li>
+    <li><strong>地图引擎</strong>：MapLibre Native（BSD）。</li>
+    <li><strong>矢量制图</strong>：Protomaps 底图图层（BSD-3-Clause）与内置样式；Noto Sans 字形（SIL Open Font License 1.1）与 Protomaps 图标雪碧图随应用内置。</li>
   <li><strong>依赖库</strong>：GRDB（MIT）、AEXML（MIT）、ZIPFoundation（MIT）。</li>
   <li><strong>地图数据</strong>：你导入的 OSM 数据版权归 © OpenStreetMap 贡献者；内置占位轮廓为粗略手绘示意，并非测绘数据。</li>
 </ul>
@@ -432,7 +477,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <footer>
   <a href="index.html">隐私政策</a> &nbsp;|&nbsp;
   <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula">使用条款（EULA）</a><br>
-  Steig v1.0 &nbsp;|&nbsp; iOS 17.0+ &nbsp;|&nbsp; 最后更新：2026 年 11 月 19 日
+  Steig v1.0 &nbsp;|&nbsp; iOS 17.0+ &nbsp;|&nbsp; 最后更新：2026 年 11 月 20 日
 </footer>
 
 </div>
@@ -441,16 +486,16 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <div id="zh-Hant" class="lang-block" lang="zh-Hant" style="display:none">
 
 <h1>支援與常見問題</h1>
-<p class="effective">Steig v1.0 &nbsp;|&nbsp; iOS 17.0 或以上版本 &nbsp;|&nbsp; 更新於 2026 年 11 月 19 日</p>
+<p class="effective">Steig v1.0 &nbsp;|&nbsp; iOS 17.0 或以上版本 &nbsp;|&nbsp; 更新於 2026 年 11 月 20 日</p>
 
 <div class="note">
-  <strong>要點：</strong>Steig 不附帶地圖資料。先匯入一次所需區域（MBTiles、XYZ 圖磚資料夾或 GeoTIFF），之後即可完全離線記錄健行、跟隨 GPX 路線。不會上傳任何內容。
+  <strong>要點：</strong>Steig 不附帶地圖資料。先匯入一次所需區域（PMTiles 封存、MBTiles、XYZ 圖磚資料夾或 GeoTIFF），之後即可完全離線記錄健行、跟隨 GPX 路線。不會上傳任何內容。
 </div>
 
 <h2>快速開始</h2>
 <ol>
   <li>首次啟動點擊<strong>匯入地圖</strong>（或 設定 → 離線地圖 → <strong>+</strong>）。</li>
-  <li>選擇 MBTiles 檔案、包含 <code>z/x/y.png</code> 的圖磚資料夾，或 GeoTIFF。</li>
+    <li>選擇 <code>.pmtiles</code> 封存、MBTiles 檔、包含 <code>z/x/y.png</code> 的圖磚資料夾，或 GeoTIFF。PMTiles 通常最容易找到。</li>
   <li>回到主頁點擊<strong>開始</strong>；鎖屏後仍會繼續記錄。</li>
   <li>點擊<strong>停止</strong>儲存；紀錄會開啟詳情頁，並出現在歷史與月度統計中。</li>
 </ol>
@@ -458,12 +503,13 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <h2>地圖</h2>
 <h3>支援的格式</h3>
 <ul>
-  <li><strong>MBTiles</strong>：PNG/JPEG/WebP 點陣圖磚（向量 PBF 會被拒絕）。</li>
+    <li><strong>PMTiles</strong>——一個 <code>.pmtiles</code> 檔涵蓋整個區域，向量（Protomaps 底圖）或點陣。向量封存在裝置上解包，並用內建 Protomaps 樣式繪製：地名、POI、道路分級完整呈現，而不是一張圖片。</li>
+    <li><strong>MBTiles</strong>——點陣圖磚（PNG/JPEG/WebP）或向量圖磚（PBF，繪製效果同向量 PMTiles）。</li>
   <li><strong>XYZ 資料夾</strong>：結構為 <code>z/x/y.png</code>。</li>
   <li><strong>GeoTIFF DEM</strong>：單波段、Int16/UInt16/Float32、未壓縮或 Deflate，座標系統為 EPSG:4326、EPSG:3857 或 UTM 分帶。Steig 會在裝置上產生地形陰影與等高線。</li>
   <li><strong>GeoTIFF 影像</strong>：8 位元 RGB/RGBA，轉換為底圖圖磚。</li>
 </ul>
-<p>限制：每個地圖包最多 200 000 個圖磚、2 GB；DEM 衍生的地圖包有上限，以確保算圖最多幾分鐘完成。BigTIFF、調色盤 TIFF、LZW 壓縮與非主流投影會被拒絕並提供說明。</p>
+<p>限制：每個地圖包最多 200 000 個圖磚、2 GB；DEM 衍生的地圖包有上限，以確保算圖最多幾分鐘完成。BigTIFF、調色盤 TIFF、LZW 壓縮與非主流投影會被拒絕並提供說明。向量封存會被解包為獨立圖磚檔：磁碟佔用約為封存的 2–3 倍（100 MB 的區域約 250 MB），首次匯入需要幾分鐘。</p>
 
 <h3>在電腦上準備地圖</h3>
 <pre>gdalwarp -t_srs EPSG:3857 input.tif dem_3857.tif
@@ -476,6 +522,15 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <div class="warn">
   <strong>署名與授權是你的責任。</strong> OpenStreetMap 資料版權歸 © OpenStreetMap 貢獻者所有（ODbL）；USGS/USFS 與旅遊局資料各有自己的條款。Steig 僅顯示地圖包中繼資料所記錄的署名文字。
 </div>
+
+<h2>位置、指南針與地圖朝向</h2>
+<ul>
+  <li><strong>開始記錄前位置就是活的。</strong>應用程式開啟期間會以較低精度取得位置，用於地圖上的藍色光點、HUD 的 GPS 精度與指南針。這個預覽不會儲存；記錄時使用獨立的更高精度工作階段。</li>
+  <li><strong>光點</strong>（藍色圓點＋外環＋朝向三角）標出你的位置。縮放到大陸級別時，用角落的指南針按鈕可快速回來。</li>
+  <li><strong>指南針按鈕</strong>——點擊 HUD 內的指南針，在<em>正北朝上</em>與<em>行進朝上</em>之間切換。行進朝上會讓地圖朝你面向的方向旋轉；雙指旋轉仍可用，指針會跟隨。選擇會被記住。</li>
+  <li><strong>定位按鈕</strong>（+/− 上方的準星）——把地圖拉回你的位置，只有在你縮得很遠時才放大到細節級別；地圖已在你身上時按鈕填充為藍色。沒有定位時會申請權限並請求一次新位置。</li>
+  <li>指南針依賴磁力計；指針卡住時，把電話以「8」字晃動即可校正。沒有磁力計時回退 GPS 航向。</li>
+</ul>
 
 <h2>記錄</h2>
 <ul>
@@ -530,7 +585,10 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <table>
   <tr><th>現象</th><th>處理</th></tr>
   <tr><td>安裝後沒有地圖</td><td>Steig 刻意不附帶地圖資料。請匯入地圖包（設定 → 離線地圖 → +）。灰綠色輪廓只是佔位示意，不是地圖。</td></tr>
-  <tr><td>提示「向量 MBTiles」匯入失敗</td><td>該包是 PBF 向量圖磚。請改用點陣 PNG 圖磚（例如以 <code>gdal2tiles.py</code> 產生點陣輸出）。</td></tr>
+    <tr><td>提示「不支援的圖磚格式」匯入失敗</td><td>封存中的圖磚 Steig 無法解碼（例如 brotli/zstd 壓縮的 PMTiles）。請以 gzip 或不壓縮重新匯出，或改用點陣包。</td></tr>
+    <tr><td>向量地圖有圖形但沒有地名</td><td>內建樣式含五種標籤語言。在 設定 → 語言 中切換；未知語言回退到英文。</td></tr>
+    <tr><td>指南針指針不動</td><td>需要校正磁力計：把電話以「8」字晃動。在室內、靠近磁鐵或使用金屬保護殼時會卡住；沒有朝向時使用 GPS 航向，而航向只在移動時才有。</td></tr>
+    <tr><td>按 Start 前沒有位置</td><td>允許 Steig 使用定位（iOS 設定 → 隱私權與安全性 → 定位服務）。應用程式會在你按定位按鈕或 Start 時詢問；沒有權限就沒有預覽位置。</td></tr>
   <tr><td>匯入提示座標系統問題</td><td>重新投影到 EPSG:4326 或 EPSG:3857，或使用 UTM 分帶的 GeoTIFF（<code>gdalwarp -t_srs EPSG:3857 …</code>）。</td></tr>
   <tr><td>完全記錄不到軌跡</td><td>檢查 iOS 設定 → 隱私權與安全性 → 定位服務 → Steig：允許定位並開啟<strong>精確位置</strong>。</td></tr>
   <tr><td>放大後地圖空白</td><td>地圖包的最大縮放層級有限；匯入包含更高縮放層級的地圖包。</td></tr>
@@ -554,7 +612,8 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 
 <h2 id="credits">致謝</h2>
 <ul>
-  <li><strong>地圖引擎</strong>：MapLibre Native（BSD）。</li>
+    <li><strong>地圖引擎</strong>：MapLibre Native（BSD）。</li>
+    <li><strong>向量製圖</strong>：Protomaps 底圖圖層（BSD-3-Clause）與內建樣式；Noto Sans 字形（SIL Open Font License 1.1）與 Protomaps 圖示雪碧圖隨應用程式內建。</li>
   <li><strong>相依程式庫</strong>：GRDB（MIT）、AEXML（MIT）、ZIPFoundation（MIT）。</li>
   <li><strong>地圖資料</strong>：你匯入的 OSM 資料版權歸 © OpenStreetMap 貢獻者；內建佔位輪廓為粗略手繪示意，並非測繪資料。</li>
 </ul>
@@ -565,7 +624,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <footer>
   <a href="index.html">隱私權政策</a> &nbsp;|&nbsp;
   <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula">使用條款（EULA）</a><br>
-  Steig v1.0 &nbsp;|&nbsp; iOS 17.0+ &nbsp;|&nbsp; 最後更新：2026 年 11 月 19 日
+  Steig v1.0 &nbsp;|&nbsp; iOS 17.0+ &nbsp;|&nbsp; 最後更新：2026 年 11 月 20 日
 </footer>
 
 </div>
@@ -574,16 +633,16 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <div id="ja" class="lang-block" lang="ja" style="display:none">
 
 <h1>サポートとよくある質問</h1>
-<p class="effective">Steig v1.0 &nbsp;|&nbsp; iOS 17.0 以降 &nbsp;|&nbsp; 2026年11月19日更新</p>
+<p class="effective">Steig v1.0 &nbsp;|&nbsp; iOS 17.0 以降 &nbsp;|&nbsp; 2026年11月20日更新</p>
 
 <div class="note">
-  <strong>要点：</strong>Steig は地図データを同梱していません。必要なエリアを一度だけ読み込み（MBTiles、XYZ タイルのフォルダ、GeoTIFF）、その後は完全オフラインでハイキングを記録し GPX ルートを辿れます。アップロードは行いません。
+  <strong>要点：</strong>Steig は地図データを同梱していません。必要なエリアを一度だけ読み込み（PMTiles アーカイブ、MBTiles、XYZ タイルのフォルダ、GeoTIFF）、その後は完全オフラインでハイキングを記録し GPX ルートを辿れます。アップロードは行いません。
 </div>
 
 <h2>クイックスタート</h2>
 <ol>
   <li>初回起動で<strong>地図を読み込む</strong>をタップ（または 設定 → オフライン地図 → <strong>+</strong>）。</li>
-  <li>MBTiles ファイル、<code>z/x/y.png</code> のタイルフォルダ、または GeoTIFF を選択。</li>
+    <li><code>.pmtiles</code> アーカイブ、MBTiles ファイル、<code>z/x/y.png</code> のタイルフォルダ、または GeoTIFF を選択。PMTiles がいちばん入手しやすい形式です。</li>
   <li>ホーム画面に戻って<strong>スタート</strong>をタップ。画面ロック中も記録が続きます。</li>
   <li><strong>停止</strong>で保存。詳細画面が開き、履歴と月間統計にも表示されます。</li>
 </ol>
@@ -591,12 +650,13 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <h2>地図</h2>
 <h3>対応形式</h3>
 <ul>
-  <li><strong>MBTiles</strong>：PNG/JPEG/WebP のラスタータイル（ベクター/PBF は拒否）。</li>
+    <li><strong>PMTiles</strong>——1 つの <code>.pmtiles</code> ファイルに全域が入ります（Protomaps ベースマップなどのベクター、またはラスター）。ベクターは端末内で展開し、同梱の Protomaps スタイルで描画するため、地名・POI・道路階層まで本物の地図として表示されます。</li>
+    <li><strong>MBTiles</strong>——ラスター（PNG/JPEG/WebP）またはベクター（PBF。表示はベクター PMTiles と同じ）。</li>
   <li><strong>XYZ フォルダ</strong>：<code>z/x/y.png</code> の構成。</li>
   <li><strong>GeoTIFF DEM</strong>：単バンド、Int16/UInt16/Float32、無圧縮または Deflate、EPSG:4326・EPSG:3857・UTM ゾーン。Steig が端末内で陰影起伏と等高線を生成します。</li>
   <li><strong>GeoTIFF 画像</strong>：8bit RGB/RGBA をベースタイルに変換。</li>
 </ul>
-<p>上限：1 パックあたり最大 200 000 タイル・2 GB。DEM 由来のパックは描画が数分で終わるよう上限があります。BigTIFF、パレット TIFF、LZW 圧縮、特殊な投影法は理由付きで拒否されます。</p>
+<p>上限：1 パックあたり最大 200 000 タイル・2 GB。DEM 由来のパックは描画が数分で終わるよう上限があります。BigTIFF、パレット TIFF、LZW 圧縮、特殊な投影法は理由付きで拒否されます。ベクターアーカイブは個別のタイルに展開されるため、ディスク使用量はアーカイブの約 2〜3 倍（100 MB の地域で約 250 MB）、最初の読み込みには数分かかります。</p>
 
 <h3>パソコンでの地図の準備</h3>
 <pre>gdalwarp -t_srs EPSG:3857 input.tif dem_3857.tif
@@ -609,6 +669,15 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <div class="warn">
   <strong>出典表示とライセンスは利用者の責任です。</strong> OpenStreetMap のデータは © OpenStreetMap 貢献者（ODbL）。USGS/USFS や観光局のデータには各々の条件があります。Steig はパックのメタデータにある出典文字列を表示するだけです。
 </div>
+
+<h2>現在地・コンパス・地図の向き</h2>
+<ul>
+  <li><strong>記録を始める前から現在地は動きます。</strong>アプリを開いている間は粗い精度で位置を取得し、地図の青いビーコン、HUD の GPS 精度、コンパスに使います。このプレビューは保存されません。記録時は別の高精度セッションを使います。</li>
+  <li><strong>ビーコン</strong>（青い点＋リング＋進行方向の三角）が現在地を示します。大陸規模までズームアウトしているときは、隅のコンパスボタンですぐ戻れます。</li>
+  <li><strong>コンパスボタン</strong>——HUD のコンパスローズをタップすると<em>北を上</em>と<em>進行方向を上</em>が切り替わります。「進行方向を上」では向いている方向が上になるよう地図が回転します。2 本指の回転も使え、ローズが追従します。選択は記憶されます。</li>
+  <li><strong>現在地ボタン</strong>（+/− の上の照準）——地図を現在地に戻します。大きくズームアウトしていたときだけ詳細ズームにします。すでに現在地が中心なら青く塗られます。測位がないときは権限を確認し、新しい位置を要求します。</li>
+  <li>コンパスは磁力計を使います。針が動かないときは端末を 8 の字に動かして校正してください。磁力計がない場合は GPS の進行方向を使います。</li>
+</ul>
 
 <h2>記録</h2>
 <ul>
@@ -663,7 +732,10 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <table>
   <tr><th>症状</th><th>対処</th></tr>
   <tr><td>インストール後に地図が出ない</td><td>Steig は意図的に地図データを同梱していません。パックを読み込んでください（設定 → オフライン地図 → +）。灰緑の輪郭はプレースホルダーで地図ではありません。</td></tr>
-  <tr><td>「ベクター MBTiles」で読み込み失敗</td><td>PBF ベクタータイルのパックです。ラスター PNG タイルを書き出してください（例：<code>gdal2tiles.py</code> のラスター出力）。</td></tr>
+    <tr><td>「未対応のタイル形式」で読み込み失敗</td><td>アーカイブ内のタイルを Steig がデコードできません（brotli/zstd 圧縮の PMTiles など）。gzip または無圧縮で書き出し直すか、ラスターのパックを使ってください。</td></tr>
+    <tr><td>ベクター地図に地名が出ない</td><td>同梱スタイルは 5 言語のラベルを含みます。設定 → 言語 で切り替えてください。未対応の言語は英語になります。</td></tr>
+    <tr><td>コンパスの針が動かない</td><td>磁力計の校正が必要です。端末を 8 の字に動かしてください。屋内・磁石の近く・金属ケースでは止まることがあります。向きが取れないときは GPS の進行方向を使い、これは移動中のみ有効です。</td></tr>
+    <tr><td>Start を押す前に現在地が出ない</td><td>Steig に位置情報を許可してください（iOS 設定 → プライバシーとセキュリティ → 位置情報サービス）。現在地ボタンまたは Start を押したときに確認されます。権限がないとプレビュー位置は表示されません。</td></tr>
   <tr><td>投影法のエラーで読み込めない</td><td>EPSG:4326 か EPSG:3857 に再投影するか、UTM ゾーンの GeoTIFF を使用してください（<code>gdalwarp -t_srs EPSG:3857 …</code>）。</td></tr>
   <tr><td>まったく記録されない</td><td>iOS 設定 → プライバシーとセキュリティ → 位置情報サービス → Steig で位置情報を許可し、<strong>正確な位置情報</strong>をオンにしてください。</td></tr>
   <tr><td>拡大すると地図が空になる</td><td>パックの最大ズームに制限があります。より高いズームを含むパックを読み込んでください。</td></tr>
@@ -687,7 +759,8 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 
 <h2 id="credits">クレジット</h2>
 <ul>
-  <li><strong>地図エンジン</strong>：MapLibre Native（BSD）。</li>
+    <li><strong>地図エンジン</strong>：MapLibre Native（BSD）。</li>
+    <li><strong>ベクター地図</strong>：Protomaps ベースマップのレイヤー（BSD-3-Clause）と同梱スタイル、Noto Sans のグリフ（SIL Open Font License 1.1）、Protomaps のスプライトをアプリに同梱しています。</li>
   <li><strong>ライブラリ</strong>：GRDB（MIT）、AEXML（MIT）、ZIPFoundation（MIT）。</li>
   <li><strong>地図データ</strong>：読み込んだ OSM データは © OpenStreetMap 貢献者。同梱のプレースホルダー輪郭は粗い手描きの概略で、測量データではありません。</li>
 </ul>
@@ -698,7 +771,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <footer>
   <a href="index.html">プライバシーポリシー</a> &nbsp;|&nbsp;
   <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula">利用規約（EULA）</a><br>
-  Steig v1.0 &nbsp;|&nbsp; iOS 17.0+ &nbsp;|&nbsp; 最終更新：2026年11月19日
+  Steig v1.0 &nbsp;|&nbsp; iOS 17.0+ &nbsp;|&nbsp; 最終更新：2026年11月20日
 </footer>
 
 </div>
