@@ -92,7 +92,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <h2>Recording</h2>
 <ul>
   <li>GPS is sampled about every 3 seconds (or after 8 m of movement) and written to the database in 30-second batches — that is the battery trade-off. A hard crash can lose at most the last batch.</li>
-  <li><strong>Auto-pause</strong> (on by default) stops counting time when you stand still for 24 seconds within 12 m. A slow uphill climb still counts as moving — the threshold is deliberately hiking-tuned (0.45 m/s).</li>
+  <li><strong>Auto-pause</strong> (on by default) stops counting moving time when you stand still for 24 seconds within 12 m. A slow uphill climb still counts as moving — the threshold is deliberately hiking-tuned (0.45 m/s). While it applies, the HUD and the Live Activity show <strong>Auto-paused</strong>; the recording itself keeps running, so elapsed time and the track are unaffected.</li>
   <li><strong>Background recording</strong> keeps the track alive with the screen locked. iOS shows the location indicator while it runs.</li>
   <li><strong>Precise Location must stay on</strong> (iOS Settings → Privacy &amp; Security → Location Services → Steig). With it off, iOS reports about 5 km accuracy and every sample is discarded, so nothing is recorded.</li>
   <li>A hike with fewer than two points is discarded (“Hike not saved”) instead of creating an empty entry.</li>
@@ -108,10 +108,11 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
   <li><strong>Direction always follows the GPX point order</strong> — V1 has no reverse option. If a route is stored the other way round, import a reversed GPX.</li>
   <li>Beyond <strong>30 m</strong> from the route you get one vibration; beyond <strong>100 m</strong>, two vibrations, repeated every 5 minutes while you stay off route. Returning within 30 m resets it. Vibration alerts can be turned off in Settings.</li>
   <li>The banner shows distance from the route, progress and remaining distance; the map shows the direction back to the route.</li>
+  <li><strong>Reference totals.</strong> With a route loaded and nothing recording, the four HUD tiles show that route's own <strong>distance, ascent, moving time and duration</strong> (in the route colour) instead of four zeros, while the GPS status and altitude stay live. Routes imported from a planner without timestamps show <code>--</code> for the two times.</li>
 </ul>
 
 <h2>Live Activity</h2>
-<p>While recording, the Lock Screen and Dynamic Island show distance, moving time, ascent and an off-route marker. If the card disappears (you swiped it away, the system ended it, or a camera was in the foreground), open Steig again — the card is re-created while the App is in the foreground.</p>
+<p>While recording, the Lock Screen and Dynamic Island show distance, moving time, ascent and an off-route marker; when auto-pause engages, the label switches from <em>Moving</em> to <strong>Auto-paused</strong> (orange). If the card disappears (you swiped it away, the system ended it, or a camera was in the foreground), open Steig again — the card is re-created while the App is in the foreground.</p>
 
 <h2>Sharing and export</h2>
 <ul>
@@ -162,6 +163,8 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <p>Neither. No account, no sign-in, no upload, no analytics.</p>
 <h3>Can I follow a route in reverse?</h3>
 <p>Not in V1 — direction follows the stored GPX order. Reversing the GPX file before import is the workaround.</p>
+<h3>Why did my moving time stop at a traffic light?</h3>
+<p>That is auto-pause: after 24 seconds standing still within 12 m the moving clock stops and the HUD says <em>Auto-paused</em>. The recording continues (elapsed time, track and GPS status keep going), and it resumes as soon as you walk on. Turn it off in Settings → Auto-pause.</p>
 <h3>Why does the app need background location?</h3>
 <p>So a hike keeps recording when the screen locks or you switch apps. Recording stops only when you tap Stop.</p>
 <h3>Where is my data?</h3>
@@ -241,7 +244,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <h2>Aufzeichnung</h2>
 <ul>
   <li>GPS wird etwa alle 3 Sekunden (oder nach 8 m Bewegung) abgetastet und in 30-Sekunden-Blöcken gespeichert – der Kompromiss zugunsten der Akkulaufzeit. Ein harter Absturz kostet höchstens den letzten Block.</li>
-  <li><strong>Automatische Pause</strong> (standardmäßig an) zählt keine Zeit, wenn du 24 Sekunden innerhalb von 12 m stillstehst. Ein langsamer Anstieg zählt weiter als Bewegung – die Schwelle ist bewusst auf Wandern ausgelegt (0,45 m/s).</li>
+  <li><strong>Automatische Pause</strong> (standardmäßig an) stoppt die Bewegungszeit, wenn du 24 Sekunden innerhalb von 12 m stehst. Ein langsamer Anstieg zählt weiter als Bewegung — die Schwelle ist bewusst auf Wandern abgestimmt (0,45 m/s). Solange sie greift, zeigen HUD und Live-Aktivität <strong>Automatisch pausiert</strong>; die Aufzeichnung läuft weiter, Gesamtzeit und Track bleiben unberührt.</li>
   <li><strong>Hintergrundaufzeichnung</strong> hält den Track bei gesperrtem Bildschirm am Leben; iOS zeigt dabei den Standortpfeil.</li>
   <li><strong>Genaue Ortung muss an bleiben</strong> (iOS Einstellungen → Datenschutz &amp; Sicherheit → Ortung → Steig). Sonst meldet iOS nur ca. 5 km Genauigkeit, alle Messpunkte werden verworfen und nichts wird aufgezeichnet.</li>
   <li>Wanderungen mit weniger als zwei Punkten werden verworfen („Wanderung nicht gespeichert“), statt einen leeren Eintrag zu erzeugen.</li>
@@ -257,10 +260,11 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
   <li><strong>Die Richtung folgt immer der GPX-Punktreihenfolge</strong> – V1 hat keine Umkehrung. Andersherum gespeicherte Routen vor dem Import umdrehen.</li>
   <li>Ab <strong>30 m</strong> Abstand zur Route eine Vibration, ab <strong>100 m</strong> zwei Vibrationen, alle 5 Minuten wiederholt, solange du abweichst. Zurück innerhalb von 30 m setzt alles zurück. Vibrationen sind in den Einstellungen abschaltbar.</li>
   <li>Das Banner zeigt Abstand, Fortschritt und Restdistanz; die Karte zeigt die Richtung zurück zur Route.</li>
+  <li><strong>Referenzwerte.</strong> Ist eine Route geladen und läuft keine Aufzeichnung, zeigen die vier HUD-Felder <strong>Distanz, Anstieg, Bewegungszeit und Dauer dieser Route</strong> (in der Routenfarbe) statt vier Nullen; GPS-Status und Höhe bleiben live. Routen aus Planern ohne Zeitstempel zeigen bei den beiden Zeiten <code>--</code>.</li>
 </ul>
 
 <h2>Live-Aktivität</h2>
-<p>Während der Aufzeichnung zeigen Sperrbildschirm und Dynamic Island Distanz, Bewegungszeit, Anstieg und eine Abweichungsanzeige. Verschwindet die Karte (wegggewischt, vom System beendet, Kamera im Vordergrund), öffne Steig erneut – im Vordergrund wird sie neu erstellt.</p>
+<p>Während der Aufzeichnung zeigen Sperrbildschirm und Dynamic Island Distanz, Bewegungszeit, Anstieg und eine Abweichungsanzeige; greift die automatische Pause, wechselt die Beschriftung von <em>Bewegung</em> auf <strong>Automatisch pausiert</strong> (orange). Verschwindet die Karte (wegggewischt, vom System beendet, Kamera im Vordergrund), öffne Steig erneut – im Vordergrund wird sie neu erstellt.</p>
 
 <h2>Teilen und Export</h2>
 <ul>
@@ -315,6 +319,8 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <p>Im Sandbox der App: SQLite-Datenbank für Wanderungen/Routen und PNG-Kacheln für Karten. Für eine Kopie GPX oder das Datenbank-Backup exportieren.</p>
 <h3>Wie lösche ich alles?</h3>
 <p>Einzelne Wanderungen und Routen in der App löschen oder die App deinstallieren – damit wird der Container inklusive importierter Karten entfernt.</p>
+<h3>Warum blieb meine Bewegungszeit an einer Ampel stehen?</h3>
+<p>Das ist die automatische Pause: nach 24 Sekunden Stillstand innerhalb von 12 m stoppt die Bewegungszeit und das HUD zeigt <em>Automatisch pausiert</em>. Die Aufzeichnung läuft weiter (Gesamtzeit, Track, GPS-Status), und sie läuft weiter, sobald du gehst. Abschaltbar unter Einstellungen → Automatische Pause.</p>
 
 <h2 id="credits">Danksagung</h2>
 <ul>
@@ -388,7 +394,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <h2>记录</h2>
 <ul>
   <li>GPS 约每 3 秒采样一次（或移动 8 米后），每 30 秒批量写入数据库——这是为省电做的取舍。硬崩溃最多丢失最后一个批次。</li>
-  <li><strong>自动暂停</strong>（默认开启）：在 12 米范围内静止 24 秒后不再计时。缓慢上坡仍算移动——阈值按徒步调校（0.45 m/s）。</li>
+  <li><strong>自动暂停</strong>（默认开启）：静止 24 秒且移动不超过 12 米时停止累计移动时间。缓慢上坡仍计为移动——阈值按徒步调校（0.45 m/s）。生效时 HUD 与实时活动会显示<strong>自动暂停</strong>；记录本身不中断，总时长、轨迹与 GPS 状态照常。</li>
   <li><strong>后台记录</strong>：锁屏或切换应用时轨迹不中断；iOS 会显示定位指示。</li>
   <li><strong>必须保持“精确位置”开启</strong>（iOS 设置 → 隐私与安全性 → 定位服务 → Steig）。关闭时 iOS 只提供约 5 公里精度，所有采样都会被丢弃，无法记录。</li>
   <li>少于两个点的记录会被丢弃（提示“徒步未保存”），而不是产生空记录。</li>
@@ -404,10 +410,11 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
   <li><strong>方向始终按 GPX 点顺序</strong>——V1 不提供反向。若路线存反了，请在导入前反转 GPX。</li>
   <li>偏离路线 <strong>30 米</strong>震动一次，超过 <strong>100 米</strong> 震动两次，并在持续偏离时每 5 分钟重复。回到 30 米内会重置。震动提醒可在设置中关闭。</li>
   <li>顶部横幅显示偏离距离、进度与剩余距离；地图上显示回到路线的方向。</li>
+  <li><strong>参考统计。</strong> 附着路线且未开始记录时，HUD 下方四格显示<strong>该路线的距离、爬升、移动时间与总时长</strong>（路线蓝色），GPS 状态与海拔保持实时。规划器导出、无时间戳的 GPX 两项时间显示 <code>--</code>。</li>
 </ul>
 
 <h2>实时活动</h2>
-<p>记录期间，锁屏与灵动岛显示距离、移动时间、爬升与偏航标记。若卡片消失（被划掉、被系统结束、相机在前台），回到 Steig 前台即可重新创建。</p>
+<p>记录期间，锁屏与灵动岛显示距离、移动时间、爬升与偏航标记；触发自动暂停时，标签会从<em>移动</em>变为<strong>自动暂停</strong>（橙色）。若卡片消失（被划掉、被系统结束、相机在前台），回到 Steig 前台即可重新创建。</p>
 
 <h2>分享与导出</h2>
 <ul>
@@ -462,6 +469,8 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <p>在应用沙盒中：徒步与路线存在 SQLite 数据库，地图是 PNG 瓦片。需要副本时导出 GPX 或数据库备份。</p>
 <h3>如何彻底删除？</h3>
 <p>在应用内删除单条徒步与路线，或直接卸载应用——后者会移除容器，包括导入的地图。</p>
+<h3>为什么等红灯时移动时间停住了？</h3>
+<p>这是自动暂停：静止 24 秒（12 米内）后移动计时停止，HUD 显示<em>自动暂停</em>。记录不会中断（总时长、轨迹、GPS 状态继续），一走动就恢复。可在 设置 → 自动暂停 关闭。</p>
 
 <h2 id="credits">致谢</h2>
 <ul>
@@ -535,7 +544,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <h2>記錄</h2>
 <ul>
   <li>GPS 約每 3 秒取樣一次（或移動 8 公尺後），每 30 秒批次寫入資料庫——這是為了省電的取捨。硬性當機最多損失最後一批。</li>
-  <li><strong>自動暫停</strong>（預設開啟）：在 12 公尺範圍內靜止 24 秒後停止計時。緩慢上坡仍算移動——閾值依健行調校（0.45 m/s）。</li>
+  <li><strong>自動暫停</strong>（預設開啟）：靜止 24 秒且移動不超過 12 公尺時停止累計移動時間。緩慢上坡仍計為移動——門檻依健行調校（0.45 m/s）。生效時 HUD 與即時動態會顯示<strong>自動暫停</strong>；記錄本身不中斷，總時長、軌跡與 GPS 狀態照常。</li>
   <li><strong>背景記錄</strong>：鎖屏或切換應用程式時軌跡不中斷；iOS 會顯示定位指示。</li>
   <li><strong>必須保持「精確位置」開啟</strong>（iOS 設定 → 隱私權與安全性 → 定位服務 → Steig）。關閉時 iOS 只提供約 5 公里精度，所有取樣都會被丟棄，無法記錄。</li>
   <li>少於兩個點的紀錄會被捨棄（提示「健行未儲存」），而不會產生空紀錄。</li>
@@ -551,10 +560,11 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
   <li><strong>方向一律依 GPX 點順序</strong>——V1 不提供反向。若路線存反了，請在匯入前反轉 GPX。</li>
   <li>偏離路線 <strong>30 公尺</strong>震動一次，超過 <strong>100 公尺</strong> 震動兩次，並在持續偏離時每 5 分鐘重複。回到 30 公尺內會重置。震動提醒可在設定中關閉。</li>
   <li>頂部橫幅顯示偏離距離、進度與剩餘距離；地圖上顯示回到路線的方向。</li>
+  <li><strong>參考統計。</strong> 附著路線且未開始記錄時，HUD 下方四格顯示<strong>該路線的距離、爬升、移動時間與總時長</strong>（路線藍色），GPS 狀態與海拔保持即時。規劃器匯出、無時間戳的 GPX 兩項時間顯示 <code>--</code>。</li>
 </ul>
 
 <h2>即時動態</h2>
-<p>記錄期間，鎖定畫面與動態島顯示距離、移動時間、爬升與偏航標記。若卡片消失（被劃掉、被系統結束、相機在前台），回到 Steig 前台即可重新建立。</p>
+<p>記錄期間，鎖定畫面與動態島顯示距離、移動時間、爬升與偏航標記；觸發自動暫停時，標籤會從<em>移動</em>變為<strong>自動暫停</strong>（橘色）。若卡片消失（被劃掉、被系統結束、相機在前台），回到 Steig 前台即可重新建立。</p>
 
 <h2>分享與匯出</h2>
 <ul>
@@ -609,6 +619,8 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <p>在應用程式沙箱中：健行與路線存在 SQLite 資料庫，地圖是 PNG 圖磚。需要副本時匯出 GPX 或資料庫備份。</p>
 <h3>如何徹底刪除？</h3>
 <p>在應用程式內刪除單筆健行與路線，或直接解除安裝——後者會移除容器，包括匯入的地圖。</p>
+<h3>為什麼等紅燈時移動時間停住了？</h3>
+<p>這是自動暫停：靜止 24 秒（12 公尺內）後移動計時停止，HUD 顯示<em>自動暫停</em>。記錄不會中斷（總時長、軌跡、GPS 狀態繼續），一走動就恢復。可在 設定 → 自動暫停 關閉。</p>
 
 <h2 id="credits">致謝</h2>
 <ul>
@@ -682,7 +694,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <h2>記録</h2>
 <ul>
   <li>GPS は約 3 秒ごと（または 8 m 移動後）に取得し、30 秒ごとにまとめてデータベースへ書き込みます——バッテリーとのトレードオフです。強制終了時でも失うのは最後のまとめ分だけです。</li>
-  <li><strong>自動一時停止</strong>（既定でオン）：12 m 以内で 24 秒静止すると時間を止めます。ゆっくりした登りは移動として数えます——閾値はハイキング向け（0.45 m/s）です。</li>
+  <li><strong>自動一時停止</strong>（既定でオン）: 12 m 以内で 24 秒静止すると移動時間の加算を止めます。ゆっくりした登りは移動として数えます（0.45 m/s のハイキング向けしきい値）。作動中は HUD とライブアクティビティに<strong>自動一時停止</strong>と表示され、記録自体は継続します（経過時間・軌跡・GPS 状態はそのまま）。</li>
   <li><strong>バックグラウンド記録</strong>：画面ロックやアプリ切替でも軌跡が途切れません。iOS は位置情報インジケータを表示します。</li>
   <li><strong>「正確な位置情報」は必ずオン</strong>（iOS 設定 → プライバシーとセキュリティ → 位置情報サービス → Steig）。オフだと iOS は約 5 km の精度しか返さず、すべてのサンプルが破棄され記録できません。</li>
   <li>2 点未満の記録は「ハイキングは保存されませんでした」として破棄され、空の記録を作りません。</li>
@@ -698,10 +710,11 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
   <li><strong>方向は常に GPX の点順</strong>——V1 に逆走機能はありません。逆向きに保存されたルートは、読み込む前に GPX を反転してください。</li>
   <li>ルートから <strong>30 m</strong> 超で 1 回、<strong>100 m</strong> 超で 2 回振動し、外れている間は 5 分ごとに繰り返します。30 m 以内に戻るとリセット。振動アラートは設定でオフにできます。</li>
   <li>上部のバナーにルートからの距離・進捗・残距離、地図にルートへ戻る方向を表示します。</li>
+  <li><strong>参考の統計。</strong> ルートを読み込んだまま記録していないとき、HUD の 4 項目は<strong>そのルート自身の距離・登高・移動時間・所要時間</strong>（ルート色）に切り替わります。GPS 状態と標高は現在値のままです。タイムスタンプのないプランナー出力では 2 つの時間が <code>--</code> になります。</li>
 </ul>
 
 <h2>ライブアクティビティ</h2>
-<p>記録中はロック画面と Dynamic Island に距離・移動時間・登高・ルート逸脱の状態を表示します。カードが消えた場合（スワイプで削除、システムによる終了、カメラが前面）は Steig を前面に戻すと再作成されます。</p>
+<p>記録中はロック画面と Dynamic Island に距離・移動時間・登高・ルート逸脱の状態を表示します。自動一時停止が働くとラベルが<em>移動</em>から<strong>自動一時停止</strong>（オレンジ）に変わります。カードが消えた場合（スワイプで削除、システムによる終了、カメラが前面）は Steig を前面に戻すと再作成されます。</p>
 
 <h2>共有と書き出し</h2>
 <ul>
@@ -750,12 +763,16 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <p>どちらも不要です。アカウントなし、ログインなし、アップロードなし、解析なし。</p>
 <h3>ルートを逆方向に辿れますか？</h3>
 <p>V1 では非対応です。方向は GPX の順序に従います。読み込む前に GPX を反転してください。</p>
+<h3>信号待ちで移動時間が止まったのはなぜ？</h3>
+<p>自動一時停止です。12 m 以内で 24 秒静止すると移動時間の加算が止まり、HUD に<em>自動一時停止</em>と表示されます。記録は継続し（経過時間・軌跡・GPS 状態）、歩き出せば再開します。設定 → 自動一時停止 でオフにできます。</p>
 <h3>なぜバックグラウンド位置情報が必要ですか？</h3>
 <p>画面ロック中やアプリ切替中も記録を続けるためです。停止をタップしたときだけ終了します。</p>
 <h3>データはどこにありますか？</h3>
 <p>アプリのサンドボックス内です。ハイキングとルートは SQLite データベース、地図は PNG タイル。控えが必要なら GPX かデータベースのバックアップを書き出してください。</p>
 <h3>すべて削除するには？</h3>
 <p>アプリ内で個々のハイキングとルートを削除するか、アプリを削除してください。後者はコンテナごと（読み込んだ地図も）消えます。</p>
+<h3>信号待ちで移動時間が止まったのはなぜ？</h3>
+<p>自動一時停止です。12 m 以内で 24 秒静止すると移動時間の加算が止まり、HUD に<em>自動一時停止</em>と表示されます。記録は継続し（経過時間・軌跡・GPS 状態）、歩き出せば再開します。設定 → 自動一時停止 でオフにできます。</p>
 
 <h2 id="credits">クレジット</h2>
 <ul>
