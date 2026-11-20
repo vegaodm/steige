@@ -99,7 +99,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 </ul>
 
 <h2>Elevation</h2>
-<p>Altitude and ascent combine GPS with the device barometer: the barometer supplies the short-term trend, GPS the absolute datum. On a flat route, GPS alone can read tens of metres of ascent from noise, which is why the fused series is smoothed and only swings above 3 m are counted. Expect small differences from signposts and from other apps — that is normal.</p>
+<p>Altitude and ascent combine GPS with the device barometer: the barometer supplies the short-term trend, GPS the absolute datum. iOS files the barometer under <strong>Motion &amp; Fitness</strong>, so Steig asks for that permission when a recording starts — it is used for altitude only (no step counting, activity recognition or HealthKit). If you decline, elevation falls back to GPS and ascent becomes noisier. On a flat route, GPS alone can read tens of metres of ascent from noise, which is why the fused series is smoothed and only swings above 3 m are counted. Expect small differences from signposts and from other apps — that is normal.</p>
 
 <h2>Routes and navigation</h2>
 <ul>
@@ -251,7 +251,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 </ul>
 
 <h2>Höhe</h2>
-<p>Höhe und Anstieg kombinieren GPS mit dem Barometer: das Barometer liefert den kurzfristigen Trend, GPS den absoluten Bezug. Auf flacher Strecke liest GPS allein durch Rauschen zweistellige Meter Anstieg; deshalb wird die fusionierte Reihe geglättet und nur Schwankungen über 3 m gezählt. Kleine Abweichungen zu Schildern und anderen Apps sind normal.</p>
+<p>Höhe und Anstieg kombinieren GPS mit dem Barometer: das Barometer liefert den kurzfristigen Trend, GPS den absoluten Bezug. iOS führt das Barometer unter <strong>Bewegung &amp; Fitness</strong>, deshalb fragt Steig diese Berechtigung beim Start einer Aufzeichnung ab — sie dient nur der Höhe (kein Schrittzähler, keine Aktivitätserkennung, kein HealthKit). Bei Ablehnung wird die Höhe aus GPS berechnet und der Anstieg unruhiger. Auf flacher Strecke liest GPS allein durch Rauschen zweistellige Meter Anstieg; deshalb wird die fusionierte Reihe geglättet und nur Schwankungen über 3 m gezählt. Kleine Abweichungen zu Schildern und anderen Apps sind normal.</p>
 
 <h2>Routen und Navigation</h2>
 <ul>
@@ -401,7 +401,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 </ul>
 
 <h2>海拔</h2>
-<p>海拔与爬升由 GPS 与气压计融合：气压计提供短时趋势，GPS 提供绝对基准。平路上单纯 GPS 会因噪声读出几十米的“爬升”，因此融合后的序列会平滑，只统计超过 3 米的波动。与路牌或其他应用存在小差异属正常现象。</p>
+<p>海拔与爬升由 GPS 与气压计融合：气压计提供短时趋势，GPS 提供绝对基准。iOS 将气压计归入<strong>运动与健身</strong>权限，因此开始记录时 Steig 会请求该权限——它只用于海拔（不做计步、活动识别，也不读取 HealthKit）；拒绝授权时海拔改由 GPS 计算，爬升会更容易受噪声影响。平路上单纯 GPS 会因噪声读出几十米的“爬升”，因此融合后的序列会平滑，只统计超过 3 米的波动。与路牌或其他应用存在小差异属正常现象。</p>
 
 <h2>路线与导航</h2>
 <ul>
@@ -551,7 +551,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 </ul>
 
 <h2>海拔</h2>
-<p>海拔與爬升由 GPS 與氣壓計融合：氣壓計提供短時趨勢，GPS 提供絕對基準。平路上單純 GPS 會因雜訊讀出數十公尺的「爬升」，因此融合後的序列會平滑處理，只統計超過 3 公尺的變化。與路標或其他應用程式存在小差異屬正常。</p>
+<p>海拔與爬升由 GPS 與氣壓計融合：氣壓計提供短時趨勢，GPS 提供絕對基準。iOS 將氣壓計歸入<strong>運動與健身</strong>權限，因此開始記錄時 Steig 會請求該權限——它只用於海拔（不做計步、活動辨識，也不讀取 HealthKit）；拒絕授權時海拔改由 GPS 計算，爬升會更容易受雜訊影響。平路上單純 GPS 會因雜訊讀出數十公尺的「爬升」，因此融合後的序列會平滑處理，只統計超過 3 公尺的變化。與路標或其他應用程式存在小差異屬正常。</p>
 
 <h2>路線與導航</h2>
 <ul>
