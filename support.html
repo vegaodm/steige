@@ -96,6 +96,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
   <li><strong>Background recording</strong> keeps the track alive with the screen locked. iOS shows the location indicator while it runs.</li>
   <li><strong>Precise Location must stay on</strong> (iOS Settings → Privacy &amp; Security → Location Services → Steig). With it off, iOS reports about 5 km accuracy and every sample is discarded, so nothing is recorded.</li>
   <li>A hike with fewer than two points is discarded (“Hike not saved”) instead of creating an empty entry.</li>
+  <li><strong>Stopping is deliberate.</strong> Tap does nothing; hold <strong>Stop</strong> for 2 seconds — the button fills up while you hold and one vibration confirms the save. This sits next to Pause, and a single mis-tap used to end the hike.</li>
 </ul>
 
 <h2>Elevation</h2>
@@ -250,6 +251,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
   <li><strong>Hintergrundaufzeichnung</strong> hält den Track bei gesperrtem Bildschirm am Leben; iOS zeigt dabei den Standortpfeil.</li>
   <li><strong>Genaue Ortung muss an bleiben</strong> (iOS Einstellungen → Datenschutz &amp; Sicherheit → Ortung → Steig). Sonst meldet iOS nur ca. 5 km Genauigkeit, alle Messpunkte werden verworfen und nichts wird aufgezeichnet.</li>
   <li>Wanderungen mit weniger als zwei Punkten werden verworfen („Wanderung nicht gespeichert“), statt einen leeren Eintrag zu erzeugen.</li>
+  <li><strong>Beenden ist Absicht.</strong> Ein Tippen bewirkt nichts; halte <strong>Stop</strong> 2 Sekunden gedrückt — der Button füllt sich dabei, und eine Vibration bestätigt das Speichern. Der Knopf sitzt neben „Pause“, und ein einzelner Fehltipper hat die Wanderung früher sofort beendet.</li>
 </ul>
 
 <h2>Höhe</h2>
@@ -402,6 +404,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
   <li><strong>后台记录</strong>：锁屏或切换应用时轨迹不中断；iOS 会显示定位指示。</li>
   <li><strong>必须保持“精确位置”开启</strong>（iOS 设置 → 隐私与安全性 → 定位服务 → Steig）。关闭时 iOS 只提供约 5 公里精度，所有采样都会被丢弃，无法记录。</li>
   <li>少于两个点的记录会被丢弃（提示“徒步未保存”），而不是产生空记录。</li>
+  <li><strong>结束需要刻意操作。</strong>单击无效；按住 <strong>Stop 2 秒</strong>——按住时按钮会填充进度，结束时震动一次确认保存。它就在 Pause 旁边，以前一次误触就会结束记录。</li>
 </ul>
 
 <h2>海拔</h2>
@@ -554,6 +557,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
   <li><strong>背景記錄</strong>：鎖屏或切換應用程式時軌跡不中斷；iOS 會顯示定位指示。</li>
   <li><strong>必須保持「精確位置」開啟</strong>（iOS 設定 → 隱私權與安全性 → 定位服務 → Steig）。關閉時 iOS 只提供約 5 公里精度，所有取樣都會被丟棄，無法記錄。</li>
   <li>少於兩個點的紀錄會被捨棄（提示「健行未儲存」），而不會產生空紀錄。</li>
+  <li><strong>結束需要刻意操作。</strong>單擊無效；按住 <strong>Stop 2 秒</strong>——按住時按鈕會填充進度，結束時震動一次確認儲存。它就在 Pause 旁邊，以前一次誤觸就會結束記錄。</li>
 </ul>
 
 <h2>海拔</h2>
@@ -706,6 +710,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
   <li><strong>バックグラウンド記録</strong>：画面ロックやアプリ切替でも軌跡が途切れません。iOS は位置情報インジケータを表示します。</li>
   <li><strong>「正確な位置情報」は必ずオン</strong>（iOS 設定 → プライバシーとセキュリティ → 位置情報サービス → Steig）。オフだと iOS は約 5 km の精度しか返さず、すべてのサンプルが破棄され記録できません。</li>
   <li>2 点未満の記録は「ハイキングは保存されませんでした」として破棄され、空の記録を作りません。</li>
+  <li><strong>終了は意図的な操作です。</strong>タップでは何も起きず、<strong>Stop を 2 秒長押し</strong>します。押している間ボタンが塗りつぶされ、終了時に 1 回振動して保存を確認します。Pause の隣にあるため、以前は誤タップで記録が終わっていました。</li>
 </ul>
 
 <h2>標高</h2>
