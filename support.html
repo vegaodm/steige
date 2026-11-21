@@ -87,6 +87,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
   <li><strong>Compass button</strong> — tap the compass rose in the HUD to switch <em>north up</em> ↔ <em>heading up</em>. Heading-up rotates the map so the direction you face points up; two-finger rotation still works and the rose follows it. The choice is remembered.</li>
   <li><strong>Locate button</strong> (crosshair above +/−) — recentres the map on your position, and zooms to detail level only if you were far out. It is filled in blue while the camera is already on you. With no fix it asks for permission and requests a fresh location.</li>
   <li>The compass needs the device magnetometer; if the arrow feels stuck, move the phone in a figure eight to calibrate it. Without a magnetometer the GPS course is used instead.</li>
+  <li><strong>Unlocking brings you back.</strong> While recording, the map does not chase you across a locked screen; when you open the app again it pans straight to your current position at the zoom you left it in.</li>
 </ul>
 
 <h2>Recording</h2>
@@ -167,6 +168,8 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <h3>Why did my moving time stop at a traffic light?</h3>
 <p>That is auto-pause: after 24 seconds standing still within 12 m the moving clock stops and the HUD says <em>Auto-paused</em>. The recording continues (elapsed time, track and GPS status keep going), and it resumes as soon as you walk on. Turn it off in Settings → Auto-pause.</p>
 <h3>Why does the app need background location?</h3>
+<h3>Do I need to allow location “Always”?</h3>
+<p>No. “While using the app” is enough: with the screen locked, iOS keeps delivering your position to the recording and shows the blue location indicator while it does. “Always” would only add wake-ups after the system terminated the app — Steig never asks for it, because the privacy promise is that the app does nothing outside a hike you started.</p>
 <p>So a hike keeps recording when the screen locks or you switch apps. Recording stops only when you tap Stop.</p>
 <h3>Where is my data?</h3>
 <h3>Does Steig support a foldable phone's inner display?</h3>
@@ -242,6 +245,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
   <li><strong>Kompass-Knopf</strong> – tippe auf die Kompassrose im HUD, um zwischen <em>Norden oben</em> und <em>Fahrtrichtung oben</em> zu wechseln. „Fahrtrichtung oben" dreht die Karte mit der Blickrichtung; Zwei-Finger-Drehen funktioniert weiterhin und die Rose folgt. Die Wahl wird gemerkt.</li>
   <li><strong>Standort-Knopf</strong> (Fadenkreuz über +/−) – zentriert die Karte auf deine Position und zoomt nur dann auf Detailstufe, wenn du weit draußen warst. Ist die Karte bereits auf dir, wird er blau gefüllt. Ohne Fix fragt er nach der Berechtigung und fordert eine neue Position an.</li>
   <li>Der Kompass braucht das Magnetometer; klemmt der Pfeil, bewege das Telefon in einer Acht. Ohne Magnetometer wird der GPS-Kurs verwendet.</li>
+  <li><strong>Entsperren bringt dich zurück.</strong> Während der Aufzeichnung folgt die Karte dir nicht über den gesperrten Bildschirm; beim Öffnen springt sie direkt auf deine aktuelle Position — mit dem Zoom, den du eingestellt hattest.</li>
 </ul>
 
 <h2>Aufzeichnung</h2>
@@ -318,6 +322,8 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <h3>Kann ich eine Route rückwärts folgen?</h3>
 <p>In V1 nicht – die Richtung folgt der GPX-Reihenfolge. Workaround: GPX vor dem Import umdrehen.</p>
 <h3>Warum Hintergrund-Ortung?</h3>
+<h3>Muss ich Ortung „Immer“ erlauben?</h3>
+<p>Nein. „Beim Verwenden der App“ reicht: Bei gesperrtem Bildschirm liefert iOS weiterhin Positionen an die Aufzeichnung und zeigt dabei den blauen Ortungspfeil. „Immer“ würde nur zusätzliche Weckrufe erlauben, nachdem das System die App beendet hat — Steig fragt das nie an, weil das Versprechen lautet: außerhalb einer von dir gestarteten Wanderung tut die App nichts.</p>
 <p>Damit eine Wanderung bei gesperrtem Bildschirm oder App-Wechsel weiterläuft. Beendet wird nur über Stopp.</p>
 <h3>Wo sind meine Daten?</h3>
 <h3>Unterstützt Steig das Innendisplay eines faltbaren Telefons?</h3>
@@ -395,6 +401,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
   <li><strong>指南针按钮</strong>——点击 HUD 里的指南针，在<em>正北朝上</em>与<em>行进朝上</em>之间切换。行进朝上会让地图朝你面向的方向旋转；双指旋转依然可用，指针会跟随。选择会被记住。</li>
   <li><strong>定位按钮</strong>（+/− 上方的准星）——把地图拉回你的位置，只有在你缩得很远时才放大到细节级别；地图已在你身上时按钮填充为蓝色。没有定位时会申请权限并请求一次新位置。</li>
   <li>指南针依赖磁力计；指针卡住时，把手机按"8"字晃动即可校准。没有磁力计时回退 GPS 航向。</li>
+  <li><strong>解锁后自动回到当前位置。</strong>记录期间地图不会在锁屏时跟着你跑；再次打开 App 时，地图会平移到你当前的位置，并保留你原来的缩放级别。</li>
 </ul>
 
 <h2>记录</h2>
@@ -471,6 +478,8 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <h3>能反向跟随路线吗？</h3>
 <p>V1 不支持——方向按 GPX 顺序。变通做法是导入前把 GPX 反转。</p>
 <h3>为什么要后台定位？</h3>
+<h3>需要开启“始终允许”定位吗？</h3>
+<p>不需要。“使用 App 期间”即可：锁屏时 iOS 会继续把位置交给记录，并在状态栏显示蓝色定位指示。“始终允许”只是在系统结束 App 之后还能唤醒它——Steig 从不申请该权限，因为我们的承诺是：除了你主动开始的徒步，应用不做任何事。</p>
 <p>为了锁屏或切换应用时轨迹不中断。只有点击停止才会结束记录。</p>
 <h3>我的数据在哪里？</h3>
 <h3>支持折叠屏的内屏吗？</h3>
@@ -548,6 +557,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
   <li><strong>指南針按鈕</strong>——點擊 HUD 內的指南針，在<em>正北朝上</em>與<em>行進朝上</em>之間切換。行進朝上會讓地圖朝你面向的方向旋轉；雙指旋轉仍可用，指針會跟隨。選擇會被記住。</li>
   <li><strong>定位按鈕</strong>（+/− 上方的準星）——把地圖拉回你的位置，只有在你縮得很遠時才放大到細節級別；地圖已在你身上時按鈕填充為藍色。沒有定位時會申請權限並請求一次新位置。</li>
   <li>指南針依賴磁力計；指針卡住時，把電話以「8」字晃動即可校正。沒有磁力計時回退 GPS 航向。</li>
+  <li><strong>解鎖後自動回到目前位置。</strong>記錄期間地圖不會在鎖屏時跟著你跑；再次開啟 App 時，地圖會平移到你目前的位置，並保留你原本的縮放層級。</li>
 </ul>
 
 <h2>記錄</h2>
@@ -624,6 +634,8 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <h3>能反向跟隨路線嗎？</h3>
 <p>V1 不支援——方向依 GPX 順序。變通做法是匯入前把 GPX 反轉。</p>
 <h3>為什麼要背景定位？</h3>
+<h3>需要開啟「永遠允許」定位嗎？</h3>
+<p>不需要。「使用 App 期間」即可：鎖屏時 iOS 會繼續把位置交給記錄，並在狀態列顯示藍色定位指示。「永遠允許」只是在系統結束 App 之後還能喚醒它——Steig 從不申請該權限，因為我們的承諾是：除了你主動開始的健行，應用程式不做任何事。</p>
 <p>為了鎖屏或切換應用程式時軌跡不中斷。只有點擊停止才會結束記錄。</p>
 <h3>我的資料在哪裡？</h3>
 <h3>支援摺疊螢幕的內螢幕嗎？</h3>
@@ -701,6 +713,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
   <li><strong>コンパスボタン</strong>——HUD のコンパスローズをタップすると<em>北を上</em>と<em>進行方向を上</em>が切り替わります。「進行方向を上」では向いている方向が上になるよう地図が回転します。2 本指の回転も使え、ローズが追従します。選択は記憶されます。</li>
   <li><strong>現在地ボタン</strong>（+/− の上の照準）——地図を現在地に戻します。大きくズームアウトしていたときだけ詳細ズームにします。すでに現在地が中心なら青く塗られます。測位がないときは権限を確認し、新しい位置を要求します。</li>
   <li>コンパスは磁力計を使います。針が動かないときは端末を 8 の字に動かして校正してください。磁力計がない場合は GPS の進行方向を使います。</li>
+  <li><strong>ロック解除で現在地に戻ります。</strong>記録中、地図はロック画面の間あなたを追いかけません。再度アプリを開くと、現在地へスライドし、選んでいたズームはそのまま維持されます。</li>
 </ul>
 
 <h2>記録</h2>
@@ -779,6 +792,8 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <h3>信号待ちで移動時間が止まったのはなぜ？</h3>
 <p>自動一時停止です。12 m 以内で 24 秒静止すると移動時間の加算が止まり、HUD に<em>自動一時停止</em>と表示されます。記録は継続し（経過時間・軌跡・GPS 状態）、歩き出せば再開します。設定 → 自動一時停止 でオフにできます。</p>
 <h3>なぜバックグラウンド位置情報が必要ですか？</h3>
+<h3>位置情報を「常に許可」にする必要はありますか？</h3>
+<p>いいえ。「App の使用中」で十分です。画面ロック中も iOS は位置を記録に渡し続け、その間ブルーの位置情報インジケータを表示します。「常に許可」はシステムがアプリを終了した後に起こすためだけのもので、Steig は要求しません。あなたが開始したハイキング以外では何もしない、というのがこのアプリの約束です。</p>
 <p>画面ロック中やアプリ切替中も記録を続けるためです。停止をタップしたときだけ終了します。</p>
 <h3>データはどこにありますか？</h3>
 <h3>折りたたみスマートフォンの内側ディスプレイに対応していますか？</h3>
