@@ -42,7 +42,7 @@
 <div id="en" class="lang-block" lang="en">
 
 <h1>Support &amp; FAQ</h1>
-<p class="effective">Steig v1.1 &nbsp;|&nbsp; iOS 17.0 or later &nbsp;|&nbsp; Updated November 21, 2026</p>
+<p class="effective">Steig v1.2 &nbsp;|&nbsp; iOS 17.0 or later &nbsp;|&nbsp; Updated November 21, 2026</p>
 
 <div class="note">
   <strong>Quick summary:</strong> Steig ships without map data. Import an area once (a PMTiles archive, MBTiles, an XYZ tile folder, or a GeoTIFF), then record hikes and follow GPX routes fully offline. Nothing is uploaded.
@@ -110,6 +110,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
   <li><strong>Direction always follows the GPX point order</strong> — V1 has no reverse option. If a route is stored the other way round, import a reversed GPX.</li>
   <li>Beyond <strong>30 m</strong> from the route you get one vibration; beyond <strong>100 m</strong>, two vibrations, repeated every 5 minutes while you stay off route. Returning within 30 m resets it. Vibration alerts can be turned off in Settings.</li>
   <li>The banner shows distance from the route, progress and remaining distance; the map shows the direction back to the route.</li>
+  <li><strong>Give routes your own names.</strong> Swipe a route to the right in “Your routes” (or long-press it) and choose <strong>Rename</strong>: an imported file name like <code>00205_cycling</code> becomes “Saturday loop from the station”.</li>
   <li><strong>Reference totals.</strong> With a route loaded and nothing recording, the four HUD tiles show that route's own <strong>distance, ascent, moving time and duration</strong> (in the route colour) instead of four zeros, while the GPS status and altitude stay live. Routes imported from a planner without timestamps show <code>--</code> for the two times.</li>
 </ul>
 
@@ -119,7 +120,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <h2>Sharing and export</h2>
 <ul>
   <li><strong>Live position</strong> (share button while recording): coordinates, altitude, distance, time, ascent, and — when following a route — progress and off-route distance, plus an Apple Maps link.</li>
-  <li><strong>GPX track</strong> and <strong>GPX route</strong> from the hike detail share menu.</li>
+  <li><strong>GPX track</strong> from the hike detail share menu: every stored point with its timestamp, elevation and speed, so the file restores as a full hike (backup, Strava, other apps). Routes are not exported from here — tap <strong>Use as route</strong> at the bottom of the hike to keep the path in your routes.</li>
   <li><strong>Month summary</strong> text from the month page.</li>
   <li>Everything goes through the iOS share sheet; choose Messages, Mail, Files, AirDrop or any other app yourself.</li>
 </ul>
@@ -192,7 +193,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <footer>
   <a href="index.html">Privacy policy</a> &nbsp;|&nbsp;
   <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula">Terms of Use (EULA)</a><br>
-  Steig v1.1 &nbsp;|&nbsp; iOS 17.0+ &nbsp;|&nbsp; Last updated November 21, 2026
+  Steig v1.2 &nbsp;|&nbsp; iOS 17.0+ &nbsp;|&nbsp; Last updated November 21, 2026
 </footer>
 
 </div>
@@ -201,7 +202,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <div id="de" class="lang-block" lang="de" style="display:none">
 
 <h1>Support &amp; FAQ</h1>
-<p class="effective">Steig v1.1 &nbsp;|&nbsp; iOS 17.0 oder neuer &nbsp;|&nbsp; Aktualisiert am 21. November 2026</p>
+<p class="effective">Steig v1.2 &nbsp;|&nbsp; iOS 17.0 oder neuer &nbsp;|&nbsp; Aktualisiert am 21. November 2026</p>
 
 <div class="note">
   <strong>Kurzfassung:</strong> Steig kommt ohne Kartendaten. Importiere eine Region einmal (PMTiles-Archiv, MBTiles, XYZ-Kachelordner oder GeoTIFF) und zeichne danach Wanderungen auf und folge GPX-Routen – vollständig offline. Nichts wird hochgeladen.
@@ -268,6 +269,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
   <li><strong>Die Richtung folgt immer der GPX-Punktreihenfolge</strong> – V1 hat keine Umkehrung. Andersherum gespeicherte Routen vor dem Import umdrehen.</li>
   <li>Ab <strong>30 m</strong> Abstand zur Route eine Vibration, ab <strong>100 m</strong> zwei Vibrationen, alle 5 Minuten wiederholt, solange du abweichst. Zurück innerhalb von 30 m setzt alles zurück. Vibrationen sind in den Einstellungen abschaltbar.</li>
   <li>Das Banner zeigt Abstand, Fortschritt und Restdistanz; die Karte zeigt die Richtung zurück zur Route.</li>
+  <li><strong>Eigene Namen für Routen.</strong> Wische in „Deine Routen“ nach rechts (oder halte gedrückt) und wähle <strong>Umbenennen</strong>: aus <code>00205_cycling</code> wird „Samstagsrunde ab Bahnhof“.</li>
   <li><strong>Referenzwerte.</strong> Ist eine Route geladen und läuft keine Aufzeichnung, zeigen die vier HUD-Felder <strong>Distanz, Anstieg, Bewegungszeit und Dauer dieser Route</strong> (in der Routenfarbe) statt vier Nullen; GPS-Status und Höhe bleiben live. Routen aus Planern ohne Zeitstempel zeigen bei den beiden Zeiten <code>--</code>.</li>
 </ul>
 
@@ -277,7 +279,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <h2>Teilen und Export</h2>
 <ul>
   <li><strong>Live-Position</strong> (Teilen-Schaltfläche während der Aufzeichnung): Koordinaten, Höhe, Distanz, Zeit, Anstieg, bei Routen Fortschritt und Abweichung, plus Apple-Maps-Link.</li>
-  <li><strong>GPX-Track</strong> und <strong>GPX-Route</strong> über das Teilen-Menü der Detailansicht.</li>
+  <li><strong>GPX-Track</strong> über das Teilen-Menü der Detailansicht: jeder gespeicherte Punkt mit Zeitstempel, Höhe und Geschwindigkeit, sodass die Datei wieder als vollständige Wanderung importiert wird (Backup, Strava, andere Apps). Routen werden hier nicht exportiert — dafür gibt es unten <strong>Use as route</strong>, das die Strecke in deinen Routen behält.</li>
   <li><strong>Monatsübersicht</strong> als Text von der Monatsseite.</li>
   <li>Alles läuft über das iOS-Teilen-Menü; du wählst Nachrichten, Mail, Dateien, AirDrop oder eine andere App.</li>
 </ul>
@@ -348,7 +350,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <footer>
   <a href="index.html">Datenschutz</a> &nbsp;|&nbsp;
   <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula">Nutzungsbedingungen (EULA)</a><br>
-  Steig v1.1 &nbsp;|&nbsp; iOS 17.0+ &nbsp;|&nbsp; Zuletzt aktualisiert am 21. November 2026
+  Steig v1.2 &nbsp;|&nbsp; iOS 17.0+ &nbsp;|&nbsp; Zuletzt aktualisiert am 21. November 2026
 </footer>
 
 </div>
@@ -357,7 +359,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <div id="zh" class="lang-block" lang="zh-Hans" style="display:none">
 
 <h1>支持与常见问题</h1>
-<p class="effective">Steig v1.1 &nbsp;|&nbsp; iOS 17.0 或更高版本 &nbsp;|&nbsp; 更新于 2026 年 11 月 21 日</p>
+<p class="effective">Steig v1.2 &nbsp;|&nbsp; iOS 17.0 或更高版本 &nbsp;|&nbsp; 更新于 2026 年 11 月 21 日</p>
 
 <div class="note">
   <strong>要点：</strong>Steig 不附带地图数据。先导入一次所需区域（PMTiles 档案、MBTiles、XYZ 瓦片文件夹或 GeoTIFF），之后即可完全离线记录徒步、跟随 GPX 路线。不会上传任何内容。
@@ -424,7 +426,8 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
   <li><strong>方向始终按 GPX 点顺序</strong>——V1 不提供反向。若路线存反了，请在导入前反转 GPX。</li>
   <li>偏离路线 <strong>30 米</strong>震动一次，超过 <strong>100 米</strong> 震动两次，并在持续偏离时每 5 分钟重复。回到 30 米内会重置。震动提醒可在设置中关闭。</li>
   <li>顶部横幅显示偏离距离、进度与剩余距离；地图上显示回到路线的方向。</li>
-  <li><strong>参考统计。</strong> 附着路线且未开始记录时，HUD 下方四格显示<strong>该路线的距离、爬升、移动时间与总时长</strong>（路线蓝色），GPS 状态与海拔保持实时。规划器导出、无时间戳的 GPX 两项时间显示 <code>--</code>。</li>
+  <li><strong>参考统计。</strong>
+  <li><strong>给路线起自己的名字。</strong>在「我的路线」中向右滑动（或长按）路线并选择<strong>重命名</strong>：把 <code>00205_cycling</code> 改成「车站出发的周六环线」。</li> 附着路线且未开始记录时，HUD 下方四格显示<strong>该路线的距离、爬升、移动时间与总时长</strong>（路线蓝色），GPS 状态与海拔保持实时。规划器导出、无时间戳的 GPX 两项时间显示 <code>--</code>。</li>
 </ul>
 
 <h2>实时活动</h2>
@@ -433,7 +436,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <h2>分享与导出</h2>
 <ul>
   <li><strong>实时位置</strong>（记录中的分享按钮）：坐标、海拔、距离、时间、爬升；跟随路线时还包含进度与偏离距离，以及 Apple 地图链接。</li>
-  <li><strong>GPX 轨迹</strong>与<strong>GPX 路线</strong>：在徒步详情的分享菜单中。</li>
+  <li><strong>GPX 轨迹</strong>：在徒步详情的分享菜单中，包含每个存储点的时间戳、海拔与速度，可完整还原为一次徒步（备份、Strava 等）。路线不在这里导出——用详情页底部的 <strong>Use as route</strong> 保存到我的路线。</li>
   <li><strong>月度摘要</strong>文本：在月份页面分享。</li>
   <li>全部通过 iOS 分享面板，由你选择信息、邮件、文件、隔空投送或其他应用。</li>
 </ul>
@@ -504,7 +507,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <footer>
   <a href="index.html">隐私政策</a> &nbsp;|&nbsp;
   <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula">使用条款（EULA）</a><br>
-  Steig v1.1 &nbsp;|&nbsp; iOS 17.0+ &nbsp;|&nbsp; 最后更新：2026 年 11 月 21 日
+  Steig v1.2 &nbsp;|&nbsp; iOS 17.0+ &nbsp;|&nbsp; 最后更新：2026 年 11 月 21 日
 </footer>
 
 </div>
@@ -513,7 +516,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <div id="zh-Hant" class="lang-block" lang="zh-Hant" style="display:none">
 
 <h1>支援與常見問題</h1>
-<p class="effective">Steig v1.1 &nbsp;|&nbsp; iOS 17.0 或以上版本 &nbsp;|&nbsp; 更新於 2026 年 11 月 21 日</p>
+<p class="effective">Steig v1.2 &nbsp;|&nbsp; iOS 17.0 或以上版本 &nbsp;|&nbsp; 更新於 2026 年 11 月 21 日</p>
 
 <div class="note">
   <strong>要點：</strong>Steig 不附帶地圖資料。先匯入一次所需區域（PMTiles 封存、MBTiles、XYZ 圖磚資料夾或 GeoTIFF），之後即可完全離線記錄健行、跟隨 GPX 路線。不會上傳任何內容。
@@ -580,7 +583,8 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
   <li><strong>方向一律依 GPX 點順序</strong>——V1 不提供反向。若路線存反了，請在匯入前反轉 GPX。</li>
   <li>偏離路線 <strong>30 公尺</strong>震動一次，超過 <strong>100 公尺</strong> 震動兩次，並在持續偏離時每 5 分鐘重複。回到 30 公尺內會重置。震動提醒可在設定中關閉。</li>
   <li>頂部橫幅顯示偏離距離、進度與剩餘距離；地圖上顯示回到路線的方向。</li>
-  <li><strong>參考統計。</strong> 附著路線且未開始記錄時，HUD 下方四格顯示<strong>該路線的距離、爬升、移動時間與總時長</strong>（路線藍色），GPS 狀態與海拔保持即時。規劃器匯出、無時間戳的 GPX 兩項時間顯示 <code>--</code>。</li>
+  <li><strong>參考統計。</strong>
+  <li><strong>給路線取自己的名字。</strong>在「我的路線」中向右滑動（或長按）路線並選擇<strong>重新命名</strong>：把 <code>00205_cycling</code> 改成「車站出發的週六環線」。</li> 附著路線且未開始記錄時，HUD 下方四格顯示<strong>該路線的距離、爬升、移動時間與總時長</strong>（路線藍色），GPS 狀態與海拔保持即時。規劃器匯出、無時間戳的 GPX 兩項時間顯示 <code>--</code>。</li>
 </ul>
 
 <h2>即時動態</h2>
@@ -589,7 +593,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <h2>分享與匯出</h2>
 <ul>
   <li><strong>即時位置</strong>（記錄中的分享按鈕）：座標、海拔、距離、時間、爬升；跟隨路線時還包含進度與偏離距離，以及 Apple 地圖連結。</li>
-  <li><strong>GPX 軌跡</strong>與<strong>GPX 路線</strong>：在健行詳情的分享選單中。</li>
+  <li><strong>GPX 軌跡</strong>：在健行詳情的分享選單中，包含每個儲存點的時間戳、海拔與速度，可完整還原為一次健行（備份、Strava 等）。路線不在這裡匯出——用詳情頁底部的 <strong>Use as route</strong> 儲存到我的路線。</li>
   <li><strong>月度摘要</strong>文字：在月份頁面分享。</li>
   <li>全部透過 iOS 分享面板，由你選擇訊息、郵件、檔案、AirDrop 或其他應用程式。</li>
 </ul>
@@ -660,7 +664,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <footer>
   <a href="index.html">隱私權政策</a> &nbsp;|&nbsp;
   <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula">使用條款（EULA）</a><br>
-  Steig v1.1 &nbsp;|&nbsp; iOS 17.0+ &nbsp;|&nbsp; 最後更新：2026 年 11 月 21 日
+  Steig v1.2 &nbsp;|&nbsp; iOS 17.0+ &nbsp;|&nbsp; 最後更新：2026 年 11 月 21 日
 </footer>
 
 </div>
@@ -669,7 +673,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <div id="ja" class="lang-block" lang="ja" style="display:none">
 
 <h1>サポートとよくある質問</h1>
-<p class="effective">Steig v1.1 &nbsp;|&nbsp; iOS 17.0 以降 &nbsp;|&nbsp; 2026年11月21日更新</p>
+<p class="effective">Steig v1.2 &nbsp;|&nbsp; iOS 17.0 以降 &nbsp;|&nbsp; 2026年11月21日更新</p>
 
 <div class="note">
   <strong>要点：</strong>Steig は地図データを同梱していません。必要なエリアを一度だけ読み込み（PMTiles アーカイブ、MBTiles、XYZ タイルのフォルダ、GeoTIFF）、その後は完全オフラインでハイキングを記録し GPX ルートを辿れます。アップロードは行いません。
@@ -736,7 +740,8 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
   <li><strong>方向は常に GPX の点順</strong>——V1 に逆走機能はありません。逆向きに保存されたルートは、読み込む前に GPX を反転してください。</li>
   <li>ルートから <strong>30 m</strong> 超で 1 回、<strong>100 m</strong> 超で 2 回振動し、外れている間は 5 分ごとに繰り返します。30 m 以内に戻るとリセット。振動アラートは設定でオフにできます。</li>
   <li>上部のバナーにルートからの距離・進捗・残距離、地図にルートへ戻る方向を表示します。</li>
-  <li><strong>参考の統計。</strong> ルートを読み込んだまま記録していないとき、HUD の 4 項目は<strong>そのルート自身の距離・登高・移動時間・所要時間</strong>（ルート色）に切り替わります。GPS 状態と標高は現在値のままです。タイムスタンプのないプランナー出力では 2 つの時間が <code>--</code> になります。</li>
+  <li><strong>参考の統計。</strong>
+  <li><strong>ルートに自分の名前を付けられます。</strong>「マイ ルート」でルートを右にスワイプ（または長押し）して<strong>名前を変更</strong>を選ぶと、<code>00205_cycling</code> が「駅からの土曜コース」になります。</li> ルートを読み込んだまま記録していないとき、HUD の 4 項目は<strong>そのルート自身の距離・登高・移動時間・所要時間</strong>（ルート色）に切り替わります。GPS 状態と標高は現在値のままです。タイムスタンプのないプランナー出力では 2 つの時間が <code>--</code> になります。</li>
 </ul>
 
 <h2>ライブアクティビティ</h2>
@@ -745,7 +750,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <h2>共有と書き出し</h2>
 <ul>
   <li><strong>現在地</strong>（記録中の共有ボタン）：座標・標高・距離・時間・登高、ルート追従中は進捗と逸脱距離、さらに Apple マップのリンク。</li>
-  <li><strong>GPX トラック</strong>と<strong>GPX ルート</strong>：ハイキング詳細の共有メニューから。</li>
+  <li><strong>GPX トラック</strong>：ハイキング詳細の共有メニューから。保存した各ポイントの時刻・標高・速度を含むため、完全なハイキングとして復元できます（バックアップ、Strava など）。ルートはここでは書き出しません——詳細下部の <strong>Use as route</strong> でマイ ルートに保存します。</li>
   <li><strong>月間サマリー</strong>のテキスト：月間ページから。</li>
   <li>すべて iOS の共有シート経由で、メッセージ・メール・ファイル・AirDrop など送り先は利用者が選びます。</li>
 </ul>
@@ -818,7 +823,7 @@ gdal2tiles.py -z 8-14 --xyz input.tif tiles/</pre>
 <footer>
   <a href="index.html">プライバシーポリシー</a> &nbsp;|&nbsp;
   <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula">利用規約（EULA）</a><br>
-  Steig v1.1 &nbsp;|&nbsp; iOS 17.0+ &nbsp;|&nbsp; 最終更新：2026年11月21日
+  Steig v1.2 &nbsp;|&nbsp; iOS 17.0+ &nbsp;|&nbsp; 最終更新：2026年11月21日
 </footer>
 
 </div>
